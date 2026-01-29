@@ -1,0 +1,12 @@
+SLURM NODE: kn034
+[I 2026-01-22 11:50:35,485] Using an existing study with name 'DAIC-WoZ-Fine-tuning' instead of creating a new one.
+[UPDATE] 10 completed trials using a random sampler. Switching from random to TPE sampling.
+Last trial state: 0
+Enqueuing hyper-parameters: {'frozen_layers': 0, 'classifier_dropout': 0.4, 'learning_rate': 0.005, 'weight_decay': 5e-05, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 2.0}
+[I 2026-01-22 11:56:51,978] Trial 14 finished with value: 0.6 and parameters: {'frozen_layers': 0, 'classifier_dropout': 0.4, 'learning_rate': 0.005, 'weight_decay': 5e-05, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 2.0}. Best is trial 11 with value: 0.6486486486486487.
+[I 2026-01-22 12:02:31,964] Trial 15 finished with value: 0.6060606060606061 and parameters: {'frozen_layers': 0, 'classifier_dropout': 0.3, 'learning_rate': 0.005, 'weight_decay': 0.0001, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 2.5}. Best is trial 11 with value: 0.6486486486486487.
+[I 2026-01-22 12:06:01,809] Trial 16 finished with value: 0.5217391304347826 and parameters: {'frozen_layers': 6, 'classifier_dropout': 0.1, 'learning_rate': 0.005, 'weight_decay': 5e-05, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 3.0}. Best is trial 11 with value: 0.6486486486486487.
+[I 2026-01-22 12:11:45,056] Trial 17 finished with value: 0.5106382978723404 and parameters: {'frozen_layers': 2, 'classifier_dropout': 0.1, 'learning_rate': 0.0001, 'weight_decay': 5e-05, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 2.0}. Best is trial 11 with value: 0.6486486486486487.
+[I 2026-01-22 12:18:09,627] Trial 18 finished with value: 0.5106382978723404 and parameters: {'frozen_layers': 0, 'classifier_dropout': 0.3, 'learning_rate': 0.0005, 'weight_decay': 5e-05, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 1.5}. Best is trial 11 with value: 0.6486486486486487.
+[I 2026-01-22 12:22:44,386] Trial 19 finished with value: 0.7272727272727273 and parameters: {'frozen_layers': 4, 'classifier_dropout': 0.2, 'learning_rate': 0.005, 'weight_decay': 5e-05, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 2.0}. Best is trial 19 with value: 0.7272727272727273.
+slurmstepd: error: *** JOB 1921248 ON kn034 CANCELLED AT 2026-01-22T12:26:27 ***

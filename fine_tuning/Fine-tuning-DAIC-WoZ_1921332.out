@@ -1,0 +1,85 @@
+SLURM NODE: kn010
+[I 2026-01-22 12:28:07,351] Using an existing study with name 'DAIC-WoZ-Fine-tuning' instead of creating a new one.
+[UPDATE] 10 completed trials using a random sampler. Switching from random to TPE sampling.
+Last trial state: 3
+Enqueuing hyper-parameters: {'frozen_layers': 4, 'classifier_dropout': 0.3, 'learning_rate': 0.005, 'weight_decay': 0.001, 'cosine_annealing_T_mult': 2}
+[I 2026-01-22 12:31:59,937] Trial 22 finished with value: 0.5106382978723404 and parameters: {'frozen_layers': 4, 'classifier_dropout': 0.3, 'learning_rate': 0.005, 'weight_decay': 0.001, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 0.5}. Best is trial 19 with value: 0.7272727272727273.
+
+[UPDATE] Unbound limits: {'frozen_layers': (np.int64(0), np.int64(6)), 'classifier_dropout': (np.float64(0.1), np.float64(0.4)), 'learning_rate': (np.float64(0.002), np.float64(0.005)), 'weight_decay': (np.float64(1e-05), np.float64(0.0001)), 'cosine_annealing_T_mult': (np.int64(1), np.int64(2)), 'gradient_clipping': (np.float64(1.5), np.float64(2.5))}
+[I 2026-01-22 12:32:00,527] A new study created in RDB with name: DAIC-WoZ-Fine-tuning-unbound
+[I 2026-01-22 12:32:00,609] Trial 0 finished with value: 0.6486486486486487 and parameters: {'frozen_layers': 0, 'classifier_dropout': 0.3, 'learning_rate': 0.005, 'weight_decay': 5e-05, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 2.0}.
+[I 2026-01-22 12:32:00,609] Trial 1 finished with value: 0.7272727272727273 and parameters: {'frozen_layers': 4, 'classifier_dropout': 0.2, 'learning_rate': 0.005, 'weight_decay': 5e-05, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 2.0}.
+[I 2026-01-22 12:36:49,336] Trial 2 finished with value: 0.5581395348837209 and parameters: {'frozen_layers': 2, 'classifier_dropout': 0.38521429192297485, 'learning_rate': 0.003911286880245063, 'weight_decay': 3.968793330444374e-05, 'cosine_annealing_T_mult': 1, 'gradient_clipping': 1.6559945203362028}. Best is trial 1 with value: 0.7272727272727273.
+[I 2026-01-22 12:43:30,723] Trial 3 finished with value: 0.64 and parameters: {'frozen_layers': 0, 'classifier_dropout': 0.3598528437324806, 'learning_rate': 0.003469266868719916, 'weight_decay': 5.105903209394759e-05, 'cosine_annealing_T_mult': 1, 'gradient_clipping': 2.469909852161994}. Best is trial 1 with value: 0.7272727272727273.
+[I 2026-01-22 12:47:03,476] Trial 4 finished with value: 0.5106382978723404 and parameters: {'frozen_layers': 5, 'classifier_dropout': 0.16370173320348286, 'learning_rate': 0.002362574024071317, 'weight_decay': 1.5254729458052598e-05, 'cosine_annealing_T_mult': 1, 'gradient_clipping': 2.024756431632238}. Best is trial 1 with value: 0.7272727272727273.
+[I 2026-01-22 12:52:01,309] Trial 5 finished with value: 0.6470588235294118 and parameters: {'frozen_layers': 3, 'classifier_dropout': 0.1873687420594126, 'learning_rate': 0.0035035695396855916, 'weight_decay': 1.378776461935377e-05, 'cosine_annealing_T_mult': 1, 'gradient_clipping': 1.8663618432936917}. Best is trial 1 with value: 0.7272727272727273.
+[I 2026-01-22 12:56:30,794] Trial 6 finished with value: 0.5714285714285714 and parameters: {'frozen_layers': 3, 'classifier_dropout': 0.33555278841790415, 'learning_rate': 0.002401530918135869, 'weight_decay': 3.267641765781762e-05, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 1.5464504127199978}. Best is trial 1 with value: 0.7272727272727273.
+[I 2026-01-22 13:01:35,094] Trial 7 finished with value: 0.5217391304347826 and parameters: {'frozen_layers': 4, 'classifier_dropout': 0.15115723710618748, 'learning_rate': 0.0021228368952944986, 'weight_decay': 8.889667907018936e-05, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 2.3083973481164612}. Best is trial 1 with value: 0.7272727272727273.
+[I 2026-01-22 13:06:08,800] Trial 8 finished with value: 0.6470588235294118 and parameters: {'frozen_layers': 2, 'classifier_dropout': 0.12930163420191518, 'learning_rate': 0.0037438090705276122, 'weight_decay': 2.7551959649510774e-05, 'cosine_annealing_T_mult': 1, 'gradient_clipping': 1.9951769101112702}. Best is trial 1 with value: 0.7272727272727273.
+[I 2026-01-22 13:12:01,662] Trial 9 finished with value: 0.5641025641025641 and parameters: {'frozen_layers': 0, 'classifier_dropout': 0.37279612062363465, 'learning_rate': 0.002535180605540745, 'weight_decay': 4.5975057847321686e-05, 'cosine_annealing_T_mult': 1, 'gradient_clipping': 2.020068021177811}. Best is trial 1 with value: 0.7272727272727273.
+[I 2026-01-22 13:16:27,336] Trial 10 finished with value: 0.6486486486486487 and parameters: {'frozen_layers': 3, 'classifier_dropout': 0.15545633665765812, 'learning_rate': 0.004862577216158573, 'weight_decay': 5.958443469672525e-05, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 2.394827350427649}. Best is trial 1 with value: 0.7272727272727273.
+[I 2026-01-22 13:20:33,298] Trial 11 finished with value: 0.5106382978723404 and parameters: {'frozen_layers': 4, 'classifier_dropout': 0.37656227050693514, 'learning_rate': 0.0021689258392227156, 'weight_decay': 1.570300837880672e-05, 'cosine_annealing_T_mult': 1, 'gradient_clipping': 1.8253303307632645}. Best is trial 1 with value: 0.7272727272727273.
+[I 2026-01-22 13:26:07,463] Trial 12 finished with value: 0.631578947368421 and parameters: {'frozen_layers': 0, 'classifier_dropout': 0.31011345286488523, 'learning_rate': 0.0047432942939946085, 'weight_decay': 8.196253656655334e-05, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 1.8850311525536245}. Best is trial 1 with value: 0.7272727272727273.
+[I 2026-01-22 13:29:35,257] Trial 13 finished with value: 0.5106382978723404 and parameters: {'frozen_layers': 5, 'classifier_dropout': 0.1462368548733619, 'learning_rate': 0.0049654524652036165, 'weight_decay': 3.214220691108582e-05, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 1.900534814613137}. Best is trial 1 with value: 0.7272727272727273.
+[I 2026-01-22 13:35:49,829] Trial 14 finished with value: 0.6153846153846154 and parameters: {'frozen_layers': 1, 'classifier_dropout': 0.38579264847443817, 'learning_rate': 0.004642511807944737, 'weight_decay': 1.8577614123234052e-05, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 2.128846362719728}. Best is trial 1 with value: 0.7272727272727273.
+[I 2026-01-22 13:40:31,001] Trial 15 finished with value: 0.6666666666666666 and parameters: {'frozen_layers': 2, 'classifier_dropout': 0.2605147105460206, 'learning_rate': 0.0048448245702378545, 'weight_decay': 3.41796370566949e-05, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 1.809117765756513}. Best is trial 1 with value: 0.7272727272727273.
+[I 2026-01-22 13:44:59,103] Trial 16 finished with value: 0.6451612903225806 and parameters: {'frozen_layers': 4, 'classifier_dropout': 0.3088097022065339, 'learning_rate': 0.004896098022012765, 'weight_decay': 2.2352129005931855e-05, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 1.7005122090147173}. Best is trial 1 with value: 0.7272727272727273.
+[I 2026-01-22 13:49:39,656] Trial 17 finished with value: 0.6875 and parameters: {'frozen_layers': 2, 'classifier_dropout': 0.19361870376000795, 'learning_rate': 0.004646642875831113, 'weight_decay': 4.226531469751552e-05, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 1.5498962356264703}. Best is trial 1 with value: 0.7272727272727273.
+[I 2026-01-22 13:55:36,093] Trial 18 finished with value: 0.6470588235294118 and parameters: {'frozen_layers': 0, 'classifier_dropout': 0.13401850803860685, 'learning_rate': 0.003708922496794802, 'weight_decay': 5.1658675531788866e-05, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 1.5634338341787324}. Best is trial 1 with value: 0.7272727272727273.
+[I 2026-01-22 13:59:39,643] Trial 19 finished with value: 0.5106382978723404 and parameters: {'frozen_layers': 4, 'classifier_dropout': 0.19994316826037906, 'learning_rate': 0.00472051970888542, 'weight_decay': 6.124615881151227e-05, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 1.5372208952035913}. Best is trial 1 with value: 0.7272727272727273.
+[I 2026-01-22 14:03:21,673] Trial 20 finished with value: 0.5217391304347826 and parameters: {'frozen_layers': 6, 'classifier_dropout': 0.2768012831014244, 'learning_rate': 0.0036668493793749627, 'weight_decay': 7.180141097441768e-05, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 2.1133580338280873}. Best is trial 1 with value: 0.7272727272727273.
+[I 2026-01-22 14:08:01,836] Trial 21 finished with value: 0.6666666666666666 and parameters: {'frozen_layers': 2, 'classifier_dropout': 0.2467230306580511, 'learning_rate': 0.004164970227200354, 'weight_decay': 3.046191579392416e-05, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 1.8010091868946945}. Best is trial 1 with value: 0.7272727272727273.
+
+[TRIAL] 1 [VALIDATION PERFORMANCE] 0.7272727272727273 [TRAINING LOSS] 0.6479611217975616 [VALIDATION LOSS] 0.6491793308939252 
+
+number                             			 1
+value                              			 0.7272727272727273
+params_classifier_dropout          			 0.2
+params_cosine_annealing_T_mult     			 2
+params_frozen_layers               			 4
+params_gradient_clipping           			 2.0
+params_learning_rate               			 0.005
+params_weight_decay                			 5e-05
+user_attrs_duplicate               			 False
+user_attrs_epoch                   			 [18, 1, 17]
+user_attrs_f1_score_thresholds     			 [0.47, 0.1, 0.51]
+user_attrs_training_loss           			 0.6479611217975616
+user_attrs_training_losses         			 [0.6018769785761833, 0.6959634304046631, 0.6479611217975616]
+user_attrs_validation_loss         			 0.6491793308939252
+user_attrs_validation_losses       			 [0.6491793308939252, 0.674625209399632, 0.6352603265217373]
+user_attrs_validation_performances 			 [0.7333333333333333, 0.5106382978723404, 0.7272727272727273]
+
+[41] VALIDATION: 0.7333333333333333 TESTING: 0.5909090909090909
+[42] VALIDATION: 0.5106382978723404 TESTING: 0.45901639344262296
+[43] VALIDATION: 0.7272727272727273 TESTING: 0.5957446808510638
+
+Validation performance: 51.06 & 65.71 ± 12.69 & 73.33
+Testing performance: 45.9 & 54.86 ± 7.76 & 59.57
+
+[TRIAL] 17 [VALIDATION PERFORMANCE] 0.6875 [TRAINING LOSS] 0.6756598651409149 [VALIDATION LOSS] 0.6418126055172512 
+
+number                             			 17
+value                              			 0.6875
+params_classifier_dropout          			 0.19361870376000795
+params_cosine_annealing_T_mult     			 2
+params_frozen_layers               			 2
+params_gradient_clipping           			 1.5498962356264703
+params_learning_rate               			 0.004646642875831113
+params_weight_decay                			 4.226531469751552e-05
+user_attrs_duplicate               			 False
+user_attrs_epoch                   			 [10, 12, 12]
+user_attrs_f1_score_thresholds     			 [0.51, 0.55, 0.6]
+user_attrs_training_loss           			 0.6756598651409149
+user_attrs_training_losses         			 [0.6756598651409149, 0.6845683813095093, 0.6582792192697525]
+user_attrs_validation_loss         			 0.6418126055172512
+user_attrs_validation_losses       			 [0.6684907078742981, 0.6418126055172512, 0.6400345308440072]
+user_attrs_validation_performances 			 [0.6153846153846154, 0.6875, 0.7333333333333333]
+
+[41] VALIDATION: 0.6153846153846154 TESTING: 0.509090909090909
+[42] VALIDATION: 0.6875 TESTING: 0.56
+[43] VALIDATION: 0.7333333333333333 TESTING: 0.6086956521739131
+
+Validation performance: 61.54 & 67.87 ± 5.95 & 73.33
+Testing performance: 50.91 & 55.93 ± 4.98 & 60.87
+
+[DAIC-WoZ] Elapsed time: 109.36579604546229 minutes.

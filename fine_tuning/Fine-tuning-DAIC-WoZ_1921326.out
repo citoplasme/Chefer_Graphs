@@ -1,0 +1,48 @@
+SLURM NODE: kn022
+[I 2026-01-22 12:26:48,980] Using an existing study with name 'DAIC-WoZ-Fine-tuning' instead of creating a new one.
+[UPDATE] 10 completed trials using a random sampler. Switching from random to TPE sampling.
+Last trial state: 0
+Enqueuing hyper-parameters: {'frozen_layers': 4, 'classifier_dropout': 0.3, 'learning_rate': 0.005, 'weight_decay': 0.001, 'cosine_annealing_T_mult': 2, 'gradient_clipping': 2.0}
+[W 2026-01-22 12:26:49,669] Trial 21 failed with parameters: {'frozen_layers': 4, 'classifier_dropout': 0.3, 'learning_rate': 0.005, 'weight_decay': 0.001, 'cosine_annealing_T_mult': 2} because of the following error: KeyError('label_smoothing').
+Traceback (most recent call last):
+  File "/project/6101774/jpimen/virtual-environments/PLM_graphs/lib/python3.13/site-packages/optuna/study/_optimize.py", line 197, in _run_trial
+    value_or_values = func(trial)
+  File "/project/6101774/jpimen/src/XAI_Graph_Construction/fine_tuning/main.py", line 664, in objective_function
+    label_smoothing : float = HYPER_PARAMETERS['label_smoothing']['value'] if HYPER_PARAMETERS['label_smoothing']['fixed'] else (trial.suggest_categorical('label_smoothing', HYPER_PARAMETERS['label_smoothing']['original_search_space']) if LABEL_SMOOTHING else 0.0)
+                                                                              ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'label_smoothing'
+[W 2026-01-22 12:26:49,672] Trial 21 failed with value None.
+Traceback (most recent call last):
+  File "/project/6101774/jpimen/src/XAI_Graph_Construction/fine_tuning/main.py", line 883, in <module>
+    bound_study.optimize(objective_function, callbacks = [callback])
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/project/6101774/jpimen/virtual-environments/PLM_graphs/lib/python3.13/site-packages/optuna/study/study.py", line 475, in optimize
+    _optimize(
+    ~~~~~~~~~^
+        study=self,
+        ^^^^^^^^^^^
+    ...<7 lines>...
+        show_progress_bar=show_progress_bar,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/project/6101774/jpimen/virtual-environments/PLM_graphs/lib/python3.13/site-packages/optuna/study/_optimize.py", line 63, in _optimize
+    _optimize_sequential(
+    ~~~~~~~~~~~~~~~~~~~~^
+        study,
+        ^^^^^^
+    ...<8 lines>...
+        progress_bar=progress_bar,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/project/6101774/jpimen/virtual-environments/PLM_graphs/lib/python3.13/site-packages/optuna/study/_optimize.py", line 160, in _optimize_sequential
+    frozen_trial = _run_trial(study, func, catch)
+  File "/project/6101774/jpimen/virtual-environments/PLM_graphs/lib/python3.13/site-packages/optuna/study/_optimize.py", line 248, in _run_trial
+    raise func_err
+  File "/project/6101774/jpimen/virtual-environments/PLM_graphs/lib/python3.13/site-packages/optuna/study/_optimize.py", line 197, in _run_trial
+    value_or_values = func(trial)
+  File "/project/6101774/jpimen/src/XAI_Graph_Construction/fine_tuning/main.py", line 664, in objective_function
+    label_smoothing : float = HYPER_PARAMETERS['label_smoothing']['value'] if HYPER_PARAMETERS['label_smoothing']['fixed'] else (trial.suggest_categorical('label_smoothing', HYPER_PARAMETERS['label_smoothing']['original_search_space']) if LABEL_SMOOTHING else 0.0)
+                                                                              ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^
+KeyError: 'label_smoothing'
