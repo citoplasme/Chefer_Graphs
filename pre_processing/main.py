@@ -141,14 +141,8 @@ def Ohsumed():
   os.makedirs(os.path.join(PRE_PROCESSED_PATH, 'Ohsumed'), exist_ok = True)
 
   # Training split
-  documents = list()
-  for folder in os.listdir(os.path.join(ORIGINAL_DATA_SET_PATH, 'Ohsumed', 'training')):
-    label = int(folder.replace('C', '')) - 1
-    for filename in os.listdir(os.path.join(ORIGINAL_DATA_SET_PATH, 'Ohsumed', 'training', folder)):
-      with open(os.path.join(ORIGINAL_DATA_SET_PATH, 'Ohsumed', 'training', folder, filename), 'r', encoding = 'utf-8') as file:
-        text = file.read().strip()
-        documents.append((text, label))
-  training_df = pd.DataFrame(documents, columns = [TEXT_COLUMN, LABEL_COLUMN])
+  training_df = pd.read_csv(os.path.join(ORIGINAL_DATA_SET_PATH, 'Ohsumed', 'train.csv'))[[TEXT_COLUMN, LABEL_COLUMN]]
+  training_df[LABEL_COLUMN] = training_df[LABEL_COLUMN].map(lambda x : x.replace('C', '')).astype(int) - 1
     
   # Validation split
   training_df, validation_df = sklearn.model_selection.train_test_split(
@@ -170,15 +164,10 @@ def Ohsumed():
     .to_csv(os.path.join(PRE_PROCESSED_PATH, 'Ohsumed', 'validation.csv'), index = False)
   
   # Testing split
-  documents = list()
-  for folder in os.listdir(os.path.join(ORIGINAL_DATA_SET_PATH, 'Ohsumed', 'test')):
-    label = int(folder.replace('C', '')) - 1
-    for filename in os.listdir(os.path.join(ORIGINAL_DATA_SET_PATH, 'Ohsumed', 'test', folder)):
-      with open(os.path.join(ORIGINAL_DATA_SET_PATH, 'Ohsumed', 'test', folder, filename), 'r', encoding = 'utf-8') as file:
-        text = file.read().strip()
-        documents.append((text, label))
-  pd.DataFrame(documents, columns = [TEXT_COLUMN, LABEL_COLUMN]) \
-    .dropna() \
+  testing_df = pd.read_csv(os.path.join(ORIGINAL_DATA_SET_PATH, 'Ohsumed', 'test.csv'))[[TEXT_COLUMN, LABEL_COLUMN]]
+  testing_df[LABEL_COLUMN] = testing_df[LABEL_COLUMN].map(lambda x : x.replace('C', '')).astype(int) - 1
+  
+  testing_df.dropna() \
     .sample(frac = 1, random_state = SEED) \
     .reset_index(drop = True) \
     .to_csv(os.path.join(PRE_PROCESSED_PATH, 'Ohsumed', 'test.csv'), index = False)

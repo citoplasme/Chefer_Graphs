@@ -1,7 +1,5 @@
 import os
-import io
-import tarfile
-import urllib.request
+import requests
 import torchtext.datasets
 
 CACHE_PATH = '../data/as_is/'
@@ -34,10 +32,14 @@ list(test_iterator)
 print('[UPDATE] AGNews downloaded.', flush = True)
 
 # Ohsumed
-url = 'http://disi.unitn.it/moschitti/corpora/ohsumed-first-20000-docs.tar.gz'
-with urllib.request.urlopen(url) as response:
-  file_object = io.BytesIO(response.read())
-  with tarfile.open(fileobj = file_object, mode = 'r:gz') as tar:
-    tar.extractall(CACHE_PATH, filter = 'data')
-os.rename(os.path.join(CACHE_PATH, 'ohsumed-first-20000-docs'), os.path.join(CACHE_PATH, 'Ohsumed'))
+os.makedirs(os.path.join(CACHE_PATH, 'Ohsumed'), exist_ok = True)
+urls = {
+  'train.csv' : 'https://raw.githubusercontent.com/citoplasme/PLM_token_graphs/refs/heads/main/data/as_is/Ohsumed/train.csv',
+  'test.csv' :  'https://raw.githubusercontent.com/citoplasme/PLM_token_graphs/refs/heads/main/data/as_is/Ohsumed/test.csv'
+}
+for filename, url in urls.items():
+  response = requests.get(url)
+  response.raise_for_status()
+  with open(os.path.join(CACHE_PATH, 'Ohsumed', filename), 'wb') as file:
+    file.write(response.content)
 print('[UPDATE] Ohsumed downloaded.', flush = True)

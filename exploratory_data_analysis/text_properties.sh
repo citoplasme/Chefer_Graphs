@@ -6,8 +6,8 @@
 #SBATCH --cpus-per-task=1
 #SBATCH --time=01:00:00
 #SBATCH --mem=8GB
-#SBATCH --job-name=Pre-processing
-#SBATCH --output=Pre-processing_%j.out
+#SBATCH --job-name=Text_properties
+#SBATCH --output=Text_properties_%j.out
 
 module load python/3.13.2 scipy-stack/2025a cuda12.8/toolkit/12.8.1
 source /home/jpimen/projects/aip-frudzicz/jpimen/virtual-environments/PLM_graphs/bin/activate
@@ -15,4 +15,4 @@ source /home/jpimen/projects/aip-frudzicz/jpimen/virtual-environment-files/PLM_g
 
 echo "SLURM NODE: $SLURMD_NODENAME"
 
-python main.py
+python text_properties.py
