@@ -2,6 +2,7 @@ import os
 import torch
 import transformers
 import pandas as pd
+import typing
 
 SEED = 42
 
@@ -21,6 +22,8 @@ def chunk_and_stride(
     #
     tokenizer,
     maximum_chunk_size : int,
+    #
+    original_special_tokens : typing.List[int],
     #
     device,
   ):
@@ -60,8 +63,9 @@ def chunk_and_stride(
     r = min(document_length - 1, end_index + right_stride)
     
     # Chunk the input sequences and add special tokens to start and end of each chunk
-    chunk_input_identifiers = torch.cat((input_identifiers[:, 0].reshape(1, 1), input_identifiers[:, l : r], input_identifiers[:, document_length - 1].reshape(1, 1)), dim = 1)
-    chunk_text = tokenizer.decode(chunk_input_identifiers[0], skip_special_tokens = True).replace('##', '')
+    chunk_input_identifiers = torch.cat((input_identifiers[:, 0].reshape(1, 1), input_identifiers[:, l : r], input_identifiers[:, document_length - 1].reshape(1, 1)), dim = 1)    
+    # chunk_text = tokenizer.decode(chunk_input_identifiers[0], skip_special_tokens = True).replace('##', '')
+    chunk_text = tokenizer.decode(chunk_input_identifiers[0][~torch.isin(chunk_input_identifiers[0], torch.tensor(original_special_tokens, device = device))], skip_special_tokens = False).replace('##', '')
     
     chunks.append({
       'identifier' : identifier,
@@ -90,17 +94,19 @@ def chunk_and_stride_all_documents(
     tokenizer,
     maximum_chunk_size,
     #
+    original_special_tokens,
+    #
     device
   ):
   
-  df = pd.read_csv(f'../data/official_splits/{dataset}/{split}.csv')
+  df = pd.read_csv(f'../data/with_validation_splits/{dataset}/{split}.csv')
 
   documents = list()
   for row in df.itertuples():
     chunks = chunk_and_stride(
       text = row.text,
       label = row.label,
-      identifier = row.identifier,
+      identifier = row.Index,
       #
       chunk_size = chunk_size,
       left_stride = left_stride,
@@ -108,6 +114,8 @@ def chunk_and_stride_all_documents(
       #
       tokenizer = tokenizer,
       maximum_chunk_size = maximum_chunk_size,
+      #
+      original_special_tokens = original_special_tokens,
       #
       device = device,
     )
@@ -122,9 +130,13 @@ def chunk_and_stride_all_documents(
 
 if __name__ == '__main__':
 
-  tokenizer = transformers.AutoTokenizer.from_pretrained('distilbert/distilroberta-base')
 
-  for dataset in ['DAIC-WoZ', 'E-DAIC']:
+  for dataset in ['IMDb', 'SST-2', 'AGNews', 'DBPedia', 'Ohsumed']:
+    tokenizer = transformers.AutoTokenizer.from_pretrained('google-bert/bert-base-uncased')
+    original_special_tokens = tokenizer.all_special_ids
+    if dataset in ['AGNews', 'DBPedia']:
+      tokenizer.add_special_tokens({'additional_special_tokens' : ['[TITLE]', '[CONTENT]']})
+      tokenizer.save_pretrained(f'./tokenizers/{dataset}')
     for split in ['train', 'validation', 'test']:
       chunk_and_stride_all_documents(
         dataset = dataset,
@@ -136,6 +148,8 @@ if __name__ == '__main__':
         #
         tokenizer = tokenizer,
         maximum_chunk_size = 512,
+        #
+        original_special_tokens = original_special_tokens,
         #
         device = DEVICE,
       )

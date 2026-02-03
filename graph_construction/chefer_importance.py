@@ -73,7 +73,10 @@ def prune_using_importance_scores(input_identifiers, tokens, special_token_maski
   # input_identifiers_without_unimportant_tokens = input_identifiers_without_punctuation_tokens[token_importance_mask]
   # Prune edges by dropping all whose importance is below the Q-quantile
   off_diagonal_mask = ~torch.eye(importance_without_unimportant_tokens.size(0), dtype = torch.bool, device = device)
-  edge_cutting_point = torch.quantile(importance_without_unimportant_tokens[off_diagonal_mask], edge_threshold)
+  if importance_without_unimportant_tokens[off_diagonal_mask].size(0) > 0:
+    edge_cutting_point = torch.quantile(importance_without_unimportant_tokens[off_diagonal_mask], edge_threshold)
+  else:
+    edge_cutting_point = 0.0 # To avoid errors when importance matrix is empty
   if drop_first_level_edges_ablation:
     edge_cutting_point += 0.1 # To ensure that no off diagonal edge is kept
   edges_to_keep_mask = (importance_without_unimportant_tokens >= edge_cutting_point) & off_diagonal_mask
@@ -92,6 +95,7 @@ def construct_graph_from_importance_scores(
     edge_threshold,
     drop_first_level_edges_ablation,
     unit_weight_edges_ablation,
+    bi_directional_edges_to_second_and_third_level_nodes,
     chunk_identifier,
     device
   ):
@@ -123,19 +127,20 @@ def construct_graph_from_importance_scores(
     node_identifiers = node_identifiers.detach().cpu()
     # Remove the extra unit weight given to every self-loop
     edge_level_importance = edge_level_importance - torch.eye(edge_level_importance.size(0), device = device)
-    # Control group has negative weights
-    if label_index == 0:
-      node_level_importance = node_level_importance * -1
-      edge_level_importance = edge_level_importance * -1
     
     PyG_edges = edge_level_importance.detach().cpu().reshape(-1)
     important_edge_mask = PyG_edges != 0.0
     edge_index = torch.cartesian_prod(node_identifiers, node_identifiers).t().contiguous()[:, important_edge_mask].detach().cpu()
     edge_attr = PyG_edges[important_edge_mask].detach().cpu()
-
     node_level_importance = node_level_importance.detach().cpu()
+    
+    second_level_edges = torch.cartesian_prod(node_identifiers, torch.tensor([-chunk_identifier])).t().contiguous()
+    if bi_directional_edges_to_second_and_third_level_nodes:
+      second_level_edges = torch.cat((second_level_edges, second_level_edges.flip(dims = (0, ))), dim = 1)
+      node_level_importance = torch.cat((node_level_importance, node_level_importance), dim = 0)
+    
     sub_graphs.append({
-      'edge_index' : torch.cat((edge_index, torch.cartesian_prod(node_identifiers, torch.tensor([-chunk_identifier])).t().contiguous()), dim = 1),
+      'edge_index' : torch.cat((edge_index, second_level_edges), dim = 1),
       'edge_attr' : torch.cat((edge_attr, node_level_importance), dim = 0),
       'node_index' : node_identifiers,
       'node_label' : node_labels,
@@ -147,7 +152,7 @@ def construct_graph_from_importance_scores(
     'edges' : {}
   }
 
-  for sub_graph in sub_graphs:
+  for label_index, sub_graph in enumerate(sub_graphs):
     edge_index = sub_graph['edge_index']
     edge_attr = sub_graph['edge_attr']
     node_index = sub_graph['node_index']
@@ -161,17 +166,18 @@ def construct_graph_from_importance_scores(
       if key not in document_level_graph['nodes']:
         document_level_graph['nodes'][key] = embedding
     
-    document_level_graph['edges'][(-chunk_identifier, -chunk_identifier)] = 1.0
+    document_level_graph['edges'][(-chunk_identifier, -chunk_identifier)] = torch.ones(len(label_indices))
     for (source, target), weight in zip(edge_index.t().tolist(), edge_attr.tolist()):
       key = (source, target)
-      if key not in document_level_graph['edges'] or abs(weight) > abs(document_level_graph['edges'][key]):
-        document_level_graph['edges'][key] = weight if not unit_weight_edges_ablation else 1.0
-
+      if key not in document_level_graph['edges']:
+        document_level_graph['edges'][key] = torch.zeros(len(label_indices))
+      document_level_graph['edges'][key][label_index] = weight if not unit_weight_edges_ablation else 1.0
+  
   return torch.tensor([x for x, _ in list(document_level_graph['nodes'].keys())]), \
     [y for _, y in list(document_level_graph['nodes'].keys())], \
     torch.tensor(list(document_level_graph['nodes'].values())), \
     torch.tensor(list(document_level_graph['edges'].keys()), dtype = torch.long).t().contiguous(), \
-    torch.tensor(list(document_level_graph['edges'].values()))
+    torch.tensor([value.tolist() for value in document_level_graph['edges'].values()])
 
 def hierarchically_aggregate_chunk_level_subgraphs(
     chunks,
@@ -203,7 +209,7 @@ def hierarchically_aggregate_chunk_level_subgraphs(
     'node_labels' : [x for x_ in [['[D]']] + [chunk['node_labels'] for chunk in chunks] for x in x_],
     'node_attributes' : torch.cat([torch.ones(1, embedding_dimension)] + [chunk['node_attributes'] for chunk in chunks], dim = 0),
     'edge_identifiers' : torch.cat([torch.tensor([(i, 0) for i in range(chunk_count)], dtype = torch.long).t().contiguous()] + [chunk['edge_identifiers'] for chunk in chunks], dim = 1),
-    'edge_weights' :torch.cat([torch.tensor([1.0 for _ in range(chunk_count)], dtype = torch.long)] + [chunk['edge_weights'] for chunk in chunks], dim = 0),
+    'edge_weights' : torch.cat([torch.tensor([torch.ones(len(chunks[0]['edge_weights'][0])).tolist() for _ in range(chunk_count)])] + [chunk['edge_weights'] for chunk in chunks], dim = 0),
   }
 
   sorted_document_level_node_identifiers, sort_indices_for_document_level_node_identifiers = torch.sort(document_level_graph['node_identifiers'])

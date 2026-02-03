@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --account=aip-frudzicz
 #SBATCH --nodes=1
-#SBATCH --exclude=kn122,kn117
+#SBATCH --exclude=kn122,kn117,kn051
 #SBATCH --gres=gpu:l40s:1
 #SBATCH --cpus-per-task=1
 #SBATCH --time=01:00:00

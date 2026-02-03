@@ -25,6 +25,7 @@ def construct_PyG_graph_from_Chefer_importance(
     unit_weight_edges_ablation : bool,
     drop_second_level_nodes_ablation : bool,
     drop_second_and_third_level_nodes_ablation : bool,
+    bi_directional_edges_to_second_and_third_level_nodes : bool,
     #
     device,
   ):
@@ -91,6 +92,7 @@ def construct_PyG_graph_from_Chefer_importance(
       edge_threshold = edge_threshold,
       drop_first_level_edges_ablation = drop_first_level_edges_ablation,
       unit_weight_edges_ablation = unit_weight_edges_ablation,
+      bi_directional_edges_to_second_and_third_level_nodes = bi_directional_edges_to_second_and_third_level_nodes,
       chunk_identifier = identifier,
       device = device
     )

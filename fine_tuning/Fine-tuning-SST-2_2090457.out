@@ -1,0 +1,4 @@
+SLURM NODE: kn055
+[I 2026-02-03 11:19:02,260] A new study created in RDB with name: SST-2-Fine-tuning
+[I 2026-02-03 11:32:07,984] Trial 0 finished with value: 0.9105504587155964 and parameters: {'frozen_layers': 2, 'classifier_dropout': 0.4, 'learning_rate': 5e-05, 'weight_decay': 0.001, 'label_smoothing': 0.15, 'gradient_clipping': 2.0}. Best is trial 0 with value: 0.9105504587155964.
+[I 2026-02-03 11:45:20,502] Trial 1 finished with value: 0.9071100917431193 and parameters: {'frozen_layers': 0, 'classifier_dropout': 0.2, 'learning_rate': 2e-05, 'weight_decay': 1e-06, 'label_smoothing': 0.05, 'gradient_clipping': 1.5}. Best is trial 0 with value: 0.9105504587155964.
