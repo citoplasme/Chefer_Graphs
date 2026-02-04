@@ -1,6 +1,7 @@
 import os
 import torch
 import torch_geometric
+import gc
 
 import sys
 sys.path.append(os.path.join('..', 'graph_construction'))
@@ -50,6 +51,7 @@ def pre_construct_all_graphs_for_split(
     unit_weight_edges_ablation,
     drop_second_level_nodes_ablation,
     drop_second_and_third_level_nodes_ablation,
+    bi_directional_edges_to_second_and_third_level_nodes,
     #
     device
   ):
@@ -78,8 +80,12 @@ def pre_construct_all_graphs_for_split(
       unit_weight_edges_ablation = unit_weight_edges_ablation,
       drop_second_level_nodes_ablation = drop_second_level_nodes_ablation,
       drop_second_and_third_level_nodes_ablation = drop_second_and_third_level_nodes_ablation,
+      bi_directional_edges_to_second_and_third_level_nodes = bi_directional_edges_to_second_and_third_level_nodes,
       #
       device = device
     )
     # Store in disk
     torch.save(document_level_graph, graph_path)
+    # Clear memory
+    gc.collect()
+    torch.cuda.empty_cache()

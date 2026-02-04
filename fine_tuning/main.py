@@ -553,9 +553,7 @@ def train_and_predict(
       
       # Store model locally for Chefer-based graph construction
       os.makedirs(os.path.join(CACHE_PATH, DATASET, f'{trial_number}'), exist_ok = True)
-      torch.save({
-        'state_dict': model.state_dict()
-      }, os.path.join(CACHE_PATH, DATASET, f'{trial_number}', f'{random_state}.pth.tar'))
+      model.save_pretrained(os.path.join(CACHE_PATH, DATASET, f'{trial_number}', f'{random_state}'))
       
       model.eval()
       test_predictions = list()
