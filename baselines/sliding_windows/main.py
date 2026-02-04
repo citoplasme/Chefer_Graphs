@@ -706,7 +706,7 @@ def unbound_objective_function(trial):
 
   batch_size : int = HYPER_PARAMETERS['batch_size']['value'] if HYPER_PARAMETERS['batch_size']['fixed'] else (trial.suggest_int('batch_size', *UNBOUND_LIMITS['batch_size']))
   #
-  window_size : int = HYPER_PARAMETERS['window_size']['value'] if HYPER_PARAMETERS['window_size']['fixed'] else (trial.suggest_float('window_size', *UNBOUND_LIMITS['window_size']))
+  window_size : int = HYPER_PARAMETERS['window_size']['value'] if HYPER_PARAMETERS['window_size']['fixed'] else (trial.suggest_int('window_size', *UNBOUND_LIMITS['window_size']))
   #
   attention_heads : int = HYPER_PARAMETERS['attention_heads']['value'] if HYPER_PARAMETERS['attention_heads']['fixed'] else (trial.suggest_int('attention_heads', *UNBOUND_LIMITS['attention_heads']))
   hidden_dimension : int = HYPER_PARAMETERS['hidden_dimension']['value'] if HYPER_PARAMETERS['hidden_dimension']['fixed'] else (trial.suggest_int('hidden_dimension', *UNBOUND_LIMITS['hidden_dimension']))
