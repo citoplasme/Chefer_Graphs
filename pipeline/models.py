@@ -16,7 +16,6 @@ class GATv2(torch.nn.Module):
     attention_heads : int = 8,
     number_of_hidden_layers : int = 0,
     dropout_rate : float = 0.6,
-    global_pooling : str = 'mean'
   ):
     super(GATv2, self).__init__()
 
@@ -32,7 +31,6 @@ class GATv2(torch.nn.Module):
 
     self.linear = torch.nn.Linear(hidden_dimension, class_count)
     self.dropout_rate = dropout_rate
-    self.global_pooling = global_pooling
 
   def forward(self, x, edge_index, edge_attr, batch):
     # 1. Obtain node embeddings

@@ -25,7 +25,7 @@ def construct_PyG_graph_from_Chefer_importance(
     unit_weight_edges_ablation : bool,
     drop_second_level_nodes_ablation : bool,
     drop_second_and_third_level_nodes_ablation : bool,
-    bi_directional_edges_to_second_and_third_level_nodes : bool,
+    bi_directional_edges_to_second_and_third_level_nodes_ablation : bool,
     #
     device,
   ):
@@ -50,6 +50,7 @@ def construct_PyG_graph_from_Chefer_importance(
   )
   input_identifiers = encoding['input_ids'].to(device)
   attention_mask = encoding['attention_mask'].to(device)
+  del encoding
   special_token_masking = torch.tensor(tokenizer.get_special_tokens_mask(input_identifiers[0], already_has_special_tokens = True), dtype = torch.bool).to(device)
   tokens = tokenizer.convert_ids_to_tokens(input_identifiers[0])
 
@@ -80,7 +81,7 @@ def construct_PyG_graph_from_Chefer_importance(
     chunk_attention_masking = torch.cat((attention_mask[:, 0].reshape(1, 1), attention_mask[:, l : r], attention_mask[:, document_length - 1].reshape(1, 1)), dim = 1)
     chunk_special_token_masking = torch.cat((special_token_masking[0].reshape(1), special_token_masking[l : r], special_token_masking[document_length - 1].reshape(1)), dim = 0)
     chunk_tokens = [tokens[0]] + tokens[l : r] + [tokens[document_length - 1]]
-
+    
     node_indices, node_labels, node_attrs, edge_indices, edge_attrs = chefer_importance.construct_graph_from_importance_scores(
       label_indices = label_indices,
       model = plm,
@@ -92,17 +93,28 @@ def construct_PyG_graph_from_Chefer_importance(
       edge_threshold = edge_threshold,
       drop_first_level_edges_ablation = drop_first_level_edges_ablation,
       unit_weight_edges_ablation = unit_weight_edges_ablation,
-      bi_directional_edges_to_second_and_third_level_nodes = bi_directional_edges_to_second_and_third_level_nodes,
+      bi_directional_edges_to_second_and_third_level_nodes_ablation = bi_directional_edges_to_second_and_third_level_nodes_ablation,
       chunk_identifier = identifier,
       device = device
     )
     chunks.append({
-      'node_identifiers' : node_indices,
-      'node_attributes' : node_attrs,
+      'node_identifiers' : node_indices.detach().cpu(),
+      'node_attributes' : node_attrs.detach().cpu(),
       'node_labels' : node_labels,
-      'edge_identifiers' : edge_indices,
-      'edge_weights' : edge_attrs
+      'edge_identifiers' : edge_indices.detach().cpu(),
+      'edge_weights' : edge_attrs.detach().cpu()
     })
+
+    # Clear memory
+    del chunk_input_identifiers
+    del chunk_attention_masking
+    del chunk_special_token_masking
+    del chunk_tokens
+    del node_indices
+    del node_labels
+    del node_attrs
+    del edge_indices
+    del edge_attrs
 
     identifier += 1
 
@@ -126,5 +138,9 @@ def construct_PyG_graph_from_Chefer_importance(
     'edge_attr' : document_level_graph['edge_weights'].to('cpu'),
     'identifier' : torch.tensor([index], dtype = torch.long).to('cpu')
   }
+
+  # Clear memory
+  del chunks
+  del document_level_graph
   
   return document_level_graph_PyG

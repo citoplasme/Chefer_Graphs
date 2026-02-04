@@ -153,7 +153,7 @@ def construct_PyG_graph_from_sliding_windows(
 
     with torch.no_grad():
       chunk_outputs = plm(chunk_input_identifiers)
-      chunk_embeddings = chunk_outputs[embedding_output_key][0]
+      chunk_embeddings = chunk_outputs['hidden_states'][-1][0].detach() # chunk_outputs[embedding_output_key][0]
 
     if surrogate:
       node_indices = torch.arange(l - 1, r + 1).to(device)

@@ -8,10 +8,13 @@ def get_logits_attentions_and_embeddings(model, input_identifiers, attention_mas
     input_ids = input_identifiers,
     attention_mask = attention_mask
   )
-  embeddings = outputs['hidden_states'][-1][0]
+  embeddings = outputs['hidden_states'][-1][0].detach()
   logits = outputs.logits
   # Equation 3: Obtain raw attentions 
   attentions = outputs.attentions
+  # Clear memory
+  del outputs
+  
   return logits, attentions, embeddings
 
 # Inspired by https://colab.research.google.com/github/hila-chefer/Transformer-MM-Explainability/blob/main/Transformer_MM_explainability_ViT.ipynb#scrollTo=TtqMdXdTEKAP
@@ -25,7 +28,11 @@ def bert_generic_attention_explainability(
   ):
   # Obtain attention gradients
   target_score = logits[:, label_index].sum()
-  gradients = torch.autograd.grad(outputs = target_score, inputs = attentions, retain_graph = True)
+  gradients = torch.autograd.grad(outputs = target_score, inputs = attentions, retain_graph = False) # True
+  
+  attentions = [x.detach() for x in attentions]
+  gradients = [x.detach() for x in gradients]
+  
   # Equation 1: Relevance initialization using identity matrix
   identity = torch.eye(input_identifiers.size(1), device = device)
   relevance_matrix = identity.detach().clone()
@@ -41,9 +48,19 @@ def bert_generic_attention_explainability(
     relevance_matrix += torch.matmul(A_tilde, relevance_matrix)
     # Equation 9: Row normalization
     # relevance_matrix = relevance_matrix / (relevance_matrix.sum(dim = 1, keepdim = True) + 1e-10) 
+    # Clear memory
+    del contributions
+    del A_tilde
   # Equation 9: Row normalization
   relevance_matrix_hat = relevance_matrix - identity
   relevance_matrix_tilde = relevance_matrix_hat / (relevance_matrix_hat.sum(dim = 1, keepdim = True) + 1e-10) + identity
+  # Clear memory
+  del target_score
+  del gradients
+  del identity
+  del relevance_matrix
+  del relevance_matrix_hat
+  
   return relevance_matrix_tilde
 
 def prune_using_importance_scores(input_identifiers, tokens, special_token_masking, importance, token_threshold, edge_threshold, drop_first_level_edges_ablation, device):  
@@ -82,6 +99,23 @@ def prune_using_importance_scores(input_identifiers, tokens, special_token_maski
   edges_to_keep_mask = (importance_without_unimportant_tokens >= edge_cutting_point) & off_diagonal_mask
   importance_without_unimportant_relationships = importance_without_unimportant_tokens.clone()
   importance_without_unimportant_relationships[~edges_to_keep_mask & off_diagonal_mask] = 0.0
+  # Clear memory
+  del CLS_importance
+  del token_indices
+  del CLS_importance_without_special_tokens
+  del importance_without_special_tokens
+  del tokens_without_special_tokens
+  del token_indices_without_special_tokens
+  del punctuation_mask
+  del CLS_importance_without_punctuation_tokens
+  del importance_without_punctuation_tokens
+  del tokens_without_punctuation_tokens
+  del token_indices_without_punctuation_tokens
+  del token_importance_mask
+  del importance_without_unimportant_tokens
+  del off_diagonal_mask
+  del edges_to_keep_mask
+
   return CLS_importance_without_unimportant_tokens, importance_without_unimportant_relationships, tokens_without_unimportant_tokens, token_indices_without_unimportant_tokens
 
 def construct_graph_from_importance_scores(
@@ -95,14 +129,14 @@ def construct_graph_from_importance_scores(
     edge_threshold,
     drop_first_level_edges_ablation,
     unit_weight_edges_ablation,
-    bi_directional_edges_to_second_and_third_level_nodes,
+    bi_directional_edges_to_second_and_third_level_nodes_ablation,
     chunk_identifier,
     device
   ):
   sub_graphs = list()
   #
-  logits, attentions, embeddings = get_logits_attentions_and_embeddings(model = model, input_identifiers = input_identifiers, attention_mask = attention_mask)
   for label_index in label_indices:
+    logits, attentions, embeddings = get_logits_attentions_and_embeddings(model = model, input_identifiers = input_identifiers, attention_mask = attention_mask)
     # Compute the generic Chefer importance for the text
     importance = bert_generic_attention_explainability(
       input_identifiers = input_identifiers,
@@ -111,7 +145,6 @@ def construct_graph_from_importance_scores(
       label_index = label_index,
       device = device
     )
-
     node_level_importance, edge_level_importance, node_labels, node_identifiers = prune_using_importance_scores(
       input_identifiers = input_identifiers[0],
       tokens = tokens,
@@ -135,7 +168,7 @@ def construct_graph_from_importance_scores(
     node_level_importance = node_level_importance.detach().cpu()
     
     second_level_edges = torch.cartesian_prod(node_identifiers, torch.tensor([-chunk_identifier])).t().contiguous()
-    if bi_directional_edges_to_second_and_third_level_nodes:
+    if bi_directional_edges_to_second_and_third_level_nodes_ablation:
       second_level_edges = torch.cat((second_level_edges, second_level_edges.flip(dims = (0, ))), dim = 1)
       node_level_importance = torch.cat((node_level_importance, node_level_importance), dim = 0)
     
@@ -146,6 +179,24 @@ def construct_graph_from_importance_scores(
       'node_label' : node_labels,
       'node_attr' : node_embeddings
     })
+
+    # Clear memory
+    del importance
+    del node_level_importance
+    del edge_level_importance
+    del node_labels
+    del node_identifiers
+    del node_embeddings
+    del PyG_edges
+    del important_edge_mask
+    del edge_index
+    del edge_attr
+    del second_level_edges
+
+  # Clear memory
+  del logits
+  del attentions
+  del embeddings
 
   document_level_graph = {
     'nodes' : {},
@@ -172,7 +223,17 @@ def construct_graph_from_importance_scores(
       if key not in document_level_graph['edges']:
         document_level_graph['edges'][key] = torch.zeros(len(label_indices))
       document_level_graph['edges'][key][label_index] = weight if not unit_weight_edges_ablation else 1.0
+    
+    # Clear memory
+    del edge_index
+    del edge_attr
+    del node_index
+    del node_label
+    del node_attr
   
+  # Clear memory
+  del sub_graphs
+
   return torch.tensor([x for x, _ in list(document_level_graph['nodes'].keys())]), \
     [y for _, y in list(document_level_graph['nodes'].keys())], \
     torch.tensor(list(document_level_graph['nodes'].values())), \
@@ -203,6 +264,9 @@ def hierarchically_aggregate_chunk_level_subgraphs(
       updated_edge_identifiers[chunk['edge_identifiers'] == k] = v
     chunk['node_identifiers'] = updated_identifiers
     chunk['edge_identifiers'] = updated_edge_identifiers
+    # Clear memory
+    del updated_identifiers
+    del updated_edge_identifiers
 
   document_level_graph = {
     'node_identifiers' : torch.cat([torch.tensor([0], dtype = torch.long)] + [chunk['node_identifiers'] for chunk in chunks], dim = 0),
@@ -211,6 +275,9 @@ def hierarchically_aggregate_chunk_level_subgraphs(
     'edge_identifiers' : torch.cat([torch.tensor([(i, 0) for i in range(chunk_count)], dtype = torch.long).t().contiguous()] + [chunk['edge_identifiers'] for chunk in chunks], dim = 1),
     'edge_weights' : torch.cat([torch.tensor([torch.ones(len(chunks[0]['edge_weights'][0])).tolist() for _ in range(chunk_count)])] + [chunk['edge_weights'] for chunk in chunks], dim = 0),
   }
+
+  # Clear memory
+  del chunks
 
   sorted_document_level_node_identifiers, sort_indices_for_document_level_node_identifiers = torch.sort(document_level_graph['node_identifiers'])
   document_level_graph['node_identifiers'] = sorted_document_level_node_identifiers
@@ -249,4 +316,9 @@ def hierarchically_aggregate_chunk_level_subgraphs(
     # Update node and edge identifiers 
     document_level_graph['node_identifiers'][document_level_graph['node_identifiers'] > 0] -= chunk_count
     document_level_graph['edge_identifiers'][document_level_graph['edge_identifiers'] > 0] -= chunk_count
+  
+  # Clear memory
+  del sorted_document_level_node_identifiers
+  del sort_indices_for_document_level_node_identifiers
+  
   return document_level_graph

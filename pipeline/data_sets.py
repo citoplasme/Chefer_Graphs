@@ -51,7 +51,7 @@ def pre_construct_all_graphs_for_split(
     unit_weight_edges_ablation,
     drop_second_level_nodes_ablation,
     drop_second_and_third_level_nodes_ablation,
-    bi_directional_edges_to_second_and_third_level_nodes,
+    bi_directional_edges_to_second_and_third_level_nodes_ablation,
     #
     device
   ):
@@ -80,12 +80,16 @@ def pre_construct_all_graphs_for_split(
       unit_weight_edges_ablation = unit_weight_edges_ablation,
       drop_second_level_nodes_ablation = drop_second_level_nodes_ablation,
       drop_second_and_third_level_nodes_ablation = drop_second_and_third_level_nodes_ablation,
-      bi_directional_edges_to_second_and_third_level_nodes = bi_directional_edges_to_second_and_third_level_nodes,
+      bi_directional_edges_to_second_and_third_level_nodes_ablation = bi_directional_edges_to_second_and_third_level_nodes_ablation,
       #
       device = device
     )
     # Store in disk
     torch.save(document_level_graph, graph_path)
+
+    # print(f'Allocated: {torch.cuda.memory_allocated() / 1024**3:.4f} GB, Reserved:  {torch.cuda.memory_reserved() / 1024**3:.4f} GB', flush = True)
+
     # Clear memory
+    del document_level_graph
     gc.collect()
     torch.cuda.empty_cache()

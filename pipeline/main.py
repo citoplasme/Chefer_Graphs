@@ -139,7 +139,6 @@ def model_training(
     hidden_dimension = hidden_dimension,
     number_of_hidden_layers = number_of_hidden_layers,
     dropout_rate = dropout_rate,
-    global_pooling = 'mean'
   ).to(DEVICE)
   
   decay_params = list()
@@ -397,7 +396,7 @@ def train_and_predict(
       unit_weight_edges_ablation = False,
       drop_second_level_nodes_ablation = False,
       drop_second_and_third_level_nodes_ablation = False,
-      bi_directional_edges_to_second_and_third_level_nodes = False,
+      bi_directional_edges_to_second_and_third_level_nodes_ablation = False,
       #
       device = DEVICE
     )
@@ -430,7 +429,7 @@ def train_and_predict(
       unit_weight_edges_ablation = False,
       drop_second_level_nodes_ablation = False,
       drop_second_and_third_level_nodes_ablation = False,
-      bi_directional_edges_to_second_and_third_level_nodes = False,
+      bi_directional_edges_to_second_and_third_level_nodes_ablation = False,
       #
       device = DEVICE
     )
@@ -538,7 +537,7 @@ def train_and_predict(
         unit_weight_edges_ablation = False,
         drop_second_level_nodes_ablation = False,
         drop_second_and_third_level_nodes_ablation = False,
-        bi_directional_edges_to_second_and_third_level_nodes = False,
+        bi_directional_edges_to_second_and_third_level_nodes_ablation = False,
         #
         device = DEVICE
       )

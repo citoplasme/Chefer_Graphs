@@ -6,8 +6,8 @@
 #SBATCH --cpus-per-task=9
 #SBATCH --time=03:00:00
 #SBATCH --mem=72GB
-#SBATCH --job-name=Chefer-importance-SST-2
-#SBATCH --output=Chefer-importance-SST-2_%j.out
+#SBATCH --job-name=Sliding-windows-SST-2
+#SBATCH --output=Sliding-windows-SST-2_%j.out
 
 module load python/3.13.2 scipy-stack/2025a cuda12.8/toolkit/12.8.1
 source /home/jpimen/projects/aip-frudzicz/jpimen/virtual-environments/PLM_graphs/bin/activate

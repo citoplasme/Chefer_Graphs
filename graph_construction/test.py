@@ -77,7 +77,7 @@ if __name__ == '__main__':
     unit_weight_edges_ablation = False,
     drop_second_level_nodes_ablation = False,
     drop_second_and_third_level_nodes_ablation = False,
-    bi_directional_edges_to_second_and_third_level_nodes = False,
+    bi_directional_edges_to_second_and_third_level_nodes_ablation = False,
     #
     device = DEVICE,
   )
