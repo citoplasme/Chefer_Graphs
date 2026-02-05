@@ -54,6 +54,18 @@ os.makedirs(CHECKPOINT_PATH, exist_ok = True)
 # ============================= Auxiliary methods ===========================
 # ===========================================================================
 
+def subsample_training_split(df, percentage):
+  identifier_label_df = df[['identifier', 'label']] \
+    .drop_duplicates(subset = 'identifier') \
+    .reset_index(drop = True)
+  subsampled_df, _ = sklearn.model_selection.train_test_split(
+    identifier_label_df,
+    train_size = percentage,
+    stratify = identifier_label_df['label'],
+    random_state = SEED
+  )
+  return df[df['identifier'].isin(subsampled_df['identifier'])]
+
 def callback(study, trial):
   completed_trials = (study.trials_dataframe().dropna(subset = ['value'])['value'] != -1.0).sum()
   if completed_trials >= BOUND_TRIALS:
@@ -675,7 +687,7 @@ def objective_function(trial):
       raise optuna.TrialPruned(f'Duplicate hyper-parameters, same as those used in trial {t.number}: {trial.params}.') # Skip duplicate trials
 
   validation_performance, validation_loss, training_loss, epoch = train_and_predict(
-    training_df = TRAINING_DF,
+    training_df = subsample_training_split(df = TRAINING_DF, percentage = SUBSAMPLE_PERCENTAGE) if DATASET in ['IMDb', 'AGNews', 'DBPedia'] else TRAINING_DF, # Sub-sample training dataframe for large data sets
     validation_df = VALIDATION_DF,
     testing_df = TESTING_DF,
     #
@@ -748,7 +760,7 @@ def unbound_objective_function(trial):
       raise optuna.TrialPruned(f'Duplicate hyper-parameters, same as those used in trial {t.number}: {trial.params}.') # Skip duplicate trials
 
   validation_performance, validation_loss, training_loss, epoch = train_and_predict(
-    training_df = TRAINING_DF,
+    training_df = subsample_training_split(df = TRAINING_DF, percentage = SUBSAMPLE_PERCENTAGE) if DATASET in ['IMDb', 'AGNews', 'DBPedia'] else TRAINING_DF, # Sub-sample training dataframe for large data sets
     validation_df = VALIDATION_DF,
     testing_df = TESTING_DF,
     #
@@ -799,7 +811,8 @@ if __name__ == '__main__':
   parser.add_argument('--use_accuracy', required = True, type = int, help = 'Whether or not to use accuracy for model evaluation. Uses macro F1-score otherwise.')
   parser.add_argument('--use_balanced_loss', required = True, type = int, help = 'Whether or not to use balanced loss weights during model training.')
   parser.add_argument('--fine_tuning_trial_number', required = True, type = int, help = 'The number of the fine-tuned model to be used as basis for graph construction.')
-  
+  parser.add_argument('--subsample_percentage', required = True, type = float, help = 'How much of the training split to be used during hyper-parameter tuning. Only applied to AGNews, DBPedia, and IMDb.')
+
   args = parser.parse_args()
   DATASET = args.data_set
   LABEL_SMOOTHING = args.use_label_smoothing
@@ -808,6 +821,7 @@ if __name__ == '__main__':
   ACCURACY = args.use_accuracy
   BALANCED_LOSS = args.use_balanced_loss
   FINE_TUNING_TRIAL_NUMBER = args.fine_tuning_trial_number
+  SUBSAMPLE_PERCENTAGE = args.subsample_percentage
 
   if LABEL_SMOOTHING not in [0, 1]:
     raise ValueError('The label smoothing parameter must be either 0 (False) or 1 (True).')
@@ -827,6 +841,9 @@ if __name__ == '__main__':
 
   if not os.path.exists(os.path.join('..', '..', 'fine_tuning', 'models', DATASET, f'{FINE_TUNING_TRIAL_NUMBER}', f'{SEED}')):
     raise ValueError('The selected fine tuning trial number does not contain a corresponding model stored in disk.')
+
+  if (SUBSAMPLE_PERCENTAGE < 0.0) or (SUBSAMPLE_PERCENTAGE > 1.0):
+    raise ValueError('The subsample percentage parameter must be between 0.0 and 1.0.')
 
   GRADIENT_CLIPPING = bool(GRADIENT_CLIPPING)
   CHECKPOINT_VALIDATION_LOSS = bool(CHECKPOINT_VALIDATION_LOSS)

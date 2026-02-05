@@ -1,0 +1,5 @@
+SLURM NODE: kn068
+[I 2026-02-05 10:32:40,584] A new study created in RDB with name: IMDb-Fine-tuning
+[I 2026-02-05 10:51:05,822] Trial 0 finished with value: 0.9254 and parameters: {'frozen_layers': 2, 'classifier_dropout': 0.4, 'learning_rate': 5e-05, 'weight_decay': 0.001, 'label_smoothing': 0.15, 'gradient_clipping': 2.0}. Best is trial 0 with value: 0.9254.
+[I 2026-02-05 11:07:49,918] Trial 1 finished with value: 0.9308 and parameters: {'frozen_layers': 0, 'classifier_dropout': 0.2, 'learning_rate': 2e-05, 'weight_decay': 1e-06, 'label_smoothing': 0.05, 'gradient_clipping': 1.5}. Best is trial 1 with value: 0.9308.
+[I 2026-02-05 11:28:36,690] Trial 2 finished with value: 0.9122 and parameters: {'frozen_layers': 0, 'classifier_dropout': 0.2, 'learning_rate': 0.0001, 'weight_decay': 0.0001, 'label_smoothing': 0.1, 'gradient_clipping': 1.5}. Best is trial 1 with value: 0.9308.
