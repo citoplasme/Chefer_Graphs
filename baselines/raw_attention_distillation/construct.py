@@ -85,7 +85,6 @@ def construct_PyG_graph_from_raw_attentions(
     plm,
     tokenizer,
     attention_output_key : str,
-    embedding_output_key : str,
     maximum_chunk_size : int,
     layers : int,
     heads : int,
@@ -146,7 +145,7 @@ def construct_PyG_graph_from_raw_attentions(
     with torch.no_grad():
       chunk_outputs = plm(chunk_input_identifiers)
       chunk_attention = format_attention(chunk_outputs[attention_output_key])
-      chunk_embeddings = chunk_outputs[embedding_output_key][0]
+      chunk_embeddings = chunk_outputs['hidden_states'][-1][0].detach()
 
     chunk_attention_T = torch.movedim(chunk_attention, source = (2, 3), destination = (0, 1)).reshape((chunk_input_identifiers.size(1), chunk_input_identifiers.size(1), layers * heads))
 

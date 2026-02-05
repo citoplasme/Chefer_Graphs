@@ -1,6 +1,7 @@
 import os
 import torch
 import torch_geometric
+import gc
 
 import construct
 
@@ -21,7 +22,7 @@ class CachedGraphDataset(torch_geometric.data.Dataset):
     graph_path = os.path.join(self.data_path, f'{idx}.pt')
     if os.path.isfile(graph_path):
       graph_properties = torch.load(graph_path)
-      del graph_properties['tokens']
+      # del graph_properties['tokens']
       return torch_geometric.data.Data(**graph_properties)
     else:
       raise ValueError(f'{graph_path} does not exist.')
@@ -44,7 +45,6 @@ def pre_construct_all_graphs_for_split(
     plm,
     tokenizer,
     attention_output_key,
-    embedding_output_key,
     maximum_chunk_size,
     layers,
     heads,
@@ -75,7 +75,6 @@ def pre_construct_all_graphs_for_split(
       plm = plm,
       tokenizer = tokenizer,
       attention_output_key = attention_output_key,
-      embedding_output_key = embedding_output_key,
       maximum_chunk_size = maximum_chunk_size,
       layers = layers,
       heads = heads,
@@ -84,3 +83,10 @@ def pre_construct_all_graphs_for_split(
     )
     # Store in disk
     torch.save(document_level_graph, graph_path)
+    
+    # print(f'Allocated: {torch.cuda.memory_allocated() / 1024**3:.4f} GB, Reserved:  {torch.cuda.memory_reserved() / 1024**3:.4f} GB', flush = True)
+
+    # Clear memory
+    del document_level_graph
+    gc.collect()
+    torch.cuda.empty_cache()

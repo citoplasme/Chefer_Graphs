@@ -4,7 +4,7 @@
 #SBATCH --exclude=kn122,kn117,kn050
 #SBATCH --gres=gpu:l40s:1
 #SBATCH --cpus-per-task=9
-#SBATCH --time=12:00:00
+#SBATCH --time=72:00:00
 #SBATCH --mem=72GB
 #SBATCH --job-name=Fine-tuning-AGNews
 #SBATCH --output=Fine-tuning-AGNews_%j.out

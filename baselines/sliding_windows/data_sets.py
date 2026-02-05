@@ -44,7 +44,6 @@ def pre_construct_all_graphs_for_split(
     #
     plm,
     tokenizer,
-    embedding_output_key,
     maximum_chunk_size,
     #
     device
@@ -69,7 +68,6 @@ def pre_construct_all_graphs_for_split(
       #
       plm = plm,
       tokenizer = tokenizer,
-      embedding_output_key = embedding_output_key,
       maximum_chunk_size = maximum_chunk_size,
       #
       device = device

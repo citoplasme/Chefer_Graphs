@@ -102,7 +102,6 @@ def construct_PyG_graph_from_sliding_windows(
     #
     plm,
     tokenizer,
-    embedding_output_key : str,
     maximum_chunk_size : int,
     #
     device,
@@ -139,6 +138,12 @@ def construct_PyG_graph_from_sliding_windows(
     token_ids = input_identifiers
   edge_index_unique, edge_attr_aggregated = calculate_co_occurrences(token_ids = token_ids, special_token_mask = special_token_masking, window_size = window_size, co_occurrence_pooling = co_occurrence_pooling, device = device)
   
+  # Single chunk when document fits inside the context window
+  if document_length <= maximum_chunk_size:
+    left_stride = 0
+    right_stride = 0
+    c = document_length
+
   # Compute the embeddings for each chunk
   s = 1
   while s < document_length - 1:
@@ -153,7 +158,7 @@ def construct_PyG_graph_from_sliding_windows(
 
     with torch.no_grad():
       chunk_outputs = plm(chunk_input_identifiers)
-      chunk_embeddings = chunk_outputs['hidden_states'][-1][0].detach() # chunk_outputs[embedding_output_key][0]
+      chunk_embeddings = chunk_outputs['hidden_states'][-1][0].detach()
 
     if surrogate:
       node_indices = torch.arange(l - 1, r + 1).to(device)

@@ -8,12 +8,12 @@ HYPER_PARAMETERS = {
     'type' : 'float',
     'log' : False,
     'fixed' : False,
-    'original_search_space' : [0.9, 0.95, 0.99]
+    'original_search_space' : [0.6, 0.7, 0.8, 0.9, 0.95, 0.99]
   },
   'attention_heads' : {
     'type' : 'int',
     'fixed' : False,
-    'original_search_space' : [1, 2, 4, 6]
+    'original_search_space' : [1, 2, 4, 6, 8]
   },
   'hidden_dimension' : {
     'type' : 'int',
@@ -35,38 +35,39 @@ HYPER_PARAMETERS = {
     'type' : 'float',
     'log' : True,
     'fixed' : False,
-    'original_search_space' : [1e-6, 5e-6, 1e-5, 5e-5, 1e-4]
+    'original_search_space' : [1e-5, 1e-4, 3e-4, 1e-3]
   },
   'weight_decay' : {
     'type' : 'float',
     'log' : True,
     'fixed' : False,
-    'original_search_space' : [1e-5, 5e-5, 1e-4, 5e-4, 1e-3, 5e-3, 1e-2]
+    'original_search_space' : [1e-6, 1e-5, 1e-4, 1e-3]
   },
   'epochs' : {
     'type' : 'int',
     'fixed' : True,
-    'value' : 30
+    'value' : 150
   },
-  'balanced_loss' : {
-    'type' : 'categorical',
-    'fixed' : True,
-    'value' : True
-  },
+  # 'balanced_loss' : {
+  #   'type' : 'categorical',
+  #   'fixed' : True,
+  #   'value' : True
+  # },
   'early_stopping_patience' : {
     'type' : 'int',
     'fixed' : True,
-    'value' : 5
+    'value' : 10
   },
   'early_stopping_start_epoch' : {
     'type' : 'int',
     'fixed' : True,
     'value' : 10
   },
-  'linear_warmup_epochs' : {
-    'type' : 'int',
+  'linear_warmup_step_ratio' : {
+    'type' : 'float',
+    'log' : False,
     'fixed' : True,
-    'value' : 5
+    'value' : 0.1
   },
   'linear_warmup_start_factor' : {
     'type' : 'float',
@@ -74,21 +75,11 @@ HYPER_PARAMETERS = {
     'fixed' : True,
     'value' : 0.1
   },
-  'cosine_annealing_eta_min' : {
+  'linear_decay_end_factor' : {
     'type' : 'float',
     'log' : True,
     'fixed' : True,
-    'value' : 1e-6
-  },
-  'cosine_annealing_T_0' : {
-    'type' : 'int',
-    'fixed' : True,
-    'value' : 5
-  },
-  'cosine_annealing_T_mult' : {
-    'type' : 'int',
-    'fixed' : False,
-    'original_search_space' : [1, 2]
+    'value' : 1e-4
   },
   'label_smoothing' : {
     'type' : 'float',

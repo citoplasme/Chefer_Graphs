@@ -164,6 +164,7 @@ def model_training(
     output_attentions = True,
     attn_implementation = 'eager',
     output_hidden_states = True,
+    num_labels = np.unique(pd.read_csv(os.path.join('..', 'data', 'with_validation_splits', DATASET, 'train.csv'))['label'].values).size
   )
   if DATASET in ['AGNews', 'DBPedia']:
     model.resize_token_embeddings(tokenizer_length)
@@ -217,7 +218,7 @@ def model_training(
     total_iters = max(1, total_steps - linear_warmup_steps)
   )
   scheduler = torch.optim.lr_scheduler.SequentialLR(optimizer, schedulers = [linear_warmup_scheduler, linear_decay_scheduler], milestones = [linear_warmup_steps])
-  
+
   # https://scikit-learn.org/stable/modules/generated/sklearn.utils.class_weight.compute_class_weight.html
   if balanced_loss:
     document_level_training_labels = pd.read_csv(os.path.join('..', 'data', 'with_validation_splits', DATASET, 'train.csv'))['label'].values

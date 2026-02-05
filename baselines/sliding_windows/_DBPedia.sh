@@ -6,8 +6,8 @@
 #SBATCH --cpus-per-task=9
 #SBATCH --time=72:00:00
 #SBATCH --mem=72GB
-#SBATCH --job-name=Fine-tuning-Ohsumed
-#SBATCH --output=Fine-tuning-Ohsumed_%j.out
+#SBATCH --job-name=Sliding-windows-DBPedia
+#SBATCH --output=Sliding-windows-DBPedia_%j.out
 
 module load python/3.13.2 scipy-stack/2025a cuda12.8/toolkit/12.8.1
 source /home/jpimen/projects/aip-frudzicz/jpimen/virtual-environments/PLM_graphs/bin/activate
@@ -15,4 +15,4 @@ source /home/jpimen/projects/aip-frudzicz/jpimen/virtual-environment-files/PLM_g
 
 echo "SLURM NODE: $SLURMD_NODENAME"
 
-python main.py --data_set Ohsumed --use_label_smoothing 1 --use_gradient_clipping 1 --checkpoint_validation_loss 1 --use_accuracy 0 --use_balanced_loss 1
+python main.py --data_set DBPedia --use_label_smoothing 1 --use_gradient_clipping 1 --checkpoint_validation_loss 1 --use_accuracy 1 --use_balanced_loss 0 --fine_tuning_trial_number 0

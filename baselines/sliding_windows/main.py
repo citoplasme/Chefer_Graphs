@@ -30,17 +30,17 @@ st = time.time()
 
 SEED = 42
 
-RANDOM_SAMPLER_TRIALS = 3#150
-BOUND_TRIALS = RANDOM_SAMPLER_TRIALS + 3#100
+RANDOM_SAMPLER_TRIALS = 150
+BOUND_TRIALS = RANDOM_SAMPLER_TRIALS + 100
 TOP_N = 2
-UNBOUND_RANDOM_SAMPLER_TRIALS = 3#10
-UNBOUND_TRIALS = TOP_N + UNBOUND_RANDOM_SAMPLER_TRIALS + 3#90
+UNBOUND_RANDOM_SAMPLER_TRIALS = 10
+UNBOUND_TRIALS = TOP_N + UNBOUND_RANDOM_SAMPLER_TRIALS + 90
 NEIGHBOURHOOD_RADIUS = (1, 1)
-TEST_RUNS_AROUND_BASE_SEED = (1, 1)#(5, 4)
+TEST_RUNS_AROUND_BASE_SEED = (5, 4)
 
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-STORAGE_PATH = '../outputs/Sliding_windows/'
+STORAGE_PATH = '../../outputs/Sliding_windows/'
 CACHE_PATH = os.path.join('.', 'models')
 os.makedirs(CACHE_PATH, exist_ok = True)
 
@@ -354,24 +354,24 @@ def train_and_predict(
     trial_number = 0
   ):
     
-    gc.collect()
-    torch.cuda.empty_cache()
-    
-    random.seed(random_state)
-    np.random.seed(random_state)
-    torch.manual_seed(random_state)
-    torch.cuda.manual_seed_all(random_state)
-    torch.backends.cudnn.deterministic = True
-    torch.backends.cudnn.benchmark = False
+  gc.collect()
+  torch.cuda.empty_cache()
+  
+  random.seed(random_state)
+  np.random.seed(random_state)
+  torch.manual_seed(random_state)
+  torch.cuda.manual_seed_all(random_state)
+  torch.backends.cudnn.deterministic = True
+  torch.backends.cudnn.benchmark = False
 
-    os.environ['PYTHONHASHSEED'] = str(random_state)
-    torch.use_deterministic_algorithms(mode = True)
+  os.environ['PYTHONHASHSEED'] = str(random_state)
+  torch.use_deterministic_algorithms(mode = True)
 
   # ===========================================================================
   # =============================== Data loading ==============================
   # ===========================================================================
 
-  # try:
+  try:
 
     os.makedirs(os.path.join(SCRATCH_PATH, f'{DATASET}-Sliding_windows', f'{window_size}', 'train'), exist_ok = True)
     data_sets.pre_construct_all_graphs_for_split(
@@ -392,7 +392,6 @@ def train_and_predict(
       #
       plm = PLM,
       tokenizer = TOKENIZER,
-      embedding_output_key = 'last_hidden_state',
       maximum_chunk_size = 512,
       #
       device = DEVICE
@@ -422,7 +421,6 @@ def train_and_predict(
       #
       plm = PLM,
       tokenizer = TOKENIZER,
-      embedding_output_key = 'last_hidden_state',
       maximum_chunk_size = 512,
       #
       device = DEVICE
@@ -527,7 +525,6 @@ def train_and_predict(
         #
         plm = PLM,
         tokenizer = TOKENIZER,
-        embedding_output_key = 'last_hidden_state',
         maximum_chunk_size = 512,
         #
         device = DEVICE
@@ -625,9 +622,12 @@ def train_and_predict(
       }).to_csv(os.path.join(STORAGE_PATH, f'{DATASET}-Sliding_windows', f'{trial_number}', f'{random_state}', 'runtimes.csv'), index = False)
 
       return sklearn.metrics.accuracy_score(test_labels, test_predictions) if ACCURACY else sklearn.metrics.f1_score(test_labels, test_predictions, average = 'macro'), best_validation_performance, average_evaluation_runtime, best_validation_performance_epoch
-  # except Exception as e:
-  #   print(e, flush = True)
-  #   return -1.0, float('inf'), float('inf'), 0
+  except Exception as e:
+    print(e, flush = True)
+    # Delete cache folder
+    if os.path.isdir(os.path.join(SCRATCH_PATH, f'{DATASET}-Sliding_windows', f'{window_size}')):
+      shutil.rmtree(os.path.join(SCRATCH_PATH, f'{DATASET}-Sliding_windows', f'{window_size}'))
+    return -1.0, float('inf'), float('inf'), 0
 
 def objective_function(trial):
 
@@ -813,8 +813,8 @@ if __name__ == '__main__':
   if BALANCED_LOSS not in [0, 1]:
     raise ValueError('The balanced loss parameter must be either 0 (False) or 1 (True).')
 
-  # if not os.path.exists(os.path.join('..', 'fine_tuning', 'models', DATASET, f'{FINE_TUNING_TRIAL_NUMBER}', f'{SEED}')):
-  #   raise ValueError('The selected fine tuning trial number does not contain a corresponding model stored in disk.')
+  if not os.path.exists(os.path.join('..', '..', 'fine_tuning', 'models', DATASET, f'{FINE_TUNING_TRIAL_NUMBER}', f'{SEED}')):
+    raise ValueError('The selected fine tuning trial number does not contain a corresponding model stored in disk.')
 
   GRADIENT_CLIPPING = bool(GRADIENT_CLIPPING)
   CHECKPOINT_VALIDATION_LOSS = bool(CHECKPOINT_VALIDATION_LOSS)
@@ -823,9 +823,9 @@ if __name__ == '__main__':
 
   HYPER_PARAMETERS = hyper_parameters.HYPER_PARAMETERS
 
-  TOKENIZER = transformers.AutoTokenizer.from_pretrained('google-bert/bert-base-uncased' if not os.path.exists(os.path.join('..', 'fine_tuning', 'tokenizers', DATASET)) else os.path.join('..', 'fine_tuning', 'tokenizers', DATASET))
+  TOKENIZER = transformers.AutoTokenizer.from_pretrained('google-bert/bert-base-uncased' if not os.path.exists(os.path.join('..', '..', 'fine_tuning', 'tokenizers', DATASET)) else os.path.join('..', '..', 'fine_tuning', 'tokenizers', DATASET))
   PLM = transformers.AutoModelForSequenceClassification.from_pretrained(
-    'textattack/bert-base-uncased-SST-2', #os.path.join('..', 'fine_tuning', 'models', DATASET, f'{FINE_TUNING_TRIAL_NUMBER}', f'{SEED}'),
+    os.path.join('..', '..', 'fine_tuning', 'models', DATASET, f'{FINE_TUNING_TRIAL_NUMBER}', f'{SEED}'),
     output_attentions = True,
     attn_implementation = 'eager',
     output_hidden_states = True,
@@ -836,9 +836,9 @@ if __name__ == '__main__':
 
   DATASET_CACHE_PATH = f'{DATASET}-Sliding_windows'
 
-  TRAINING_DF = pd.read_csv(os.path.join('..', '..', 'data', 'with_validation_splits', DATASET, 'train.csv')).head(100)
-  VALIDATION_DF = pd.read_csv(os.path.join('..', '..', 'data', 'with_validation_splits', DATASET, 'validation.csv')).head(100)
-  TESTING_DF = pd.read_csv(os.path.join('..', '..', 'data', 'with_validation_splits', DATASET, 'test.csv')).head(100)
+  TRAINING_DF = pd.read_csv(os.path.join('..', '..', 'data', 'with_validation_splits', DATASET, 'train.csv'))
+  VALIDATION_DF = pd.read_csv(os.path.join('..', '..', 'data', 'with_validation_splits', DATASET, 'validation.csv'))
+  TESTING_DF = pd.read_csv(os.path.join('..', '..', 'data', 'with_validation_splits', DATASET, 'test.csv'))
   
   STUDY_NAME = f'{DATASET}-Sliding_windows'
   storage = f'sqlite:///../../optuna_studies/{STUDY_NAME}.db'
