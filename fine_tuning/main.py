@@ -288,6 +288,11 @@ def model_training(
       scheduler.step()
       optimizer.zero_grad()
 
+      # Clear memory after each batch
+      del input_identifiers, attention_mask, y, outputs
+      gc.collect()
+      torch.cuda.empty_cache()
+
     epoch_end_time = time.time()
     epoch_runtimes.append(epoch_end_time - epoch_start_time)
     average_training_loss = total_loss / len(training_batches)
@@ -329,6 +334,11 @@ def model_training(
         validation_rows.extend(rows.detach().cpu().numpy())
         validation_chunks.extend(chunks.detach().cpu().numpy())
         validation_probabilities.extend([tuple(x) for x in probabilities.detach().cpu().numpy()])
+
+        # Clear memory after each batch
+        del input_identifiers, attention_mask, y, outputs, probabilities, predictions
+        gc.collect()
+        torch.cuda.empty_cache()
     
     class_probability_columns = [str(x) for x in list(range(len(validation_probabilities[0])))]
     validation_document_level_predictions = pd.DataFrame(
@@ -568,7 +578,7 @@ def train_and_predict(
       # Store model locally for Chefer-based graph construction
       os.makedirs(os.path.join(CACHE_PATH, DATASET, f'{trial_number}'), exist_ok = True)
       model.save_pretrained(os.path.join(CACHE_PATH, DATASET, f'{trial_number}', f'{random_state}'))
-      
+
       model.eval()
       test_predictions = list()
       test_labels = list()
@@ -599,6 +609,11 @@ def train_and_predict(
           test_identifiers.extend(identifiers.detach().cpu().numpy())
           test_chunks.extend(chunks.detach().cpu().numpy())
           test_probabilities.extend([tuple(x) for x in probabilities.detach().cpu().numpy()])
+
+          # Clear memory after each batch
+          del input_identifiers, attention_mask, y, outputs, probabilities, predictions
+          gc.collect()
+          torch.cuda.empty_cache()
 
       # Average evaluation time per instance
       average_evaluation_runtime = evaluation_runtime / testing_dataset.__len__()
@@ -1017,7 +1032,7 @@ if __name__ == '__main__':
         
         validation_predictions = predictions[predictions['split'] == 'validation'][['identifier', 'chunk', 'real']].rename(columns = {'real' : 'label'})
         validation_probabilities = probabilities[probabilities['split'] == 'validation'][['identifier', 'chunk'] + class_probability_columns]
-
+        
         validation_document_level_predictions = validation_predictions.merge(
           validation_probabilities,
           on = ['identifier', 'chunk']
@@ -1035,7 +1050,7 @@ if __name__ == '__main__':
         validation_performance = sklearn.metrics.accuracy_score(validation_document_level_predictions['label'], validation_document_level_predictions['prediction']) if ACCURACY else sklearn.metrics.f1_score(validation_document_level_predictions['label'], validation_document_level_predictions['prediction'], average = 'macro')
         
         test_predictions = predictions[predictions['split'] == 'test'][['identifier', 'chunk', 'real']].rename(columns = {'real' : 'label'})
-        test_probabilities = probabilities[probabilities['split'] == 'test'][['identifier', 'chunk', '1']].rename(columns = {'1' : 'probability'})
+        test_probabilities = probabilities[probabilities['split'] == 'test'][['identifier', 'chunk'] + class_probability_columns]
 
         test_document_level_predictions = test_predictions.merge(
           test_probabilities,

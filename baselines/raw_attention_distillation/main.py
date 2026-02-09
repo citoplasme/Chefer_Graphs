@@ -241,6 +241,14 @@ def model_training(
       scheduler.step()
       optimizer.zero_grad()
 
+      # Clear memory after each batch
+      for key in batch:
+        if isinstance(batch[key], torch.Tensor):
+          del batch[key]
+      del batch, outputs
+      gc.collect()
+      torch.cuda.empty_cache()
+
     epoch_end_time = time.time()
     epoch_runtimes.append(epoch_end_time - epoch_start_time)
     average_training_loss = total_loss / len(training_batches)
@@ -273,6 +281,14 @@ def model_training(
         validation_labels.extend(batch.y.detach().cpu().numpy())
         validation_identifiers.extend(batch.identifier.detach().cpu().numpy())
         validation_probabilities.extend([tuple(x) for x in probabilities.detach().cpu().numpy()])
+
+        # Clear memory after each batch
+        for key in batch:
+          if isinstance(batch[key], torch.Tensor):
+            del batch[key]
+        del batch, outputs, probabilities, predictions
+        gc.collect()
+        torch.cuda.empty_cache()
     
     average_validation_loss = total_validation_loss / len(validation_batches)
     
@@ -599,6 +615,14 @@ def train_and_predict(
           test_labels.extend(batch.y.detach().cpu().numpy())
           test_identifiers.extend(batch.identifier.detach().cpu().numpy())
           test_probabilities.extend([tuple(x) for x in probabilities.detach().cpu().numpy()])
+
+          # Clear memory after each batch
+          for key in batch:
+            if isinstance(batch[key], torch.Tensor):
+              del batch[key]
+          del batch, outputs, probabilities, predictions
+          gc.collect()
+          torch.cuda.empty_cache()
       
       # Average evaluation time per instance
       average_evaluation_runtime = evaluation_runtime / testing_dataset.len()
