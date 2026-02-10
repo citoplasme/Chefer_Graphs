@@ -1,0 +1,4 @@
+SLURM NODE: kn078
+[I 2026-02-10 09:52:47,100] A new study created in RDB with name: R8-Fine-tuning
+[I 2026-02-10 10:09:38,397] Trial 0 finished with value: 0.7103903550257298 and parameters: {'frozen_layers': 2, 'classifier_dropout': 0.4, 'learning_rate': 5e-05, 'weight_decay': 0.001, 'label_smoothing': 0.15, 'gradient_clipping': 2.0}. Best is trial 0 with value: 0.7103903550257298.
+[I 2026-02-10 10:26:51,586] Trial 1 finished with value: 0.9315078910553939 and parameters: {'frozen_layers': 0, 'classifier_dropout': 0.2, 'learning_rate': 2e-05, 'weight_decay': 1e-06, 'label_smoothing': 0.05, 'gradient_clipping': 1.5}. Best is trial 1 with value: 0.9315078910553939.

@@ -129,14 +129,9 @@ def chunk_and_stride_all_documents(
     .to_csv(os.path.join(STORAGE_PATH, dataset, f'{split}.csv'), index = False)
 
 if __name__ == '__main__':
-
-
-  for dataset in ['IMDb', 'SST-2', 'AGNews', 'DBPedia', 'Ohsumed']:
+  for dataset in ['IMDb', 'SST-2', 'Ohsumed', 'R8']:
     tokenizer = transformers.AutoTokenizer.from_pretrained('google-bert/bert-base-uncased')
     original_special_tokens = tokenizer.all_special_ids
-    if dataset in ['AGNews', 'DBPedia']:
-      tokenizer.add_special_tokens({'additional_special_tokens' : ['[TITLE]', '[CONTENT]']})
-      tokenizer.save_pretrained(f'./tokenizers/{dataset}')
     for split in ['train', 'validation', 'test']:
       chunk_and_stride_all_documents(
         dataset = dataset,

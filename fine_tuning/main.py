@@ -179,8 +179,6 @@ def model_training(
     output_hidden_states = True,
     num_labels = np.unique(pd.read_csv(os.path.join('..', 'data', 'with_validation_splits', DATASET, 'train.csv'))['label'].values).size
   )
-  if DATASET in ['AGNews', 'DBPedia']:
-    model.resize_token_embeddings(tokenizer_length)
   model.classifier.dropout = torch.nn.Dropout(classifier_dropout)
   model.to(DEVICE)
 
@@ -468,7 +466,7 @@ def train_and_predict(
 
   try:
 
-    tokenizer = transformers.AutoTokenizer.from_pretrained('google-bert/bert-base-uncased' if DATASET not in ['AGNews', 'DBPedia'] else f'./tokenizers/{DATASET}')
+    tokenizer = transformers.AutoTokenizer.from_pretrained('google-bert/bert-base-uncased')
 
     training_dataset = CustomDataset(
       df = training_df,
@@ -714,7 +712,7 @@ def objective_function(trial):
       raise optuna.TrialPruned(f'Duplicate hyper-parameters, same as those used in trial {t.number}: {trial.params}.') # Skip duplicate trials
 
   validation_performance, validation_loss, training_loss, epoch = train_and_predict(
-    training_df = subsample_training_split(df = TRAINING_DF, percentage = SUBSAMPLE_PERCENTAGE) if DATASET in ['IMDb', 'AGNews', 'DBPedia'] else TRAINING_DF, # Sub-sample training dataframe for large data sets
+    training_df = subsample_training_split(df = TRAINING_DF, percentage = SUBSAMPLE_PERCENTAGE) if DATASET in ['IMDb'] else TRAINING_DF, # Sub-sample training dataframe for large data sets
     validation_df = VALIDATION_DF,
     testing_df = TESTING_DF,
     #
@@ -779,7 +777,7 @@ def unbound_objective_function(trial):
       raise optuna.TrialPruned(f'Duplicate hyper-parameters, same as those used in trial {t.number}: {trial.params}.') # Skip duplicate trials
 
   validation_performance, validation_loss, training_loss, epoch = train_and_predict(
-    training_df = subsample_training_split(df = TRAINING_DF, percentage = SUBSAMPLE_PERCENTAGE) if DATASET in ['IMDb', 'AGNews', 'DBPedia'] else TRAINING_DF, # Sub-sample training dataframe for large data sets
+    training_df = subsample_training_split(df = TRAINING_DF, percentage = SUBSAMPLE_PERCENTAGE) if DATASET in ['IMDb'] else TRAINING_DF, # Sub-sample training dataframe for large data sets
     validation_df = VALIDATION_DF,
     testing_df = TESTING_DF,
     #
@@ -826,7 +824,7 @@ if __name__ == '__main__':
   parser.add_argument('--checkpoint_validation_loss', required = True, type = int, help = 'Whether or not to use validation loss for checkpoints and early stopping. Uses the chosen performance metric if False.')
   parser.add_argument('--use_accuracy', required = True, type = int, help = 'Whether or not to use accuracy for model evaluation. Uses macro F1-score otherwise.')
   parser.add_argument('--use_balanced_loss', required = True, type = int, help = 'Whether or not to use balanced loss weights during model training.')
-  parser.add_argument('--subsample_percentage', required = True, type = float, help = 'How much of the training split to be used during hyper-parameter tuning. Only applied to AGNews, DBPedia, and IMDb.')
+  parser.add_argument('--subsample_percentage', required = True, type = float, help = 'How much of the training split to be used during hyper-parameter tuning. Only applied to IMDb.')
 
   args = parser.parse_args()
   DATASET = args.data_set
