@@ -1,0 +1,25 @@
+SLURM NODE: kn057
+[I 2026-02-10 06:21:36,471] Using an existing study with name 'Ohsumed-Fine-tuning' instead of creating a new one.
+Unbound optimization already completed.
+
+[UPDATE] Unbound limits: {'frozen_layers': (np.int64(0), np.int64(2)), 'classifier_dropout': (np.float64(0.1), np.float64(0.4)), 'learning_rate': (np.float64(3e-05), np.float64(0.0001)), 'weight_decay': (np.float64(0.0001), np.float64(0.001)), 'label_smoothing': (np.float64(0.0), np.float64(0.1)), 'gradient_clipping': (np.float64(1.5), np.float64(2.0))}
+[I 2026-02-10 06:21:37,147] Using an existing study with name 'Ohsumed-Fine-tuning-unbound' instead of creating a new one.
+Unbound optimization already completed.
+
+[TRIAL] 62 [VALIDATION PERFORMANCE] 0.6888834306778499 [TRAINING LOSS] 1.2475240305922497 [VALIDATION LOSS] 2.1857085932384837 
+
+number                     			 62
+value                      			 0.6888834306778499
+params_classifier_dropout  			 0.31537837666774376
+params_frozen_layers       			 0
+params_gradient_clipping   			 1.9632872911249948
+params_label_smoothing     			 0.0882718589799053
+params_learning_rate       			 5.355996430289678e-05
+params_weight_decay        			 0.00014632126898861706
+user_attrs_duplicate       			 False
+user_attrs_epoch           			 9
+user_attrs_training_loss   			 1.2475240305922497
+user_attrs_validation_loss 			 2.1857085932384837
+
+[37] VALIDATION: 0.6499154499929679 TESTING: 0.6166727618461774
+[38] VALIDATION: 0.6787634494206682 TESTING: 0.6319822731097278

@@ -18,18 +18,8 @@ list(validation_iterator)
 list(test_iterator)
 print('[UPDATE] SST2 downloaded.', flush = True)
 
-# DBPedia
-# train_itererator, test_iterator = torchtext.datasets.DBpedia(root = CACHE_PATH)
-# list(train_itererator)
-# list(test_iterator)
-# Must be manually downloaded from 'https://drive.google.com/uc?export=download&id=0Bz8a_Dbh9QhbQ2Vic1kxMmZZQ1k&confirm=t'
-# print('[UPDATE] DBpedia downloaded.', flush = True)
-
-# AGNews
-train_itererator, test_iterator = torchtext.datasets.AG_NEWS(root = CACHE_PATH)
-list(train_itererator)
-list(test_iterator)
-print('[UPDATE] AGNews downloaded.', flush = True)
+# Reuters-21578
+# Download zip from https://www.kaggle.com/datasets/thedevastator/uncovering-financial-insights-with-the-reuters-2
 
 # Ohsumed
 os.makedirs(os.path.join(CACHE_PATH, 'Ohsumed'), exist_ok = True)

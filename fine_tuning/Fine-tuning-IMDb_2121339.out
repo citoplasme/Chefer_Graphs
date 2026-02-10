@@ -1,0 +1,9 @@
+SLURM NODE: kn068
+[I 2026-02-10 06:21:35,027] Using an existing study with name 'IMDb-Fine-tuning' instead of creating a new one.
+Unbound optimization already completed.
+
+[UPDATE] Unbound limits: {'frozen_layers': (np.int64(0), np.int64(6)), 'classifier_dropout': (np.float64(0.1), np.float64(0.3)), 'learning_rate': (np.float64(3e-05), np.float64(0.0001)), 'weight_decay': (np.float64(1e-06), np.float64(0.001)), 'label_smoothing': (np.float64(0.05), np.float64(0.15)), 'gradient_clipping': (np.float64(0.5), np.float64(2.0))}
+[I 2026-02-10 06:21:35,672] Using an existing study with name 'IMDb-Fine-tuning-unbound' instead of creating a new one.
+Last trial state: 0
+Enqueuing hyper-parameters: {'frozen_layers': 4, 'classifier_dropout': 0.10997327903269956, 'learning_rate': 5.759421999652966e-05, 'weight_decay': 1.1487366279147622e-06, 'label_smoothing': 0.12413932761875927, 'gradient_clipping': 1.4332507680754425}
+[I 2026-02-10 07:04:11,218] Trial 28 finished with value: 0.9188 and parameters: {'frozen_layers': 4, 'classifier_dropout': 0.10997327903269956, 'learning_rate': 5.759421999652966e-05, 'weight_decay': 1.1487366279147622e-06, 'label_smoothing': 0.12413932761875927, 'gradient_clipping': 1.4332507680754425}. Best is trial 0 with value: 0.9348.

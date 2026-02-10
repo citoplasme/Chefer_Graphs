@@ -3,6 +3,8 @@ import re
 import pandas as pd
 import time
 import sklearn.model_selection
+import ast
+import html
 
 # ===========================================================================
 # ============================ Global parameters ============================
@@ -98,13 +100,24 @@ def IMDb():
     .reset_index(drop = True) \
     .to_csv(os.path.join(PRE_PROCESSED_PATH, 'IMDb', 'test.csv'), index = False)
 
-def AGNews():
-  os.makedirs(os.path.join(PRE_PROCESSED_PATH, 'AGNews'), exist_ok = True)
+def R8():
+  os.makedirs(os.path.join(PRE_PROCESSED_PATH, 'R8'), exist_ok = True)
+  
+  topics = [(0, 'acq'), (1, 'crude'), (2, 'earn'), (3, 'grain'), (4, 'interest'), (5, 'money-fx'), (6, 'ship'), (7, 'trade')]
+  topic_to_integer = {name : idx for idx, name in topics}
 
   # Training split
-  training_df = pd.read_csv(os.path.join(ORIGINAL_DATA_SET_PATH, 'AGNEWS', 'train.csv'), header = None, names = [LABEL_COLUMN, 'title', 'content'])
-  training_df[LABEL_COLUMN] = training_df[LABEL_COLUMN].astype(int) - 1
-  training_df[TEXT_COLUMN] = '[TITLE] ' + training_df['title'] + ' [CONTENT] ' + training_df['content']
+  training_df = pd.read_csv(os.path.join(ORIGINAL_DATA_SET_PATH, 'Reuters-21578', 'ModApte_train.csv'))[[TEXT_COLUMN, 'topics']]
+  training_df['topics'] = training_df['topics'].apply(ast.literal_eval)
+  training_df = training_df[training_df['topics'].apply(len) == 1]
+  training_df = training_df[training_df['topics'].apply(lambda x : x[0] in [t[1] for t in topics])]
+  training_df[LABEL_COLUMN] = training_df['topics'].apply(lambda x : topic_to_integer[x[0]])
+  training_df = training_df[[TEXT_COLUMN, LABEL_COLUMN]].dropna()
+  training_df = training_df[training_df[TEXT_COLUMN].str.strip() != '']
+
+  training_df[TEXT_COLUMN] = training_df[TEXT_COLUMN].str.replace(r'reuter\^?m?', '', regex = True, flags = re.IGNORECASE)
+  training_df[TEXT_COLUMN] = training_df[TEXT_COLUMN].apply(html.unescape)
+  training_df[TEXT_COLUMN] = training_df[TEXT_COLUMN].str.replace(r'\s+', ' ', regex = True).str.strip()
 
   # Validation split
   training_df, validation_df = sklearn.model_selection.train_test_split(
@@ -116,26 +129,32 @@ def AGNews():
   )
 
   training_df.dropna() \
-    .drop(columns = ['title', 'content']) \
     .sample(frac = 1, random_state = SEED) \
     .reset_index(drop = True) \
-    .to_csv(os.path.join(PRE_PROCESSED_PATH, 'AGNews', 'train.csv'), index = False)
+    .to_csv(os.path.join(PRE_PROCESSED_PATH, 'R8', 'train.csv'), index = False)
   
   validation_df.dropna() \
-    .drop(columns = ['title', 'content']) \
     .sample(frac = 1, random_state = SEED) \
     .reset_index(drop = True) \
-    .to_csv(os.path.join(PRE_PROCESSED_PATH, 'AGNews', 'validation.csv'), index = False)
-  
+    .to_csv(os.path.join(PRE_PROCESSED_PATH, 'R8', 'validation.csv'), index = False)
+
   # Testing split
-  testing_df = pd.read_csv(os.path.join(ORIGINAL_DATA_SET_PATH, 'AGNEWS', 'test.csv'), header = None, names = [LABEL_COLUMN, 'title', 'content'])
-  testing_df[LABEL_COLUMN] = testing_df[LABEL_COLUMN].astype(int) - 1
-  testing_df[TEXT_COLUMN] = '[TITLE] ' + testing_df['title'] + ' [CONTENT] ' + testing_df['content']
+  testing_df = pd.read_csv(os.path.join(ORIGINAL_DATA_SET_PATH, 'Reuters-21578', 'ModApte_test.csv'))[[TEXT_COLUMN, 'topics']]
+  testing_df['topics'] = testing_df['topics'].apply(ast.literal_eval)
+  testing_df = testing_df[testing_df['topics'].apply(len) == 1]
+  testing_df = testing_df[testing_df['topics'].apply(lambda x : x[0] in [t[1] for t in topics])]
+  testing_df[LABEL_COLUMN] = testing_df['topics'].apply(lambda x : topic_to_integer[x[0]])
+  testing_df = testing_df[[TEXT_COLUMN, LABEL_COLUMN]].dropna()
+  testing_df = testing_df[testing_df[TEXT_COLUMN].str.strip() != '']
+
+  testing_df[TEXT_COLUMN] = testing_df[TEXT_COLUMN].str.replace(r'reuter\^?m?', '', regex = True, flags = re.IGNORECASE)
+  testing_df[TEXT_COLUMN] = testing_df[TEXT_COLUMN].apply(html.unescape)
+  testing_df[TEXT_COLUMN] = testing_df[TEXT_COLUMN].str.replace(r'\s+', ' ', regex = True).str.strip()
+
   testing_df.dropna() \
-    .drop(columns = ['title', 'content']) \
     .sample(frac = 1, random_state = SEED) \
     .reset_index(drop = True) \
-    .to_csv(os.path.join(PRE_PROCESSED_PATH, 'AGNews', 'test.csv'), index = False)
+    .to_csv(os.path.join(PRE_PROCESSED_PATH, 'R8', 'test.csv'), index = False)
 
 def Ohsumed():
   os.makedirs(os.path.join(PRE_PROCESSED_PATH, 'Ohsumed'), exist_ok = True)
@@ -172,62 +191,19 @@ def Ohsumed():
     .reset_index(drop = True) \
     .to_csv(os.path.join(PRE_PROCESSED_PATH, 'Ohsumed', 'test.csv'), index = False)
 
-def DBPedia():
-  os.makedirs(os.path.join(PRE_PROCESSED_PATH, 'DBPedia'), exist_ok = True)
-
-  # Training split
-  training_df = pd.read_csv(os.path.join(ORIGINAL_DATA_SET_PATH, 'DBPedia', 'train.csv'), header = None, names = [LABEL_COLUMN, 'title', 'content'])
-  training_df[LABEL_COLUMN] = training_df[LABEL_COLUMN].astype(int) - 1
-  training_df[TEXT_COLUMN] = '[TITLE] ' + training_df['title'] + ' [CONTENT] ' + training_df['content']
-
-  # Validation split
-  training_df, validation_df = sklearn.model_selection.train_test_split(
-    training_df,
-    test_size = VALIDATION_SIZE,
-    random_state = SEED,
-    shuffle = True,
-    stratify = training_df[LABEL_COLUMN]
-  )
-
-  training_df.dropna() \
-    .drop(columns = ['title', 'content']) \
-    .sample(frac = 1, random_state = SEED) \
-    .reset_index(drop = True) \
-    .to_csv(os.path.join(PRE_PROCESSED_PATH, 'DBPedia', 'train.csv'), index = False)
-  
-  validation_df.dropna() \
-    .drop(columns = ['title', 'content']) \
-    .sample(frac = 1, random_state = SEED) \
-    .reset_index(drop = True) \
-    .to_csv(os.path.join(PRE_PROCESSED_PATH, 'DBPedia', 'validation.csv'), index = False)
-  
-  # Testing split
-  testing_df = pd.read_csv(os.path.join(ORIGINAL_DATA_SET_PATH, 'DBPedia', 'test.csv'), header = None, names = [LABEL_COLUMN, 'title', 'content'])
-  testing_df[LABEL_COLUMN] = testing_df[LABEL_COLUMN].astype(int) - 1
-  testing_df[TEXT_COLUMN] = '[TITLE] ' + testing_df['title'] + ' [CONTENT] ' + testing_df['content']
-  testing_df.dropna() \
-    .drop(columns = ['title', 'content']) \
-    .sample(frac = 1, random_state = SEED) \
-    .reset_index(drop = True) \
-    .to_csv(os.path.join(PRE_PROCESSED_PATH, 'DBPedia', 'test.csv'), index = False)
-
 if __name__ == '__main__':
-  st = time.time()
-  SST_2()
-  print('[SST-2] Elapsed time:', time.time() - st, 'seconds.', flush = True)
+  # st = time.time()
+  # SST_2()
+  # print('[SST-2] Elapsed time:', time.time() - st, 'seconds.', flush = True)
   
-  st = time.time()
-  IMDb()
-  print('[IMDb] Elapsed time:', time.time() - st, 'seconds.', flush = True)
+  # st = time.time()
+  # IMDb()
+  # print('[IMDb] Elapsed time:', time.time() - st, 'seconds.', flush = True)
 
   st = time.time()
-  AGNews()
-  print('[AGNews] Elapsed time:', time.time() - st, 'seconds.', flush = True)
+  R8()
+  print('[R8] Elapsed time:', time.time() - st, 'seconds.', flush = True)
 
-  st = time.time()
-  DBPedia()
-  print('[DBPedia] Elapsed time:', time.time() - st, 'seconds.', flush = True)
-
-  st = time.time()
-  Ohsumed()
-  print('[Ohsumed] Elapsed time:', time.time() - st, 'seconds.', flush = True)
+  # st = time.time()
+  # Ohsumed()
+  # print('[Ohsumed] Elapsed time:', time.time() - st, 'seconds.', flush = True)
