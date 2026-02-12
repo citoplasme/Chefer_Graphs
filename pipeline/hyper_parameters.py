@@ -1,8 +1,8 @@
 HYPER_PARAMETERS = {
   'batch_size' : {
     'type' : 'int',
-    'fixed' : True,
-    'value' : 32
+    'fixed' : False,
+    'original_search_space' : [16, 32, 64, 128]
   },
   'edge_threshold' : {
     'type' : 'float',
@@ -87,16 +87,16 @@ HYPER_PARAMETERS = {
     'fixed' : True,
     'value' : 1e-4
   },
-  'label_smoothing' : {
-    'type' : 'float',
-    'log' : False,
-    'fixed' : False,
-    'original_search_space' : [0.0, 0.05, 0.1, 0.15]
-  },
-  'gradient_clipping' : {
-    'type' : 'float',
-    'log' : False,
-    'fixed' : False,
-    'original_search_space' : [0.5, 1.0, 1.5, 2.0]
-  }
+  # 'label_smoothing' : {
+  #   'type' : 'float',
+  #   'log' : False,
+  #   'fixed' : False,
+  #   'original_search_space' : [0.0, 0.05, 0.1, 0.15]
+  # },
+  # 'gradient_clipping' : {
+  #   'type' : 'float',
+  #   'log' : False,
+  #   'fixed' : False,
+  #   'original_search_space' : [0.5, 1.0, 1.5, 2.0]
+  # }
 }

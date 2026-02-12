@@ -9,6 +9,7 @@ import construct
 import numpy as np
 import random
 import gc
+import pandas as pd
 
 import time
 
@@ -33,15 +34,14 @@ DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 if __name__ == '__main__':
   MODEL_NAME = 'textattack/bert-base-uncased-SST-2'
-  
-  # TEXT = 'Average movie.'
-  # TEXT = 'Awful movie.'
-  # TEXT = 'Awesome movie.'
-  # TEXT = 'Although I laughed a lot, this has to be one of the worst movies ever made!'
-  TEXT = 'I enjoyed the acting, but the story was confusing and the ending left me disappointed.'
-  # TEXT = 'This is the grandest, most awesome movie ever -- not!'
-  # TEXT = 'A visually-stunning but emotionally hollow spectacle.'
-  # TEXT = 'This movie is simply heartwarming...'
+  TEXT = pd.read_csv('../data/with_validation_splits/SST-2/train.csv')['text'].values[0]
+  # TEXT = pd.read_csv('../data/with_validation_splits/SST-2/train.csv')['text'].values[2]
+  # TEXT = pd.read_csv('../data/with_validation_splits/SST-2/train.csv').sort_values(by = 'text', ascending = False, key = lambda x : x.str.len())['text'].values[0]
+
+  # MODEL_NAME = 'textattack/bert-base-uncased-imdb'
+  # TEXT = pd.read_csv('../data/with_validation_splits/IMDb/train.csv')['text'].values[0]
+  # TEXT = pd.read_csv('../data/with_validation_splits/IMDb/train.csv')['text'].values[2]
+  # TEXT = pd.read_csv('../data/with_validation_splits/IMDb/train.csv').sort_values(by = 'text', ascending = False, key = lambda x : x.str.len())['text'].values[0]
   print('TEXT:', TEXT, flush = True)
 
   tokenizer = transformers.AutoTokenizer.from_pretrained(MODEL_NAME)

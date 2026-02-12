@@ -27,11 +27,11 @@ st = time.time()
 
 SEED = 42
 
-RANDOM_SAMPLER_TRIALS = 150
+RANDOM_SAMPLER_TRIALS = 50
 BOUND_TRIALS = RANDOM_SAMPLER_TRIALS + 100
 TOP_N = 3
-UNBOUND_RANDOM_SAMPLER_TRIALS = 10
-UNBOUND_TRIALS = TOP_N + UNBOUND_RANDOM_SAMPLER_TRIALS + 90
+UNBOUND_RANDOM_SAMPLER_TRIALS = 20
+UNBOUND_TRIALS = TOP_N + UNBOUND_RANDOM_SAMPLER_TRIALS + 80
 NEIGHBOURHOOD_RADIUS = (1, 1)
 TEST_RUNS_AROUND_BASE_SEED = (5, 4)
 
@@ -272,7 +272,7 @@ def model_training(
       attention_mask = batch['attention_mask'].to(DEVICE)
       y = batch['y'].to(DEVICE)
       
-      outputs = model(input_identifiers, attention_mask = attention_mask, labels = y)
+      outputs = model(input_identifiers, attention_mask = attention_mask)
         
       loss = criterion(outputs.logits, y)
       total_loss += loss.item()
@@ -318,7 +318,7 @@ def model_training(
         identifiers = batch['identifier']
         chunks = batch['chunk']
         
-        outputs = model(input_identifiers, attention_mask = attention_mask, labels = y)
+        outputs = model(input_identifiers, attention_mask = attention_mask)
         
         probabilities = torch.nn.functional.softmax(outputs.logits, dim = 1)
         predictions = probabilities.argmax(dim = 1)
@@ -465,7 +465,7 @@ def train_and_predict(
   # ===========================================================================
 
   try:
-
+    
     tokenizer = transformers.AutoTokenizer.from_pretrained('google-bert/bert-base-uncased')
 
     training_dataset = CustomDataset(
@@ -559,7 +559,7 @@ def train_and_predict(
         max_tokens = 512,
         split = 'testing'
       )
-
+      
       testing_batches = torch.utils.data.DataLoader(
         testing_dataset,
         batch_size = batch_size,
@@ -570,8 +570,11 @@ def train_and_predict(
       )
 
       if os.path.exists(os.path.join(CHECKPOINT_PATH, f'best-model-{DATASET}.pth.tar')):
-        checkpoint = torch.load(os.path.join(CHECKPOINT_PATH, f'best-model-{DATASET}.pth.tar'), weights_only = False)
+        checkpoint = torch.load(os.path.join(CHECKPOINT_PATH, f'best-model-{DATASET}.pth.tar'), weights_only = False, map_location = 'cpu')
         model.load_state_dict(checkpoint['state_dict'])
+        del checkpoint
+        gc.collect()
+        torch.cuda.empty_cache()
       
       # Store model locally for Chefer-based graph construction
       os.makedirs(os.path.join(CACHE_PATH, DATASET, f'{trial_number}'), exist_ok = True)
@@ -596,7 +599,7 @@ def train_and_predict(
           chunks = batch['chunk']
           
           evaluation_start_time = time.time()
-          outputs = model(input_identifiers, attention_mask = attention_mask, labels = y)
+          outputs = model(input_identifiers, attention_mask = attention_mask)
           probabilities = torch.nn.functional.softmax(outputs.logits, dim = 1)
           predictions = probabilities.argmax(dim = 1)
           evaluation_runtime = evaluation_runtime + (time.time() - evaluation_start_time)
@@ -612,7 +615,7 @@ def train_and_predict(
           del input_identifiers, attention_mask, y, outputs, probabilities, predictions
           gc.collect()
           torch.cuda.empty_cache()
-
+      
       # Average evaluation time per instance
       average_evaluation_runtime = evaluation_runtime / testing_dataset.__len__()
       # Remove model from GPU
@@ -639,7 +642,7 @@ def train_and_predict(
           .values
           .argmax(axis = 1)
       )
-      
+
       pd.DataFrame({
         'test_performance' : [sklearn.metrics.accuracy_score(test_document_level_predictions['label'], test_document_level_predictions['prediction']) if ACCURACY else sklearn.metrics.f1_score(test_document_level_predictions['label'], test_document_level_predictions['prediction'], average = 'macro')],
         'validation_performance' : [best_validation_performance],
@@ -652,7 +655,7 @@ def train_and_predict(
         header = not os.path.exists(os.path.join(STORAGE_PATH, f'{DATASET}-Fine-tuning', f'{trial_number}', 'metrics.csv')),
         index = False
       )
-
+      
       os.makedirs(os.path.join(STORAGE_PATH, f'{DATASET}-Fine-tuning', f'{trial_number}', f'{random_state}'), exist_ok = True)
 
       pd.DataFrame({
@@ -702,8 +705,8 @@ def objective_function(trial):
   linear_warmup_start_factor : float = HYPER_PARAMETERS['linear_warmup_start_factor']['value'] if HYPER_PARAMETERS['linear_warmup_start_factor']['fixed'] else (trial.suggest_categorical('linear_warmup_start_factor', HYPER_PARAMETERS['linear_warmup_start_factor']['original_search_space']))
   linear_decay_end_factor : float = HYPER_PARAMETERS['linear_decay_end_factor']['value'] if HYPER_PARAMETERS['linear_decay_end_factor']['fixed'] else (trial.suggest_categorical('linear_decay_end_factor', HYPER_PARAMETERS['linear_decay_end_factor']['original_search_space']))
   #
-  label_smoothing : float = HYPER_PARAMETERS['label_smoothing']['value'] if HYPER_PARAMETERS['label_smoothing']['fixed'] else (trial.suggest_categorical('label_smoothing', HYPER_PARAMETERS['label_smoothing']['original_search_space']) if LABEL_SMOOTHING else 0.0)
-  gradient_clipping : float = HYPER_PARAMETERS['gradient_clipping']['value'] if HYPER_PARAMETERS['gradient_clipping']['fixed'] else (trial.suggest_categorical('gradient_clipping', HYPER_PARAMETERS['gradient_clipping']['original_search_space']) if GRADIENT_CLIPPING else None)
+  label_smoothing : float = HYPER_PARAMETERS['label_smoothing']['value'] if LABEL_SMOOTHING and HYPER_PARAMETERS['label_smoothing']['fixed'] else (trial.suggest_categorical('label_smoothing', HYPER_PARAMETERS['label_smoothing']['original_search_space']) if LABEL_SMOOTHING else 0.0)
+  gradient_clipping : float = HYPER_PARAMETERS['gradient_clipping']['value'] if GRADIENT_CLIPPING and HYPER_PARAMETERS['gradient_clipping']['fixed'] else (trial.suggest_categorical('gradient_clipping', HYPER_PARAMETERS['gradient_clipping']['original_search_space']) if GRADIENT_CLIPPING else None)
 
   # Check if combination of hyper-parameters has been tested before
   for t in bound_study.trials:
@@ -749,7 +752,7 @@ def objective_function(trial):
 
 def unbound_objective_function(trial):
 
-  batch_size : int = HYPER_PARAMETERS['batch_size']['value'] if HYPER_PARAMETERS['batch_size']['fixed'] else (trial.suggest_int('batch_size', *UNBOUND_LIMITS['batch_size']))
+  batch_size : int = HYPER_PARAMETERS['batch_size']['value'] if HYPER_PARAMETERS['batch_size']['fixed'] else (trial.suggest_int('batch_size', *UNBOUND_LIMITS['batch_size'], step = 8))
   #
   frozen_layers : int = HYPER_PARAMETERS['frozen_layers']['value'] if HYPER_PARAMETERS['frozen_layers']['fixed'] else (trial.suggest_int('frozen_layers', *UNBOUND_LIMITS['frozen_layers']))
   classifier_dropout : int = HYPER_PARAMETERS['classifier_dropout']['value'] if HYPER_PARAMETERS['classifier_dropout']['fixed'] else (trial.suggest_float('classifier_dropout', *UNBOUND_LIMITS['classifier_dropout'], log = HYPER_PARAMETERS['classifier_dropout']['log']))
@@ -767,9 +770,9 @@ def unbound_objective_function(trial):
   linear_warmup_start_factor : float = HYPER_PARAMETERS['linear_warmup_start_factor']['value'] if HYPER_PARAMETERS['linear_warmup_start_factor']['fixed'] else (trial.suggest_float('linear_warmup_start_factor', *UNBOUND_LIMITS['linear_warmup_start_factor'], log = HYPER_PARAMETERS['linear_warmup_start_factor']['log']))
   linear_decay_end_factor : float = HYPER_PARAMETERS['linear_decay_end_factor']['value'] if HYPER_PARAMETERS['linear_decay_end_factor']['fixed'] else (trial.suggest_float('linear_decay_end_factor', *UNBOUND_LIMITS['linear_decay_end_factor'], log = HYPER_PARAMETERS['linear_decay_end_factor']['log']))
   #
-  label_smoothing : float = HYPER_PARAMETERS['label_smoothing']['value'] if HYPER_PARAMETERS['label_smoothing']['fixed'] else (trial.suggest_float('label_smoothing', *UNBOUND_LIMITS['label_smoothing'], log = HYPER_PARAMETERS['label_smoothing']['log']) if LABEL_SMOOTHING else 0.0)
-  gradient_clipping : float = HYPER_PARAMETERS['gradient_clipping']['value'] if HYPER_PARAMETERS['gradient_clipping']['fixed'] else (trial.suggest_float('gradient_clipping', *UNBOUND_LIMITS['gradient_clipping'], log = HYPER_PARAMETERS['gradient_clipping']['log']) if GRADIENT_CLIPPING else None)
-
+  label_smoothing : float = HYPER_PARAMETERS['label_smoothing']['value'] if LABEL_SMOOTHING and HYPER_PARAMETERS['label_smoothing']['fixed'] else (trial.suggest_float('label_smoothing', *UNBOUND_LIMITS['label_smoothing'], log = HYPER_PARAMETERS['label_smoothing']['log']) if LABEL_SMOOTHING else 0.0)
+  gradient_clipping : float = HYPER_PARAMETERS['gradient_clipping']['value'] if GRADIENT_CLIPPING and HYPER_PARAMETERS['gradient_clipping']['fixed'] else (trial.suggest_float('gradient_clipping', *UNBOUND_LIMITS['gradient_clipping'], log = HYPER_PARAMETERS['gradient_clipping']['log']) if GRADIENT_CLIPPING else None)
+  
   # Check if combination of hyper-parameters has been tested before
   for t in unbound_study.trials:
     if t.state == optuna.trial.TrialState.COMPLETE and t.params == trial.params:
@@ -873,7 +876,8 @@ if __name__ == '__main__':
     seed = SEED, 
     n_startup_trials = 0, 
     multivariate = True, 
-    group = True
+    group = True,
+    warn_independent_sampling = False
   )
   bound_study = optuna.create_study(
     direction = 'maximize',
@@ -928,7 +932,8 @@ if __name__ == '__main__':
     seed = SEED, 
     n_startup_trials = TOP_N + UNBOUND_RANDOM_SAMPLER_TRIALS, 
     multivariate = True, 
-    group = True
+    group = True,
+    warn_independent_sampling = False
   )
   unbound_study = optuna.create_study(
     direction = bound_study.direction,
@@ -1019,7 +1024,6 @@ if __name__ == '__main__':
     validation_performances = list()
 
     for random_state in range(SEED - TEST_RUNS_AROUND_BASE_SEED[0], SEED + TEST_RUNS_AROUND_BASE_SEED[1] + 1):
-
       if os.path.exists(os.path.join(STORAGE_PATH, f'{DATASET}-Fine-tuning', f'{trial.number}', f'{random_state}', 'predictions.csv')) \
         and os.path.exists(os.path.join(STORAGE_PATH, f'{DATASET}-Fine-tuning', f'{trial.number}', f'{random_state}', 'probabilities.csv')):
 
@@ -1066,7 +1070,6 @@ if __name__ == '__main__':
 
         test_performance = sklearn.metrics.accuracy_score(test_document_level_predictions['label'], test_document_level_predictions['prediction']) if ACCURACY else sklearn.metrics.f1_score(test_document_level_predictions['label'], test_document_level_predictions['prediction'], average = 'macro')
       else:
-
         test_performance, validation_performance, _, _ = train_and_predict(
           training_df = TRAINING_DF,
           validation_df = VALIDATION_DF,
@@ -1092,8 +1095,8 @@ if __name__ == '__main__':
           linear_warmup_start_factor = HYPER_PARAMETERS['linear_warmup_start_factor']['value'] if HYPER_PARAMETERS['linear_warmup_start_factor']['fixed'] else (trial.params_linear_warmup_start_factor),
           linear_decay_end_factor = HYPER_PARAMETERS['linear_decay_end_factor']['value'] if HYPER_PARAMETERS['linear_decay_end_factor']['fixed'] else (trial.params_linear_decay_end_factor),
           #
-          label_smoothing = HYPER_PARAMETERS['label_smoothing']['value'] if HYPER_PARAMETERS['label_smoothing']['fixed'] else (trial.params_label_smoothing if LABEL_SMOOTHING else 0.0),
-          gradient_clipping = HYPER_PARAMETERS['gradient_clipping']['value'] if HYPER_PARAMETERS['gradient_clipping']['fixed'] else (trial.params_gradient_clipping if GRADIENT_CLIPPING else None),
+          label_smoothing = HYPER_PARAMETERS['label_smoothing']['value'] if LABEL_SMOOTHING and HYPER_PARAMETERS['label_smoothing']['fixed'] else (trial.params_label_smoothing if LABEL_SMOOTHING else 0.0),
+          gradient_clipping = HYPER_PARAMETERS['gradient_clipping']['value'] if GRADIENT_CLIPPING and HYPER_PARAMETERS['gradient_clipping']['fixed'] else (trial.params_gradient_clipping if GRADIENT_CLIPPING else None),
           #
           evaluate_test = True,
           trial_number = trial.number

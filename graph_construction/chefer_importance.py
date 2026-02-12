@@ -21,18 +21,10 @@ def get_logits_attentions_and_embeddings(model, input_identifiers, attention_mas
 # and https://github.com/hila-chefer/Transformer-Explainability/blob/main/BERT_explainability/modules/BERT/BERT.py
 def bert_generic_attention_explainability(
     input_identifiers,
-    logits,
+    gradients,
     attentions,
-    label_index,
     device
   ):
-  # Obtain attention gradients
-  target_score = logits[:, label_index].sum()
-  gradients = torch.autograd.grad(outputs = target_score, inputs = attentions, retain_graph = False) # True
-  
-  attentions = [x.detach() for x in attentions]
-  gradients = [x.detach() for x in gradients]
-  
   # Equation 1: Relevance initialization using identity matrix
   identity = torch.eye(input_identifiers.size(1), device = device)
   relevance_matrix = identity.detach().clone()
@@ -55,7 +47,6 @@ def bert_generic_attention_explainability(
   relevance_matrix_hat = relevance_matrix - identity
   relevance_matrix_tilde = relevance_matrix_hat / (relevance_matrix_hat.sum(dim = 1, keepdim = True) + 1e-10) + identity
   # Clear memory
-  del target_score
   del gradients
   del identity
   del relevance_matrix
@@ -134,17 +125,35 @@ def construct_graph_from_importance_scores(
     device
   ):
   sub_graphs = list()
-  #
+  # Obtain attention coefficients
+  logits, attentions, embeddings = get_logits_attentions_and_embeddings(model = model, input_identifiers = input_identifiers, attention_mask = attention_mask)
+  # Obtain attention gradients
+  target_scores = logits[0, label_indices] # CLS logits
+  gradient_identity = torch.eye(len(label_indices), device = device)
+  gradients = torch.autograd.grad(
+    outputs = target_scores,
+    inputs = attentions,
+    retain_graph = False,
+    grad_outputs = gradient_identity,
+    is_grads_batched = True
+  )
+  attentions = [x.detach() for x in attentions]
+  gradients = [x.detach() for x in gradients]
+
+  del target_scores
+  del gradient_identity
+  
   for label_index in label_indices:
-    logits, attentions, embeddings = get_logits_attentions_and_embeddings(model = model, input_identifiers = input_identifiers, attention_mask = attention_mask)
     # Compute the generic Chefer importance for the text
+    gradients_for_label_index = [layer_gradients[label_index] for layer_gradients in gradients]
     importance = bert_generic_attention_explainability(
       input_identifiers = input_identifiers,
-      logits = logits,
+      gradients = gradients_for_label_index,
       attentions = attentions,
-      label_index = label_index,
       device = device
     )
+    del gradients_for_label_index
+
     node_level_importance, edge_level_importance, node_labels, node_identifiers = prune_using_importance_scores(
       input_identifiers = input_identifiers[0],
       tokens = tokens,
@@ -192,7 +201,7 @@ def construct_graph_from_importance_scores(
     del edge_index
     del edge_attr
     del second_level_edges
-
+  
   # Clear memory
   del logits
   del attentions

@@ -30,11 +30,11 @@ st = time.time()
 
 SEED = 42
 
-RANDOM_SAMPLER_TRIALS = 150
+RANDOM_SAMPLER_TRIALS = 50
 BOUND_TRIALS = RANDOM_SAMPLER_TRIALS + 100
-TOP_N = 2
-UNBOUND_RANDOM_SAMPLER_TRIALS = 10
-UNBOUND_TRIALS = TOP_N + UNBOUND_RANDOM_SAMPLER_TRIALS + 90
+TOP_N = 3
+UNBOUND_RANDOM_SAMPLER_TRIALS = 20
+UNBOUND_TRIALS = TOP_N + UNBOUND_RANDOM_SAMPLER_TRIALS + 80
 NEIGHBOURHOOD_RADIUS = (1, 1)
 TEST_RUNS_AROUND_BASE_SEED = (5, 4)
 
@@ -226,10 +226,15 @@ def model_training(
 
     for batch_i, batch in enumerate(training_batches):
 
-      batch = batch.to(DEVICE)
-      outputs = model(batch.x, batch.edge_index, batch.edge_attr, batch.batch)
+      x = batch.x.to(DEVICE)
+      edge_index = batch.edge_index.to(DEVICE)
+      edge_attr = batch.edge_attr.to(DEVICE)
+      _batch = batch.batch.to(DEVICE)
+      y = batch.y.to(DEVICE)
       
-      loss = criterion(outputs, batch.y)        
+      outputs = model(x, edge_index, edge_attr, _batch)
+      
+      loss = criterion(outputs, y)
       total_loss += loss.item()
       loss.backward()
       
@@ -242,10 +247,7 @@ def model_training(
       optimizer.zero_grad()
 
       # Clear memory after each batch
-      for key in batch:
-        if isinstance(batch[key], torch.Tensor):
-          del batch[key]
-      del batch, outputs
+      del x, edge_index, edge_attr, _batch, y, outputs
       gc.collect()
       torch.cuda.empty_cache()
 
@@ -267,26 +269,28 @@ def model_training(
     with torch.no_grad():
       for batch in validation_batches:
         
-        batch = batch.to(DEVICE)
+        x = batch.x.to(DEVICE)
+        edge_index = batch.edge_index.to(DEVICE)
+        edge_attr = batch.edge_attr.to(DEVICE)
+        _batch = batch.batch.to(DEVICE)
+        y = batch.y.to(DEVICE)
+        identifier = batch.identifier.detach().cpu().numpy()
         
-        outputs = model(batch.x, batch.edge_index, batch.edge_attr, batch.batch)
+        outputs = model(x, edge_index, edge_attr, _batch)
         
         probabilities = torch.nn.functional.softmax(outputs, dim = 1)
         predictions = probabilities.argmax(dim = 1)
 
-        loss = criterion(outputs, batch.y)
+        loss = criterion(outputs, y)
         total_validation_loss += loss.item()
 
         validation_predictions.extend(predictions.detach().cpu().numpy())
-        validation_labels.extend(batch.y.detach().cpu().numpy())
-        validation_identifiers.extend(batch.identifier.detach().cpu().numpy())
+        validation_labels.extend(y.detach().cpu().numpy())
+        validation_identifiers.extend(identifier)
         validation_probabilities.extend([tuple(x) for x in probabilities.detach().cpu().numpy()])
 
         # Clear memory after each batch
-        for key in batch:
-          if isinstance(batch[key], torch.Tensor):
-            del batch[key]
-        del batch, outputs, probabilities, predictions
+        del x, edge_index, edge_attr, _batch, y, identifier, outputs, probabilities, predictions
         gc.collect()
         torch.cuda.empty_cache()
     
@@ -400,7 +404,7 @@ def train_and_predict(
   # ===========================================================================
 
   try:
-
+    
     os.makedirs(os.path.join(SCRATCH_PATH, f'{DATASET}-Sliding_windows', f'{window_size}', 'train'), exist_ok = True)
     data_sets.pre_construct_all_graphs_for_split(
       training_df,
@@ -513,7 +517,7 @@ def train_and_predict(
       label_smoothing = label_smoothing,
       gradient_clipping = gradient_clipping
     )
-
+    
     # Clear memory
     shutil.rmtree(os.path.join(SCRATCH_PATH, f'{DATASET}-Sliding_windows', f'{window_size}', 'train'))
     shutil.rmtree(os.path.join(SCRATCH_PATH, f'{DATASET}-Sliding_windows', f'{window_size}', 'validation'))
@@ -571,10 +575,13 @@ def train_and_predict(
         pin_memory = True,
         persistent_workers = True
       )
-
+      
       if os.path.exists(os.path.join(CHECKPOINT_PATH, f'best-model-{DATASET}.pth.tar')):
-        checkpoint = torch.load(os.path.join(CHECKPOINT_PATH, f'best-model-{DATASET}.pth.tar'), weights_only = False)
+        checkpoint = torch.load(os.path.join(CHECKPOINT_PATH, f'best-model-{DATASET}.pth.tar'), weights_only = False, map_location = 'cpu')
         model.load_state_dict(checkpoint['state_dict'])
+        del checkpoint
+        gc.collect()
+        torch.cuda.empty_cache()
       
       # Store model locally
       os.makedirs(os.path.join(CACHE_PATH, DATASET, f'{trial_number}'), exist_ok = True)
@@ -591,24 +598,26 @@ def train_and_predict(
       with torch.no_grad():
         for batch in testing_batches:
           
-          batch = batch.to(DEVICE)
+          x = batch.x.to(DEVICE)
+          edge_index = batch.edge_index.to(DEVICE)
+          edge_attr = batch.edge_attr.to(DEVICE)
+          _batch = batch.batch.to(DEVICE)
+          y = batch.y.detach().cpu().numpy()
+          identifier = batch.identifier.detach().cpu().numpy()
 
           evaluation_start_time = time.time()
-          outputs = model(batch.x, batch.edge_index, batch.edge_attr, batch.batch)
+          outputs = model(x, edge_index, edge_attr, _batch)
           probabilities = torch.nn.functional.softmax(outputs, dim = 1)
           predictions = probabilities.argmax(dim = 1)
           evaluation_runtime = evaluation_runtime + (time.time() - evaluation_start_time)
 
           test_predictions.extend(predictions.detach().cpu().numpy())
-          test_labels.extend(batch.y.detach().cpu().numpy())
-          test_identifiers.extend(batch.identifier.detach().cpu().numpy())
+          test_labels.extend(y)
+          test_identifiers.extend(identifier)
           test_probabilities.extend([tuple(x) for x in probabilities.detach().cpu().numpy()])
 
           # Clear memory after each batch
-          for key in batch:
-            if isinstance(batch[key], torch.Tensor):
-              del batch[key]
-          del batch, outputs, probabilities, predictions
+          del x, edge_index, edge_attr, _batch, y, identifier, outputs, probabilities, predictions
           gc.collect()
           torch.cuda.empty_cache()
       
@@ -689,8 +698,8 @@ def objective_function(trial):
   linear_warmup_start_factor : float = HYPER_PARAMETERS['linear_warmup_start_factor']['value'] if HYPER_PARAMETERS['linear_warmup_start_factor']['fixed'] else (trial.suggest_categorical('linear_warmup_start_factor', HYPER_PARAMETERS['linear_warmup_start_factor']['original_search_space']))
   linear_decay_end_factor : float = HYPER_PARAMETERS['linear_decay_end_factor']['value'] if HYPER_PARAMETERS['linear_decay_end_factor']['fixed'] else (trial.suggest_categorical('linear_decay_end_factor', HYPER_PARAMETERS['linear_decay_end_factor']['original_search_space']))
   #
-  label_smoothing : float = HYPER_PARAMETERS['label_smoothing']['value'] if HYPER_PARAMETERS['label_smoothing']['fixed'] else (trial.suggest_categorical('label_smoothing', HYPER_PARAMETERS['label_smoothing']['original_search_space']) if LABEL_SMOOTHING else 0.0)
-  gradient_clipping : float = HYPER_PARAMETERS['gradient_clipping']['value'] if HYPER_PARAMETERS['gradient_clipping']['fixed'] else (trial.suggest_categorical('gradient_clipping', HYPER_PARAMETERS['gradient_clipping']['original_search_space']) if GRADIENT_CLIPPING else None)
+  label_smoothing : float = HYPER_PARAMETERS['label_smoothing']['value'] if LABEL_SMOOTHING and HYPER_PARAMETERS['label_smoothing']['fixed'] else (trial.suggest_categorical('label_smoothing', HYPER_PARAMETERS['label_smoothing']['original_search_space']) if LABEL_SMOOTHING else 0.0)
+  gradient_clipping : float = HYPER_PARAMETERS['gradient_clipping']['value'] if GRADIENT_CLIPPING and HYPER_PARAMETERS['gradient_clipping']['fixed'] else (trial.suggest_categorical('gradient_clipping', HYPER_PARAMETERS['gradient_clipping']['original_search_space']) if GRADIENT_CLIPPING else None)
 
   # Check if combination of hyper-parameters has been tested before
   for t in bound_study.trials:
@@ -740,7 +749,7 @@ def objective_function(trial):
 
 def unbound_objective_function(trial):
 
-  batch_size : int = HYPER_PARAMETERS['batch_size']['value'] if HYPER_PARAMETERS['batch_size']['fixed'] else (trial.suggest_int('batch_size', *UNBOUND_LIMITS['batch_size']))
+  batch_size : int = HYPER_PARAMETERS['batch_size']['value'] if HYPER_PARAMETERS['batch_size']['fixed'] else (trial.suggest_int('batch_size', *UNBOUND_LIMITS['batch_size'], step = 8))
   #
   window_size : int = HYPER_PARAMETERS['window_size']['value'] if HYPER_PARAMETERS['window_size']['fixed'] else (trial.suggest_int('window_size', *UNBOUND_LIMITS['window_size']))
   #
@@ -762,8 +771,8 @@ def unbound_objective_function(trial):
   linear_warmup_start_factor : float = HYPER_PARAMETERS['linear_warmup_start_factor']['value'] if HYPER_PARAMETERS['linear_warmup_start_factor']['fixed'] else (trial.suggest_float('linear_warmup_start_factor', *UNBOUND_LIMITS['linear_warmup_start_factor'], log = HYPER_PARAMETERS['linear_warmup_start_factor']['log']))
   linear_decay_end_factor : float = HYPER_PARAMETERS['linear_decay_end_factor']['value'] if HYPER_PARAMETERS['linear_decay_end_factor']['fixed'] else (trial.suggest_float('linear_decay_end_factor', *UNBOUND_LIMITS['linear_decay_end_factor'], log = HYPER_PARAMETERS['linear_decay_end_factor']['log']))
   #
-  label_smoothing : float = HYPER_PARAMETERS['label_smoothing']['value'] if HYPER_PARAMETERS['label_smoothing']['fixed'] else (trial.suggest_float('label_smoothing', *UNBOUND_LIMITS['label_smoothing'], log = HYPER_PARAMETERS['label_smoothing']['log']) if LABEL_SMOOTHING else 0.0)
-  gradient_clipping : float = HYPER_PARAMETERS['gradient_clipping']['value'] if HYPER_PARAMETERS['gradient_clipping']['fixed'] else (trial.suggest_float('gradient_clipping', *UNBOUND_LIMITS['gradient_clipping'], log = HYPER_PARAMETERS['gradient_clipping']['log']) if GRADIENT_CLIPPING else None)
+  label_smoothing : float = HYPER_PARAMETERS['label_smoothing']['value'] if LABEL_SMOOTHING and HYPER_PARAMETERS['label_smoothing']['fixed'] else (trial.suggest_float('label_smoothing', *UNBOUND_LIMITS['label_smoothing'], log = HYPER_PARAMETERS['label_smoothing']['log']) if LABEL_SMOOTHING else 0.0)
+  gradient_clipping : float = HYPER_PARAMETERS['gradient_clipping']['value'] if GRADIENT_CLIPPING and HYPER_PARAMETERS['gradient_clipping']['fixed'] else (trial.suggest_float('gradient_clipping', *UNBOUND_LIMITS['gradient_clipping'], log = HYPER_PARAMETERS['gradient_clipping']['log']) if GRADIENT_CLIPPING else None)
 
   # Check if combination of hyper-parameters has been tested before
   for t in unbound_study.trials:
@@ -889,7 +898,8 @@ if __name__ == '__main__':
     seed = SEED, 
     n_startup_trials = 0, 
     multivariate = True, 
-    group = True
+    group = True,
+    warn_independent_sampling = False
   )
   bound_study = optuna.create_study(
     direction = 'maximize',
@@ -944,7 +954,8 @@ if __name__ == '__main__':
     seed = SEED, 
     n_startup_trials = TOP_N + UNBOUND_RANDOM_SAMPLER_TRIALS, 
     multivariate = True, 
-    group = True
+    group = True,
+    warn_independent_sampling = False
   )
   unbound_study = optuna.create_study(
     direction = bound_study.direction,
@@ -1077,8 +1088,8 @@ if __name__ == '__main__':
           linear_warmup_start_factor = HYPER_PARAMETERS['linear_warmup_start_factor']['value'] if HYPER_PARAMETERS['linear_warmup_start_factor']['fixed'] else (trial.params_linear_warmup_start_factor),
           linear_decay_end_factor = HYPER_PARAMETERS['linear_decay_end_factor']['value'] if HYPER_PARAMETERS['linear_decay_end_factor']['fixed'] else (trial.params_linear_decay_end_factor),
           #
-          label_smoothing = HYPER_PARAMETERS['label_smoothing']['value'] if HYPER_PARAMETERS['label_smoothing']['fixed'] else (trial.params_label_smoothing if LABEL_SMOOTHING else 0.0),
-          gradient_clipping = HYPER_PARAMETERS['gradient_clipping']['value'] if HYPER_PARAMETERS['gradient_clipping']['fixed'] else (trial.params_gradient_clipping if GRADIENT_CLIPPING else None),
+          label_smoothing = HYPER_PARAMETERS['label_smoothing']['value'] if LABEL_SMOOTHING and HYPER_PARAMETERS['label_smoothing']['fixed'] else (trial.params_label_smoothing if LABEL_SMOOTHING else 0.0),
+          gradient_clipping = HYPER_PARAMETERS['gradient_clipping']['value'] if GRADIENT_CLIPPING and HYPER_PARAMETERS['gradient_clipping']['fixed'] else (trial.params_gradient_clipping if GRADIENT_CLIPPING else None),
           #
           evaluate_test = True,
           trial_number = trial.number

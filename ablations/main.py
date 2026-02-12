@@ -169,10 +169,15 @@ def model_training(
 
     for batch_i, batch in enumerate(training_batches):
 
-      batch = batch.to(DEVICE)
-      outputs = model(batch.x, batch.edge_index, batch.edge_attr, batch.batch)
+      x = batch.x.to(DEVICE)
+      edge_index = batch.edge_index.to(DEVICE)
+      edge_attr = batch.edge_attr.to(DEVICE)
+      _batch = batch.batch.to(DEVICE)
+      y = batch.y.to(DEVICE)
+
+      outputs = model(x, edge_index, edge_attr, _batch)
       
-      loss = criterion(outputs, batch.y)        
+      loss = criterion(outputs, y)        
       total_loss += loss.item()
       loss.backward()
       
@@ -185,10 +190,7 @@ def model_training(
       optimizer.zero_grad()
 
       # Clear memory after each batch
-      for key in batch:
-        if isinstance(batch[key], torch.Tensor):
-          del batch[key]
-      del batch, outputs
+      del x, edge_index, edge_attr, _batch, y, outputs
       gc.collect()
       torch.cuda.empty_cache()
 
@@ -210,26 +212,28 @@ def model_training(
     with torch.no_grad():
       for batch in validation_batches:
         
-        batch = batch.to(DEVICE)
+        x = batch.x.to(DEVICE)
+        edge_index = batch.edge_index.to(DEVICE)
+        edge_attr = batch.edge_attr.to(DEVICE)
+        _batch = batch.batch.to(DEVICE)
+        y = batch.y.to(DEVICE)
+        identifier = batch.identifier.detach().cpu().numpy()
         
-        outputs = model(batch.x, batch.edge_index, batch.edge_attr, batch.batch)
+        outputs = model(x, edge_index, edge_attr, _batch)
         
         probabilities = torch.nn.functional.softmax(outputs, dim = 1)
         predictions = probabilities.argmax(dim = 1)
 
-        loss = criterion(outputs, batch.y)
+        loss = criterion(outputs, y)
         total_validation_loss += loss.item()
 
         validation_predictions.extend(predictions.detach().cpu().numpy())
-        validation_labels.extend(batch.y.detach().cpu().numpy())
-        validation_identifiers.extend(batch.identifier.detach().cpu().numpy())
+        validation_labels.extend(y.detach().cpu().numpy())
+        validation_identifiers.extend(identifier)
         validation_probabilities.extend([tuple(x) for x in probabilities.detach().cpu().numpy()])
 
         # Clear memory after each batch
-        for key in batch:
-          if isinstance(batch[key], torch.Tensor):
-            del batch[key]
-        del batch, outputs, probabilities, predictions
+        del x, edge_index, edge_attr, _batch, y, identifier, outputs, probabilities, predictions
         gc.collect()
         torch.cuda.empty_cache()
     
@@ -351,7 +355,7 @@ def train_and_predict(
       #
       data_path = os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION == 0 else (1.0 if ABLATION == 1 else edge_threshold)}-{node_threshold}', 'train'),
       #
-      label_indices = [0, 1],
+      label_indices = np.unique(training_df['label'].values).tolist(),
       #
       chunk_size = 512,
       left_stride = 128,
@@ -384,7 +388,7 @@ def train_and_predict(
       #
       data_path = os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION == 0 else (1.0 if ABLATION == 1 else edge_threshold)}-{node_threshold}', 'validation'),
       #
-      label_indices = [0, 1],
+      label_indices = np.unique(training_df['label'].values).tolist(),
       #
       chunk_size = 512,
       left_stride = 128,
@@ -492,7 +496,7 @@ def train_and_predict(
         #
         data_path = os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION == 0 else (1.0 if ABLATION == 1 else edge_threshold)}-{node_threshold}', 'test'),
         #
-        label_indices = [0, 1],
+        label_indices = np.unique(training_df['label'].values).tolist(),
         #
         chunk_size = 512,
         left_stride = 128,
@@ -529,8 +533,11 @@ def train_and_predict(
       )
 
       if os.path.exists(os.path.join(CHECKPOINT_PATH, f'best-model-{DATASET}.pth.tar')):
-        checkpoint = torch.load(os.path.join(CHECKPOINT_PATH, f'best-model-{DATASET}.pth.tar'), weights_only = False)
+        checkpoint = torch.load(os.path.join(CHECKPOINT_PATH, f'best-model-{DATASET}.pth.tar'), weights_only = False, map_location = 'cpu')
         model.load_state_dict(checkpoint['state_dict'])
+        del checkpoint
+        gc.collect()
+        torch.cuda.empty_cache()
       
       # Store model locally
       os.makedirs(os.path.join(CACHE_PATH, DATASET, ABLATIONS[ABLATION], f'{trial_number}'), exist_ok = True)
@@ -547,24 +554,26 @@ def train_and_predict(
       with torch.no_grad():
         for batch in testing_batches:
           
-          batch = batch.to(DEVICE)
+          x = batch.x.to(DEVICE)
+          edge_index = batch.edge_index.to(DEVICE)
+          edge_attr = batch.edge_attr.to(DEVICE)
+          _batch = batch.batch.to(DEVICE)
+          y = batch.y.detach().cpu().numpy()
+          identifier = batch.identifier.detach().cpu().numpy()
 
           evaluation_start_time = time.time()
-          outputs = model(batch.x, batch.edge_index, batch.edge_attr, batch.batch)
+          outputs = model(x, edge_index, edge_attr, _batch)
           probabilities = torch.nn.functional.softmax(outputs, dim = 1)
           predictions = probabilities.argmax(dim = 1)
           evaluation_runtime = evaluation_runtime + (time.time() - evaluation_start_time)
 
           test_predictions.extend(predictions.detach().cpu().numpy())
-          test_labels.extend(batch.y.detach().cpu().numpy())
-          test_identifiers.extend(batch.identifier.detach().cpu().numpy())
+          test_labels.extend(y)
+          test_identifiers.extend(identifier)
           test_probabilities.extend([tuple(x) for x in probabilities.detach().cpu().numpy()])
 
           # Clear memory after each batch
-          for key in batch:
-            if isinstance(batch[key], torch.Tensor):
-              del batch[key]
-          del batch, outputs, probabilities, predictions
+          del x, edge_index, edge_attr, _batch, y, identifier, outputs, probabilities, predictions
           gc.collect()
           torch.cuda.empty_cache()
       

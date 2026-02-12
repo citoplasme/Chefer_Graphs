@@ -1,0 +1,8 @@
+SLURM NODE: kn083
+[I 2026-02-12 05:41:59,149] A new study created in RDB with name: IMDb-Fine-tuning
+[I 2026-02-12 06:33:18,271] Trial 0 finished with value: 0.9252 and parameters: {'batch_size': 32, 'frozen_layers': 0, 'classifier_dropout': 0.1, 'learning_rate': 1e-05, 'weight_decay': 1e-05}. Best is trial 0 with value: 0.9252.
+[I 2026-02-12 07:28:31,013] Trial 1 finished with value: 0.9304 and parameters: {'batch_size': 16, 'frozen_layers': 4, 'classifier_dropout': 0.4, 'learning_rate': 5e-05, 'weight_decay': 0.0001}. Best is trial 1 with value: 0.9304.
+[I 2026-02-12 08:19:40,995] Trial 2 finished with value: 0.9334 and parameters: {'batch_size': 32, 'frozen_layers': 0, 'classifier_dropout': 0.4, 'learning_rate': 2e-05, 'weight_decay': 0.001}. Best is trial 2 with value: 0.9334.
+[I 2026-02-12 09:07:17,960] Trial 3 finished with value: 0.9292 and parameters: {'batch_size': 64, 'frozen_layers': 4, 'classifier_dropout': 0.3, 'learning_rate': 3e-05, 'weight_decay': 1e-06}. Best is trial 2 with value: 0.9334.
+[I 2026-02-12 10:01:58,339] Trial 4 finished with value: 0.9282 and parameters: {'batch_size': 16, 'frozen_layers': 6, 'classifier_dropout': 0.2, 'learning_rate': 5e-05, 'weight_decay': 1e-06}. Best is trial 2 with value: 0.9334.
+[I 2026-02-12 10:52:13,817] Trial 5 finished with value: 0.935 and parameters: {'batch_size': 32, 'frozen_layers': 2, 'classifier_dropout': 0.1, 'learning_rate': 2e-05, 'weight_decay': 0.0001}. Best is trial 5 with value: 0.935.
