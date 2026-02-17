@@ -21,6 +21,7 @@ def load_module(module_name, file_path):
   spec.loader.exec_module(module)
   return module
 
+# Memory for best performing params compared to other approaches !!!!!!!!!!!
 sliding_windows = load_module('sliding_windows_construct', '../../baselines/sliding_windows/construct.py')
 attention_distillation = load_module('attention_distillation_construct', '../../baselines/raw_attention_distillation/construct.py')
 chefer = load_module('chefer_importance', '../../graph_construction/chefer_importance.py')
