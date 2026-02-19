@@ -66,8 +66,8 @@ if __name__ == '__main__':
     left_stride = 128,
     right_stride = 0,
     #
-    token_threshold = 0.85,
-    edge_threshold = 0.75,
+    token_threshold = 0.85, # 0.0,
+    edge_threshold = 0.75, # 0.0,
     #
     plm = model,
     tokenizer = tokenizer,

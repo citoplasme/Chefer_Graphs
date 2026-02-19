@@ -1,0 +1,26 @@
+SLURM NODE: kn077
+[I 2026-02-18 05:44:30,512] Using an existing study with name 'IMDb-Fine-tuning' instead of creating a new one.
+[UPDATE] 50 completed trials using a random sampler. Switching from random to TPE sampling.
+Last trial state: 0
+Enqueuing hyper-parameters: {'batch_size': 32, 'frozen_layers': 0, 'classifier_dropout': 0.4, 'learning_rate': 2e-05, 'weight_decay': 1e-05}
+[I 2026-02-18 06:57:16,117] Trial 154 finished with value: 0.9334 and parameters: {'batch_size': 32, 'frozen_layers': 0, 'classifier_dropout': 0.4, 'learning_rate': 2e-05, 'weight_decay': 1e-05}. Best is trial 5 with value: 0.935.
+[I 2026-02-18 08:08:35,046] Trial 155 finished with value: 0.9338 and parameters: {'batch_size': 32, 'frozen_layers': 2, 'classifier_dropout': 0.1, 'learning_rate': 3e-05, 'weight_decay': 1e-06}. Best is trial 5 with value: 0.935.
+[I 2026-02-18 09:19:47,403] Trial 156 finished with value: 0.9226 and parameters: {'batch_size': 32, 'frozen_layers': 2, 'classifier_dropout': 0.2, 'learning_rate': 0.0001, 'weight_decay': 0.0001}. Best is trial 5 with value: 0.935.
+[I 2026-02-18 10:29:41,048] Trial 157 finished with value: 0.9322 and parameters: {'batch_size': 32, 'frozen_layers': 4, 'classifier_dropout': 0.4, 'learning_rate': 2e-05, 'weight_decay': 0.0001}. Best is trial 5 with value: 0.935.
+[I 2026-02-18 11:37:41,762] Trial 158 finished with value: 0.9254 and parameters: {'batch_size': 32, 'frozen_layers': 6, 'classifier_dropout': 0.4, 'learning_rate': 2e-05, 'weight_decay': 1e-06}. Best is trial 5 with value: 0.935.
+[I 2026-02-18 12:45:35,166] Trial 159 finished with value: 0.9254 and parameters: {'batch_size': 32, 'frozen_layers': 6, 'classifier_dropout': 0.2, 'learning_rate': 2e-05, 'weight_decay': 0.0001}. Best is trial 5 with value: 0.935.
+[I 2026-02-18 13:55:34,494] Trial 160 finished with value: 0.9322 and parameters: {'batch_size': 32, 'frozen_layers': 4, 'classifier_dropout': 0.4, 'learning_rate': 2e-05, 'weight_decay': 0.001}. Best is trial 5 with value: 0.935.
+[I 2026-02-18 15:16:48,007] Trial 161 finished with value: 0.925 and parameters: {'batch_size': 32, 'frozen_layers': 2, 'classifier_dropout': 0.1, 'learning_rate': 1e-05, 'weight_decay': 0.0001}. Best is trial 5 with value: 0.935.
+[I 2026-02-18 16:26:42,193] Trial 162 finished with value: 0.9322 and parameters: {'batch_size': 32, 'frozen_layers': 4, 'classifier_dropout': 0.3, 'learning_rate': 2e-05, 'weight_decay': 1e-06}. Best is trial 5 with value: 0.935.
+[I 2026-02-18 17:38:30,944] Trial 163 finished with value: 0.9276 and parameters: {'batch_size': 32, 'frozen_layers': 2, 'classifier_dropout': 0.3, 'learning_rate': 5e-05, 'weight_decay': 0.001}. Best is trial 5 with value: 0.935.
+[I 2026-02-18 18:45:30,604] Trial 164 finished with value: 0.9278 and parameters: {'batch_size': 64, 'frozen_layers': 2, 'classifier_dropout': 0.4, 'learning_rate': 2e-05, 'weight_decay': 1e-05}. Best is trial 5 with value: 0.935.
+[I 2026-02-18 19:52:28,436] Trial 165 finished with value: 0.9278 and parameters: {'batch_size': 64, 'frozen_layers': 2, 'classifier_dropout': 0.3, 'learning_rate': 2e-05, 'weight_decay': 0.001}. Best is trial 5 with value: 0.935.
+[I 2026-02-18 21:04:02,828] Trial 166 finished with value: 0.9226 and parameters: {'batch_size': 32, 'frozen_layers': 2, 'classifier_dropout': 0.1, 'learning_rate': 0.0001, 'weight_decay': 1e-05}. Best is trial 5 with value: 0.935.
+[I 2026-02-18 22:12:28,170] Trial 167 finished with value: 0.9254 and parameters: {'batch_size': 32, 'frozen_layers': 6, 'classifier_dropout': 0.1, 'learning_rate': 2e-05, 'weight_decay': 0.0001}. Best is trial 5 with value: 0.935.
+[I 2026-02-18 23:48:33,746] Trial 168 finished with value: 0.933 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.2, 'learning_rate': 2e-05, 'weight_decay': 1e-05}. Best is trial 5 with value: 0.935.
+[I 2026-02-19 01:10:27,989] Trial 169 finished with value: 0.925 and parameters: {'batch_size': 32, 'frozen_layers': 2, 'classifier_dropout': 0.3, 'learning_rate': 1e-05, 'weight_decay': 1e-05}. Best is trial 5 with value: 0.935.
+[I 2026-02-19 02:17:24,681] Trial 170 finished with value: 0.9228 and parameters: {'batch_size': 64, 'frozen_layers': 2, 'classifier_dropout': 0.1, 'learning_rate': 3e-05, 'weight_decay': 0.001}. Best is trial 5 with value: 0.935.
+[I 2026-02-19 02:17:25,389] Trial 171 pruned. Duplicate hyper-parameters, same as those used in trial 5: {'batch_size': 32, 'frozen_layers': 2, 'classifier_dropout': 0.1, 'learning_rate': 2e-05, 'weight_decay': 0.0001}.
+[I 2026-02-19 03:30:24,212] Trial 172 finished with value: 0.9334 and parameters: {'batch_size': 32, 'frozen_layers': 0, 'classifier_dropout': 0.3, 'learning_rate': 2e-05, 'weight_decay': 0.001}. Best is trial 5 with value: 0.935.
+[I 2026-02-19 04:41:57,578] Trial 173 finished with value: 0.9336 and parameters: {'batch_size': 32, 'frozen_layers': 2, 'classifier_dropout': 0.4, 'learning_rate': 3e-05, 'weight_decay': 0.001}. Best is trial 5 with value: 0.935.
+[I 2026-02-19 05:53:41,132] Trial 174 finished with value: 0.9326 and parameters: {'batch_size': 32, 'frozen_layers': 2, 'classifier_dropout': 0.2, 'learning_rate': 5e-05, 'weight_decay': 1e-06}. Best is trial 5 with value: 0.935.

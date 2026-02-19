@@ -1,0 +1,97 @@
+SLURM NODE: kn052
+[I 2026-02-18 05:37:31,529] Using an existing study with name 'SST-2-Fine-tuning' instead of creating a new one.
+Unbound optimization already completed.
+
+[UPDATE] Unbound limits: {'batch_size': (np.int64(16), np.int64(64)), 'frozen_layers': (np.int64(2), np.int64(6)), 'classifier_dropout': (np.float64(0.1), np.float64(0.4)), 'learning_rate': (np.float64(5e-05), np.float64(0.0001)), 'weight_decay': (np.float64(0.0001), np.float64(0.001))}
+[I 2026-02-18 05:37:32,473] Using an existing study with name 'SST-2-Fine-tuning-unbound' instead of creating a new one.
+Last trial state: 0
+Enqueuing hyper-parameters: {'batch_size': 64, 'frozen_layers': 4, 'classifier_dropout': 0.23790281847785158, 'learning_rate': 6.87300995776894e-05, 'weight_decay': 0.00043088945791612093}
+[I 2026-02-18 06:10:51,773] Trial 109 finished with value: 0.9139908256880734 and parameters: {'batch_size': 64, 'frozen_layers': 4, 'classifier_dropout': 0.23790281847785158, 'learning_rate': 6.87300995776894e-05, 'weight_decay': 0.00043088945791612093}. Best is trial 101 with value: 0.9231651376146789.
+[I 2026-02-18 06:42:10,782] Trial 110 finished with value: 0.9059633027522935 and parameters: {'batch_size': 56, 'frozen_layers': 6, 'classifier_dropout': 0.15782213962927938, 'learning_rate': 6.738008011284933e-05, 'weight_decay': 0.0007759643886385674}. Best is trial 101 with value: 0.9231651376146789.
+[I 2026-02-18 07:14:17,028] Trial 111 finished with value: 0.9197247706422018 and parameters: {'batch_size': 56, 'frozen_layers': 5, 'classifier_dropout': 0.27378149008336217, 'learning_rate': 6.573233720571153e-05, 'weight_decay': 0.0005453045740510794}. Best is trial 101 with value: 0.9231651376146789.
+
+[TRIAL] 101 [VALIDATION PERFORMANCE] 0.9231651376146789 [TRAINING LOSS] 0.41236955149594795 [VALIDATION LOSS] 0.22677559033036232 
+
+number                     			 101
+value                      			 0.9231651376146789
+params_batch_size          			 64
+params_classifier_dropout  			 0.367285363279675
+params_frozen_layers       			 3
+params_learning_rate       			 6.003794962253896e-05
+params_weight_decay        			 0.0002902744554292647
+user_attrs_duplicate       			 False
+user_attrs_epoch           			 1.0
+user_attrs_training_loss   			 0.41236955149594795
+user_attrs_validation_loss 			 0.22677559033036232
+
+[37] VALIDATION: 0.9071100917431193 TESTING: 0.899505766062603
+[38] VALIDATION: 0.9094036697247706 TESTING: 0.8885227896760022
+[39] VALIDATION: 0.9185779816513762 TESTING: 0.9110378912685337
+[40] VALIDATION: 0.8979357798165137 TESTING: 0.9055464030752334
+[41] VALIDATION: 0.9059633027522935 TESTING: 0.9137836353651839
+[42] VALIDATION: 0.9231651376146789 TESTING: 0.9033498077979132
+[43] VALIDATION: 0.9025229357798165 TESTING: 0.9099395936298736
+[44] VALIDATION: 0.911697247706422 TESTING: 0.9033498077979132
+[45] VALIDATION: 0.911697247706422 TESTING: 0.9225700164744646
+[46] VALIDATION: 0.9139908256880734 TESTING: 0.9082921471718836
+
+Validation performance: 89.79 & 91.02 ± 0.74 & 92.32
+Testing performance: 88.85 & 90.66 ± 0.91 & 92.26
+
+[TRIAL] 104 [VALIDATION PERFORMANCE] 0.9220183486238532 [TRAINING LOSS] 0.1984106491229707 [VALIDATION LOSS] 0.23241575434803963 
+
+number                     			 104
+value                      			 0.9220183486238532
+params_batch_size          			 56
+params_classifier_dropout  			 0.24187364295010153
+params_frozen_layers       			 4
+params_learning_rate       			 6.282387861369881e-05
+params_weight_decay        			 0.0005837933985807226
+user_attrs_duplicate       			 False
+user_attrs_epoch           			 2.0
+user_attrs_training_loss   			 0.1984106491229707
+user_attrs_validation_loss 			 0.23241575434803963
+
+[37] VALIDATION: 0.9071100917431193 TESTING: 0.899505766062603
+[38] VALIDATION: 0.9128440366972477 TESTING: 0.9071938495332235
+[39] VALIDATION: 0.9174311926605505 TESTING: 0.9066447007138935
+[40] VALIDATION: 0.9139908256880734 TESTING: 0.9170785282811642
+[41] VALIDATION: 0.8864678899082569 TESTING: 0.8956617243272927
+[42] VALIDATION: 0.9220183486238532 TESTING: 0.914881933003844
+[43] VALIDATION: 0.9174311926605505 TESTING: 0.9187259747391543
+[44] VALIDATION: 0.8956422018348624 TESTING: 0.8940142778693025
+[45] VALIDATION: 0.9174311926605505 TESTING: 0.9214717188358045
+[46] VALIDATION: 0.9025229357798165 TESTING: 0.9088412959912137
+
+Validation performance: 88.65 & 90.93 ± 1.13 & 92.2
+Testing performance: 89.4 & 90.84 ± 0.97 & 92.15
+
+[TRIAL] 10 [VALIDATION PERFORMANCE] 0.9208715596330275 [TRAINING LOSS] 0.18551948375158733 [VALIDATION LOSS] 0.22501763235777617 
+
+number                     			 10
+value                      			 0.9208715596330275
+params_batch_size          			 56
+params_classifier_dropout  			 0.12930163420191518
+params_frozen_layers       			 3
+params_learning_rate       			 8.034237566240418e-05
+params_weight_decay        			 0.00027551959649510803
+user_attrs_duplicate       			 False
+user_attrs_epoch           			 2.0
+user_attrs_training_loss   			 0.18551948375158733
+user_attrs_validation_loss 			 0.22501763235777617
+
+[37] VALIDATION: 0.9002293577981652 TESTING: 0.9115870400878638
+[38] VALIDATION: 0.9059633027522935 TESTING: 0.9132344865458539
+[39] VALIDATION: 0.9185779816513762 TESTING: 0.9077429983525536
+[40] VALIDATION: 0.9162844036697247 TESTING: 0.9170785282811642
+[41] VALIDATION: 0.9059633027522935 TESTING: 0.9049972542559034
+[42] VALIDATION: 0.9208715596330275 TESTING: 0.9121361889071938
+[43] VALIDATION: 0.8967889908256881 TESTING: 0.8923668314113125
+[44] VALIDATION: 0.8990825688073395 TESTING: 0.9017023613399231
+[45] VALIDATION: 0.9151376146788991 TESTING: 0.9115870400878638
+[46] VALIDATION: 0.911697247706422 TESTING: 0.9126853377265239
+
+Validation performance: 89.68 & 90.91 ± 0.87 & 92.09
+Testing performance: 89.24 & 90.85 ± 0.72 & 91.71
+
+[SST-2] Elapsed time: 1127.537302649021 minutes.

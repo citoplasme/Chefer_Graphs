@@ -21,7 +21,6 @@ def load_module(module_name, file_path):
   spec.loader.exec_module(module)
   return module
 
-# Memory for best performing params compared to other approaches !!!!!!!!!!!
 sliding_windows = load_module('sliding_windows_construct', '../../baselines/sliding_windows/construct.py')
 attention_distillation = load_module('attention_distillation_construct', '../../baselines/raw_attention_distillation/construct.py')
 chefer = load_module('chefer_importance', '../../graph_construction/chefer_importance.py')
@@ -147,6 +146,7 @@ for window_size in [2, 3, 4, 5]:
     edge_embedding_dimension = graph['edge_attr'].size(1)
     
     sliding_window_statistics.append((dataset, split, index, window_size, document_length, unique_words, token_count, node_count, node_embedding_dimension, edge_count, edge_embedding_dimension))
+    del graph
 pd.DataFrame(sliding_window_statistics, columns = ['dataset', 'split', 'index', 'window_size', 'document_length', 'unique_words', 'token_count', 'node_count', 'node_embedding_dimension', 'edge_count', 'edge_embedding_dimension']) \
   .to_csv(os.path.join(STORAGE_PATH, 'sliding_windows.csv'), index = False)
 
@@ -202,6 +202,7 @@ for threshold in [0.6, 0.7, 0.8, 0.9, 0.95, 0.99]:
     edge_embedding_dimension = graph['edge_attr'].size(1)
     
     attention_distillation_statistics.append((dataset, split, index, threshold, document_length, unique_words, token_count, node_count, node_embedding_dimension, edge_count, edge_embedding_dimension))
+    del graph
 pd.DataFrame(attention_distillation_statistics, columns = ['dataset', 'split', 'index', 'threshold', 'document_length', 'unique_words', 'token_count', 'node_count', 'node_embedding_dimension', 'edge_count', 'edge_embedding_dimension']) \
   .to_csv(os.path.join(STORAGE_PATH, 'attention_distillation.csv'), index = False)
 
@@ -257,6 +258,7 @@ for token_threshold, edge_threshold in list(itertools.product([0.5, 0.6, 0.7, 0.
     edge_embedding_dimension = graph['edge_attr'].size(1)
 
     chefer_importance_statistics.append((dataset, split, index, token_threshold, edge_threshold, document_length, unique_words, token_count, node_count, node_embedding_dimension, edge_count, edge_embedding_dimension))
+    del graph
 pd.DataFrame(chefer_importance_statistics, columns = ['dataset', 'split', 'index', 'node_threshold', 'edge_threshold', 'document_length', 'unique_words', 'token_count', 'node_count', 'node_embedding_dimension', 'edge_count', 'edge_embedding_dimension']) \
   .to_csv(os.path.join(STORAGE_PATH, 'chefer_importance.csv'), index = False)
 
