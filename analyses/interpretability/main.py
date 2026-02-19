@@ -57,7 +57,8 @@ def load_plm(dataset, fine_tuning_trial_number):
   )
 
 # PLMs = {dataset : load_plm(dataset, fine_tuning_trial_number) for dataset, fine_tuning_trial_number in zip(['IMDb', 'Ohsumed', 'R8', 'SST-2'], [0, 3, 0, 101])}
-PLMs = {dataset : load_plm(dataset, fine_tuning_trial_number) for dataset, fine_tuning_trial_number in zip(['Ohsumed', 'R8', 'SST-2'], [3, 0, 101])}
+# PLMs = {dataset : load_plm(dataset, fine_tuning_trial_number) for dataset, fine_tuning_trial_number in zip(['Ohsumed', 'R8', 'SST-2'], [3, 0, 101])}
+PLMs = {dataset : load_plm(dataset, fine_tuning_trial_number) for dataset, fine_tuning_trial_number in zip(['IMDb', 'SST-2'], [0, 101])}
 
 MAXIMUM_CHUNK_SIZE = 512
 LEFT_STRIDE = 128
@@ -70,26 +71,39 @@ LABEL_INDICES = {
   'SST-2' : [0, 1],
 }
 
+# Simple local sentiment (SST-2)
+#   16, 18, 143, 224
+# Long-range reversal (IMDb)
+#   176, 273, 872
+# Keyword trap (IMDb + SST-2)
+#   SST-2 : 92, 338
+#   IMDb: 176, 273
+# Long noisy reviews (IMDb)
+#   176, 384, 411, 872
+# Misclassified samples (IMDb + SST-2)
+#   SST-2 : 17?
+#   IMDb : 176?, 273?
+
 SAMPLES_PER_DATASET = {
   'IMDb' : {
-    'train' : [0],
-    'validation' : [6],
-    'test' : [20]
+    # 'train' : [0],
+    # 'validation' : [6],
+    'test' : [176, 273, 384, 411, 872]
   },
-  'Ohsumed' : {
-    'train' : [0],
-    'validation' : [6],
-    'test' : [20]
-  },
-  'R8' : {
-    'train' : [0],
-    'validation' : [6],
-    'test' : [20]
-  },
+  # 'Ohsumed' : {
+  #   'train' : [0],
+  #   'validation' : [6],
+  #   'test' : [20]
+  # },
+  # 'R8' : {
+  #   'train' : [0],
+  #   'validation' : [6],
+  #   'test' : [20]
+  # },
   'SST-2' : {
-    'train' : [0],
-    'validation' : [6],
-    'test' : [20]
+    # 'train' : [0],
+    # 'validation' : [6],
+    'test' : [16, 17, 18, 92, 143, 224, 338]
   },
 }
 
@@ -122,18 +136,18 @@ tokenizer = transformers.AutoTokenizer.from_pretrained('google-bert/bert-base-un
 df = pd.concat([
   # pd.read_csv('../../data/with_validation_splits/IMDb/train.csv').iloc[SAMPLES_PER_DATASET['IMDb']['train']].assign(dataset = 'IMDb', split = 'train').reset_index(),
   # pd.read_csv('../../data/with_validation_splits/IMDb/validation.csv').iloc[SAMPLES_PER_DATASET['IMDb']['validation']].assign(dataset = 'IMDb', split = 'validation').reset_index(),
-  # pd.read_csv('../../data/with_validation_splits/IMDb/test.csv').iloc[SAMPLES_PER_DATASET['IMDb']['test']].assign(dataset = 'IMDb', split = 'test').reset_index(),
+  pd.read_csv('../../data/with_validation_splits/IMDb/test.csv').iloc[SAMPLES_PER_DATASET['IMDb']['test']].assign(dataset = 'IMDb', split = 'test').reset_index(),
   #
-  pd.read_csv('../../data/with_validation_splits/Ohsumed/train.csv').iloc[SAMPLES_PER_DATASET['Ohsumed']['train']].assign(dataset = 'Ohsumed', split = 'train').reset_index(),
-  pd.read_csv('../../data/with_validation_splits/Ohsumed/validation.csv').iloc[SAMPLES_PER_DATASET['Ohsumed']['validation']].assign(dataset = 'Ohsumed', split = 'validation').reset_index(),
-  pd.read_csv('../../data/with_validation_splits/Ohsumed/test.csv').iloc[SAMPLES_PER_DATASET['Ohsumed']['test']].assign(dataset = 'Ohsumed', split = 'test').reset_index(),
+  # pd.read_csv('../../data/with_validation_splits/Ohsumed/train.csv').iloc[SAMPLES_PER_DATASET['Ohsumed']['train']].assign(dataset = 'Ohsumed', split = 'train').reset_index(),
+  # pd.read_csv('../../data/with_validation_splits/Ohsumed/validation.csv').iloc[SAMPLES_PER_DATASET['Ohsumed']['validation']].assign(dataset = 'Ohsumed', split = 'validation').reset_index(),
+  # pd.read_csv('../../data/with_validation_splits/Ohsumed/test.csv').iloc[SAMPLES_PER_DATASET['Ohsumed']['test']].assign(dataset = 'Ohsumed', split = 'test').reset_index(),
   #
-  pd.read_csv('../../data/with_validation_splits/R8/train.csv').iloc[SAMPLES_PER_DATASET['R8']['train']].assign(dataset = 'R8', split = 'train').reset_index(),
-  pd.read_csv('../../data/with_validation_splits/R8/validation.csv').iloc[SAMPLES_PER_DATASET['R8']['validation']].assign(dataset = 'R8', split = 'validation').reset_index(),
-  pd.read_csv('../../data/with_validation_splits/R8/test.csv').iloc[SAMPLES_PER_DATASET['R8']['test']].assign(dataset = 'R8', split = 'test').reset_index(),
+  # pd.read_csv('../../data/with_validation_splits/R8/train.csv').iloc[SAMPLES_PER_DATASET['R8']['train']].assign(dataset = 'R8', split = 'train').reset_index(),
+  # pd.read_csv('../../data/with_validation_splits/R8/validation.csv').iloc[SAMPLES_PER_DATASET['R8']['validation']].assign(dataset = 'R8', split = 'validation').reset_index(),
+  # pd.read_csv('../../data/with_validation_splits/R8/test.csv').iloc[SAMPLES_PER_DATASET['R8']['test']].assign(dataset = 'R8', split = 'test').reset_index(),
   #
-  pd.read_csv('../../data/with_validation_splits/SST-2/train.csv').iloc[SAMPLES_PER_DATASET['SST-2']['train']].assign(dataset = 'SST-2', split = 'train').reset_index(),
-  pd.read_csv('../../data/with_validation_splits/SST-2/validation.csv').iloc[SAMPLES_PER_DATASET['SST-2']['validation']].assign(dataset = 'SST-2', split = 'validation').reset_index(),
+  # pd.read_csv('../../data/with_validation_splits/SST-2/train.csv').iloc[SAMPLES_PER_DATASET['SST-2']['train']].assign(dataset = 'SST-2', split = 'train').reset_index(),
+  # pd.read_csv('../../data/with_validation_splits/SST-2/validation.csv').iloc[SAMPLES_PER_DATASET['SST-2']['validation']].assign(dataset = 'SST-2', split = 'validation').reset_index(),
   pd.read_csv('../../data/with_validation_splits/SST-2/test.csv').iloc[SAMPLES_PER_DATASET['SST-2']['test']].assign(dataset = 'SST-2', split = 'test').reset_index(),
 ]).reset_index(drop = True)
 
