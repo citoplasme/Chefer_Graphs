@@ -55,16 +55,13 @@ os.makedirs(CHECKPOINT_PATH, exist_ok = True)
 # ===========================================================================
 
 def subsample_training_split(df, percentage):
-  identifier_label_df = df[['identifier', 'label']] \
-    .drop_duplicates(subset = 'identifier') \
-    .reset_index(drop = True)
   subsampled_df, _ = sklearn.model_selection.train_test_split(
-    identifier_label_df,
+    df,
     train_size = percentage,
-    stratify = identifier_label_df['label'],
+    stratify = df['label'],
     random_state = SEED
   )
-  return df[df['identifier'].isin(subsampled_df['identifier'])]
+  return subsampled_df.reset_index(drop = True)
 
 def callback(study, trial):
   completed_trials = (study.trials_dataframe().dropna(subset = ['value'])['value'] != -1.0).sum()
@@ -903,8 +900,11 @@ if __name__ == '__main__':
   DATASET_CACHE_PATH = f'{DATASET}-Chefer_importance'
 
   TRAINING_DF = pd.read_csv(os.path.join('..', 'data', 'with_validation_splits', DATASET, 'train.csv'))
+  TRAINING_DF['label'] = TRAINING_DF['label'].astype(int)
   VALIDATION_DF = pd.read_csv(os.path.join('..', 'data', 'with_validation_splits', DATASET, 'validation.csv'))
+  VALIDATION_DF['label'] = VALIDATION_DF['label'].astype(int)
   TESTING_DF = pd.read_csv(os.path.join('..', 'data', 'with_validation_splits', DATASET, 'test.csv'))
+  TESTING_DF['label'] = TESTING_DF['label'].astype(int)
   
   STUDY_NAME = f'{DATASET}-Chefer_importance'
   storage = f'sqlite:///../optuna_studies/{STUDY_NAME}.db'

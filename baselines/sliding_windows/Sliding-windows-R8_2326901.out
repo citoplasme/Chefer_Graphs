@@ -1,0 +1,102 @@
+SLURM NODE: kn059
+[I 2026-03-04 06:27:28,630] Using an existing study with name 'R8-Sliding_windows' instead of creating a new one.
+Unbound optimization already completed.
+
+[UPDATE] Unbound limits: {'batch_size': (np.int64(32), np.int64(128)), 'window_size': (np.int64(4), np.int64(5)), 'attention_heads': (np.int64(1), np.int64(4)), 'hidden_dimension': (np.int64(32), np.int64(64)), 'number_of_hidden_layers': (np.int64(1), np.int64(2)), 'dropout_rate': (np.float64(0.1), np.float64(0.3)), 'learning_rate': (np.float64(0.0001), np.float64(0.001)), 'weight_decay': (np.float64(1e-06), np.float64(0.0001))}
+[I 2026-03-04 06:27:29,592] Using an existing study with name 'R8-Sliding_windows-unbound' instead of creating a new one.
+Unbound optimization already completed.
+
+[TRIAL] 1 [VALIDATION PERFORMANCE] 0.9673490515492583 [TRAINING LOSS] 0.05227945288061164 [VALIDATION LOSS] 0.16797104512806982 
+
+number                         			 1
+value                          			 0.9673490515492583
+params_attention_heads         			 1
+params_batch_size              			 64
+params_dropout_rate            			 0.1
+params_hidden_dimension        			 32
+params_learning_rate           			 0.0003
+params_number_of_hidden_layers 			 2
+params_weight_decay            			 1e-06
+params_window_size             			 5
+user_attrs_duplicate           			 False
+user_attrs_epoch               			 31.0
+user_attrs_training_loss       			 0.05227945288061164
+user_attrs_validation_loss     			 0.16797104512806982
+
+[37] VALIDATION: 0.9471521410594925 TESTING: 0.9412682858085719
+[38] VALIDATION: 0.9489752694941658 TESTING: 0.9387038199649625
+[39] VALIDATION: 0.9507353833099963 TESTING: 0.9374491987746154
+[40] VALIDATION: 0.954330527671702 TESTING: 0.9386595094391857
+[41] VALIDATION: 0.9569484908888808 TESTING: 0.9452080444786752
+[42] VALIDATION: 0.9673490515492583 TESTING: 0.9361599110291833
+[43] VALIDATION: 0.9536724673770274 TESTING: 0.9383061149537133
+[44] VALIDATION: 0.9461139087113402 TESTING: 0.9400355983384545
+[45] VALIDATION: 0.9568278001748673 TESTING: 0.938217739094202
+[46] VALIDATION: 0.9497658988632334 TESTING: 0.9421890519674567
+
+Validation performance: 94.61 & 95.32 ± 0.62 & 96.73
+Testing performance: 93.62 & 93.96 ± 0.26 & 94.52
+
+[TRIAL] 106 [VALIDATION PERFORMANCE] 0.9667505948306855 [TRAINING LOSS] 0.018296449886340844 [VALIDATION LOSS] 0.2615584327839315 
+
+number                         			 106
+value                          			 0.9667505948306855
+params_attention_heads         			 3
+params_batch_size              			 72
+params_dropout_rate            			 0.2045713598364183
+params_hidden_dimension        			 53
+params_learning_rate           			 0.00036371498001156854
+params_number_of_hidden_layers 			 2
+params_weight_decay            			 7.889857125753369e-06
+params_window_size             			 4
+user_attrs_duplicate           			 False
+user_attrs_epoch               			 27.0
+user_attrs_training_loss       			 0.018296449886340844
+user_attrs_validation_loss     			 0.2615584327839315
+
+[37] VALIDATION: 0.9526468209877007 TESTING: 0.9455484160023315
+[38] VALIDATION: 0.9514464975900049 TESTING: 0.9480880529163027
+[39] VALIDATION: 0.9542292111763455 TESTING: 0.9483999131062887
+[40] VALIDATION: 0.9449470137721236 TESTING: 0.9444318171379721
+[41] VALIDATION: 0.9566235098617999 TESTING: 0.9456905177449033
+[42] VALIDATION: 0.9667505948306855 TESTING: 0.9420251575427387
+[43] VALIDATION: 0.9511568094847487 TESTING: 0.9457431610707053
+[44] VALIDATION: 0.955255585528251 TESTING: 0.9359085218461158
+[45] VALIDATION: 0.954599389166805 TESTING: 0.9381073425871247
+[46] VALIDATION: 0.9522255760855518 TESTING: 0.9426342418663272
+
+Validation performance: 94.49 & 95.4 ± 0.55 & 96.68
+Testing performance: 93.59 & 94.37 ± 0.41 & 94.84
+
+[TRIAL] 100 [VALIDATION PERFORMANCE] 0.9658414247677795 [TRAINING LOSS] 0.03464747488237264 [VALIDATION LOSS] 0.2543876909961303 
+
+number                         			 100
+value                          			 0.9658414247677795
+params_attention_heads         			 2
+params_batch_size              			 72
+params_dropout_rate            			 0.11543195244269516
+params_hidden_dimension        			 52
+params_learning_rate           			 0.0002905389219627706
+params_number_of_hidden_layers 			 2
+params_weight_decay            			 7.669601098652622e-05
+params_window_size             			 4
+user_attrs_duplicate           			 False
+user_attrs_epoch               			 25.0
+user_attrs_training_loss       			 0.03464747488237264
+user_attrs_validation_loss     			 0.2543876909961303
+
+[37] VALIDATION: 0.9486827267543274 TESTING: 0.9460598689518018
+[38] VALIDATION: 0.9477069804221931 TESTING: 0.9476076047276746
+[39] VALIDATION: 0.9641568032702599 TESTING: 0.9425032485174686
+[40] VALIDATION: 0.9603462445429857 TESTING: 0.9469540186994578
+[41] VALIDATION: 0.9506557713193695 TESTING: 0.9429118533450772
+[42] VALIDATION: 0.9658414247677795 TESTING: 0.9442281938127663
+[43] VALIDATION: 0.9521446145186069 TESTING: 0.942010705348018
+[44] VALIDATION: 0.9623239629552732 TESTING: 0.9405189356616226
+[45] VALIDATION: 0.9511568094847487 TESTING: 0.9400172099638076
+[46] VALIDATION: 0.9477078554483891 TESTING: 0.9447373512751516
+
+Validation performance: 94.77 & 95.51 ± 0.72 & 96.58
+Testing performance: 94.0 & 94.38 ± 0.26 & 94.76
+
+[R8] Elapsed time: 3233.787478832404 minutes.

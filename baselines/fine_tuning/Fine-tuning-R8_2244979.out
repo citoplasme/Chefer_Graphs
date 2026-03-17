@@ -1,0 +1,191 @@
+SLURM NODE: kn082
+[I 2026-02-21 06:00:22,654] Using an existing study with name 'R8-Fine-tuning-Truncated' instead of creating a new one.
+Unbound optimization already completed.
+
+[UPDATE] Unbound limits: {'batch_size': (np.int64(16), np.int64(32)), 'frozen_layers': (np.int64(0), np.int64(4)), 'classifier_dropout': (np.float64(0.1), np.float64(0.4)), 'learning_rate': (np.float64(1e-05), np.float64(3e-05)), 'weight_decay': (np.float64(1e-06), np.float64(1e-05))}
+[I 2026-02-21 06:00:23,517] Using an existing study with name 'R8-Fine-tuning-Truncated-unbound' instead of creating a new one.
+Last trial state: 0
+Enqueuing hyper-parameters: {'batch_size': 32, 'frozen_layers': 0, 'classifier_dropout': 0.15879485872574356, 'learning_rate': 1.0509423684033755e-05, 'weight_decay': 2.115097202168558e-06}
+[I 2026-02-21 06:24:05,923] Trial 15 finished with value: 0.9528149871884956 and parameters: {'batch_size': 32, 'frozen_layers': 0, 'classifier_dropout': 0.15879485872574356, 'learning_rate': 1.0509423684033755e-05, 'weight_decay': 2.115097202168558e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 06:24:06,616] Trial 16 pruned. Duplicate hyper-parameters, same as those used in trial 3: {'batch_size': 24, 'frozen_layers': 4, 'classifier_dropout': 0.31959818254342154, 'learning_rate': 1.9303350086293306e-05, 'weight_decay': 1.4322493718230256e-06}.
+[I 2026-02-21 06:24:07,257] Trial 17 pruned. Duplicate hyper-parameters, same as those used in trial 4: {'batch_size': 16, 'frozen_layers': 0, 'classifier_dropout': 0.3598528437324806, 'learning_rate': 1.935551577442944e-05, 'weight_decay': 5.105903209394753e-06}.
+[I 2026-02-21 06:24:07,863] Trial 18 pruned. Duplicate hyper-parameters, same as those used in trial 5: {'batch_size': 16, 'frozen_layers': 4, 'classifier_dropout': 0.34973279224012654, 'learning_rate': 1.2627329201463669e-05, 'weight_decay': 1.5199348301309813e-06}.
+[I 2026-02-21 06:24:08,449] Trial 19 pruned. Duplicate hyper-parameters, same as those used in trial 6: {'batch_size': 16, 'frozen_layers': 1, 'classifier_dropout': 0.2574269294896714, 'learning_rate': 1.6072748506390395e-05, 'weight_decay': 1.9553708662745237e-06}.
+[I 2026-02-21 06:24:09,072] Trial 20 pruned. Duplicate hyper-parameters, same as those used in trial 7: {'batch_size': 24, 'frozen_layers': 0, 'classifier_dropout': 0.18764339456056545, 'learning_rate': 1.4955434061021921e-05, 'weight_decay': 2.858051065806935e-06}.
+[I 2026-02-21 06:24:09,716] Trial 21 pruned. Duplicate hyper-parameters, same as those used in trial 8: {'batch_size': 32, 'frozen_layers': 0, 'classifier_dropout': 0.2542703315240835, 'learning_rate': 1.9171389132957902e-05, 'weight_decay': 1.1128853174905741e-06}.
+[I 2026-02-21 06:24:10,394] Trial 22 pruned. Duplicate hyper-parameters, same as those used in trial 9: {'batch_size': 24, 'frozen_layers': 0, 'classifier_dropout': 0.11951547789558387, 'learning_rate': 2.836177831555694e-05, 'weight_decay': 9.239150319627242e-06}.
+[I 2026-02-21 06:24:11,061] Trial 23 pruned. Duplicate hyper-parameters, same as those used in trial 10: {'batch_size': 32, 'frozen_layers': 1, 'classifier_dropout': 0.12930163420191518, 'learning_rate': 2.1206164214158642e-05, 'weight_decay': 2.755195964951074e-06}.
+[I 2026-02-21 06:52:08,054] Trial 24 finished with value: 0.9531804974021921 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.14894183182086512, 'learning_rate': 2.784410026333265e-05, 'weight_decay': 2.413000233122913e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 07:14:26,007] Trial 25 finished with value: 0.9507428694833187 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.32522290632426737, 'learning_rate': 2.836759896290538e-05, 'weight_decay': 1.1564576791118079e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 07:37:07,719] Trial 26 finished with value: 0.9469504979867411 and parameters: {'batch_size': 16, 'frozen_layers': 0, 'classifier_dropout': 0.15726840891207794, 'learning_rate': 2.604664496019061e-05, 'weight_decay': 2.3587926749011152e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 07:59:22,518] Trial 27 finished with value: 0.9482072503352423 and parameters: {'batch_size': 16, 'frozen_layers': 4, 'classifier_dropout': 0.2559074933283376, 'learning_rate': 2.0435259778705725e-05, 'weight_decay': 1.5831059410412835e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 08:26:59,676] Trial 28 finished with value: 0.9480783586743131 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.3290296510786668, 'learning_rate': 1.8219093535866697e-05, 'weight_decay': 1.0395213745634338e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 08:50:52,260] Trial 29 finished with value: 0.9386146736432213 and parameters: {'batch_size': 16, 'frozen_layers': 3, 'classifier_dropout': 0.12216750758285795, 'learning_rate': 1.8221929465418728e-05, 'weight_decay': 2.007136307033802e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 09:18:48,543] Trial 30 finished with value: 0.9537259962292567 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.1686365858095366, 'learning_rate': 2.416228948519558e-05, 'weight_decay': 1.039686443391604e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 09:41:28,645] Trial 31 finished with value: 0.9339584514420771 and parameters: {'batch_size': 16, 'frozen_layers': 3, 'classifier_dropout': 0.10702544058695096, 'learning_rate': 2.690356504685318e-05, 'weight_decay': 1.4456087542708716e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 10:03:55,487] Trial 32 finished with value: 0.9352793712370961 and parameters: {'batch_size': 16, 'frozen_layers': 0, 'classifier_dropout': 0.125013119768698, 'learning_rate': 2.0161106949764036e-05, 'weight_decay': 1.1488641165210813e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 10:22:56,686] Trial 33 finished with value: 0.9434677202805365 and parameters: {'batch_size': 24, 'frozen_layers': 3, 'classifier_dropout': 0.1438656077262178, 'learning_rate': 1.946528259713798e-05, 'weight_decay': 1.2694396618296203e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 10:45:01,270] Trial 34 finished with value: 0.9562986049160415 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.12250380944266867, 'learning_rate': 1.957296345488963e-05, 'weight_decay': 1.0769137271173064e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 11:07:08,675] Trial 35 finished with value: 0.9364840752203053 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.2503149640257304, 'learning_rate': 2.154307951006972e-05, 'weight_decay': 1.058637093359488e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 11:32:31,197] Trial 36 finished with value: 0.9548047082009017 and parameters: {'batch_size': 16, 'frozen_layers': 1, 'classifier_dropout': 0.11246813430028726, 'learning_rate': 2.8306672532773242e-05, 'weight_decay': 1.6773496400634581e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 11:53:37,374] Trial 37 finished with value: 0.9486485215359208 and parameters: {'batch_size': 32, 'frozen_layers': 0, 'classifier_dropout': 0.2521343237918529, 'learning_rate': 1.795226702866248e-05, 'weight_decay': 8.150947070251639e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 12:15:17,974] Trial 38 finished with value: 0.9518337192672011 and parameters: {'batch_size': 16, 'frozen_layers': 4, 'classifier_dropout': 0.2699923551340043, 'learning_rate': 2.620227874005515e-05, 'weight_decay': 6.705556086165646e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 12:37:26,275] Trial 39 finished with value: 0.929762210133585 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.19113982637735896, 'learning_rate': 1.340317442854238e-05, 'weight_decay': 1.1213255426098314e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 13:04:45,197] Trial 40 finished with value: 0.9363856103766306 and parameters: {'batch_size': 16, 'frozen_layers': 4, 'classifier_dropout': 0.3978031461390927, 'learning_rate': 1.0843935749102442e-05, 'weight_decay': 2.0461608975237034e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 13:32:01,154] Trial 41 finished with value: 0.9446013346169269 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.11494199776239404, 'learning_rate': 2.1523934442570628e-05, 'weight_decay': 3.1611705047791874e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 13:59:22,680] Trial 42 finished with value: 0.9466444798312631 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.1001252757809617, 'learning_rate': 1.5211417890397637e-05, 'weight_decay': 1.1043951033507213e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 14:21:32,988] Trial 43 finished with value: 0.9480334049625664 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.10359006403665166, 'learning_rate': 2.24365592334553e-05, 'weight_decay': 1.1253110023088017e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 14:48:53,731] Trial 44 finished with value: 0.9458978888720179 and parameters: {'batch_size': 16, 'frozen_layers': 3, 'classifier_dropout': 0.2999786835050082, 'learning_rate': 1.0300853406136184e-05, 'weight_decay': 5.852533450264364e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 15:10:56,100] Trial 45 finished with value: 0.9400257812182884 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.1477483214506135, 'learning_rate': 1.9110501104108422e-05, 'weight_decay': 1.461819395804853e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 15:34:31,922] Trial 46 finished with value: 0.952771056030504 and parameters: {'batch_size': 16, 'frozen_layers': 4, 'classifier_dropout': 0.1507054643225164, 'learning_rate': 1.853511199142662e-05, 'weight_decay': 4.679682715049798e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 15:56:02,783] Trial 47 finished with value: 0.9427587000268682 and parameters: {'batch_size': 16, 'frozen_layers': 1, 'classifier_dropout': 0.11184600965287825, 'learning_rate': 1.9525542416935454e-05, 'weight_decay': 1.0301321653008485e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 16:22:18,998] Trial 48 finished with value: 0.9504736187415346 and parameters: {'batch_size': 16, 'frozen_layers': 3, 'classifier_dropout': 0.1178511136164785, 'learning_rate': 1.807218625671542e-05, 'weight_decay': 1.1338125011483754e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 16:45:32,960] Trial 49 finished with value: 0.9495405816873981 and parameters: {'batch_size': 24, 'frozen_layers': 3, 'classifier_dropout': 0.367354803950233, 'learning_rate': 1.1352164790482818e-05, 'weight_decay': 4.5334892730731915e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 17:11:35,557] Trial 50 finished with value: 0.9429280053445619 and parameters: {'batch_size': 16, 'frozen_layers': 3, 'classifier_dropout': 0.22553867786843668, 'learning_rate': 2.0862086745100016e-05, 'weight_decay': 1.0014983643073854e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 17:35:27,645] Trial 51 finished with value: 0.9469138717956432 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.38895105354366283, 'learning_rate': 1.6436684764732767e-05, 'weight_decay': 1.0023648885686393e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 17:56:37,920] Trial 52 finished with value: 0.9432467890209607 and parameters: {'batch_size': 16, 'frozen_layers': 1, 'classifier_dropout': 0.10302731410250851, 'learning_rate': 2.9131970571326372e-05, 'weight_decay': 1.8500963514905141e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 18:18:54,297] Trial 53 finished with value: 0.947639478286245 and parameters: {'batch_size': 32, 'frozen_layers': 4, 'classifier_dropout': 0.1308028161224259, 'learning_rate': 1.4541903200878326e-05, 'weight_decay': 3.9743209126085956e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 18:45:29,524] Trial 54 finished with value: 0.9518407078616689 and parameters: {'batch_size': 16, 'frozen_layers': 1, 'classifier_dropout': 0.13935678636630058, 'learning_rate': 2.1901895364958712e-05, 'weight_decay': 1.8247530970781791e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 19:11:29,980] Trial 55 finished with value: 0.950836724562496 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.10357588042925048, 'learning_rate': 2.9068676052126854e-05, 'weight_decay': 3.6928399476181547e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 19:32:56,783] Trial 56 finished with value: 0.9542499519299399 and parameters: {'batch_size': 16, 'frozen_layers': 0, 'classifier_dropout': 0.13375688214822273, 'learning_rate': 2.6647874622546074e-05, 'weight_decay': 1.3175810752162839e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 19:54:36,246] Trial 57 finished with value: 0.9366293653757043 and parameters: {'batch_size': 16, 'frozen_layers': 1, 'classifier_dropout': 0.1398177724767316, 'learning_rate': 2.8711415452444775e-05, 'weight_decay': 1.827634372807874e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 20:17:01,613] Trial 58 finished with value: 0.9538230303740409 and parameters: {'batch_size': 24, 'frozen_layers': 2, 'classifier_dropout': 0.12521382695850497, 'learning_rate': 2.6338784081607056e-05, 'weight_decay': 1.3212526677441035e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 20:34:54,540] Trial 59 finished with value: 0.9391245906052194 and parameters: {'batch_size': 32, 'frozen_layers': 4, 'classifier_dropout': 0.16343823989009104, 'learning_rate': 2.4984536518999214e-05, 'weight_decay': 5.091349712620964e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 20:55:15,991] Trial 60 finished with value: 0.9429855551759883 and parameters: {'batch_size': 32, 'frozen_layers': 3, 'classifier_dropout': 0.38943072156999964, 'learning_rate': 1.649941378885849e-05, 'weight_decay': 1.2823968240263653e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 21:22:26,068] Trial 61 finished with value: 0.9631644957665323 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.18678485998732192, 'learning_rate': 1.8908446268035674e-05, 'weight_decay': 1.0417693887551818e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 21:43:49,673] Trial 62 finished with value: 0.9572053505810735 and parameters: {'batch_size': 16, 'frozen_layers': 1, 'classifier_dropout': 0.20502059061771238, 'learning_rate': 1.721444244504724e-05, 'weight_decay': 1.1637267018473535e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 22:05:08,671] Trial 63 finished with value: 0.948362793243543 and parameters: {'batch_size': 16, 'frozen_layers': 1, 'classifier_dropout': 0.19783152761182324, 'learning_rate': 1.7775315746528e-05, 'weight_decay': 1.180940325707784e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 22:30:52,829] Trial 64 finished with value: 0.934656340547089 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.24533830213873303, 'learning_rate': 1.8385642941675513e-05, 'weight_decay': 1.0781387578334713e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 22:53:49,892] Trial 65 finished with value: 0.9394628628861339 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.19954714910859547, 'learning_rate': 1.534216830621545e-05, 'weight_decay': 1.3675866222403363e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 23:19:27,542] Trial 66 finished with value: 0.9559441096060883 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.22964908224963482, 'learning_rate': 2.1076725892553734e-05, 'weight_decay': 1.3863587372950054e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-21 23:45:05,686] Trial 67 finished with value: 0.9550693871772549 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.16006541668609484, 'learning_rate': 1.8840125016754753e-05, 'weight_decay': 1.0163797453762508e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-22 00:06:21,377] Trial 68 finished with value: 0.9585445009788833 and parameters: {'batch_size': 24, 'frozen_layers': 0, 'classifier_dropout': 0.3114951724153616, 'learning_rate': 2.6550501056900874e-05, 'weight_decay': 2.0956999823737167e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-22 00:30:01,928] Trial 69 finished with value: 0.9482516746074892 and parameters: {'batch_size': 24, 'frozen_layers': 0, 'classifier_dropout': 0.2719506456438713, 'learning_rate': 2.7611755275693086e-05, 'weight_decay': 2.8628757786290234e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-22 00:51:19,321] Trial 70 finished with value: 0.940109559840977 and parameters: {'batch_size': 24, 'frozen_layers': 0, 'classifier_dropout': 0.3380736622328406, 'learning_rate': 2.3892741381755196e-05, 'weight_decay': 2.5464978075190485e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-22 01:15:01,217] Trial 71 finished with value: 0.965562302911512 and parameters: {'batch_size': 24, 'frozen_layers': 0, 'classifier_dropout': 0.31060210511364106, 'learning_rate': 2.6377836703544704e-05, 'weight_decay': 1.0192354675927792e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-22 01:33:55,525] Trial 72 finished with value: 0.9461064506412895 and parameters: {'batch_size': 24, 'frozen_layers': 0, 'classifier_dropout': 0.27732016278284577, 'learning_rate': 2.4611505224547523e-05, 'weight_decay': 1.0712131514299196e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-22 01:55:10,253] Trial 73 finished with value: 0.9553693464528145 and parameters: {'batch_size': 24, 'frozen_layers': 0, 'classifier_dropout': 0.39511026945859706, 'learning_rate': 2.4802256792028685e-05, 'weight_decay': 1.0552118545231027e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-22 02:15:47,093] Trial 74 finished with value: 0.9497235226270313 and parameters: {'batch_size': 24, 'frozen_layers': 2, 'classifier_dropout': 0.3069250130898248, 'learning_rate': 2.47679061974155e-05, 'weight_decay': 1.7228014878220597e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-22 02:36:42,272] Trial 75 finished with value: 0.9453603742934228 and parameters: {'batch_size': 24, 'frozen_layers': 1, 'classifier_dropout': 0.27005829738543635, 'learning_rate': 2.796881575124439e-05, 'weight_decay': 1.9378871405588516e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-22 02:59:57,580] Trial 76 finished with value: 0.9455384131269606 and parameters: {'batch_size': 24, 'frozen_layers': 1, 'classifier_dropout': 0.3019433107728723, 'learning_rate': 1.7478183228842337e-05, 'weight_decay': 1.0833281455285261e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-22 03:23:39,399] Trial 77 finished with value: 0.9638089031261011 and parameters: {'batch_size': 24, 'frozen_layers': 0, 'classifier_dropout': 0.3147629206311701, 'learning_rate': 2.6883772058437686e-05, 'weight_decay': 1.4633183464431031e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-22 03:44:34,273] Trial 78 finished with value: 0.9411519238156522 and parameters: {'batch_size': 24, 'frozen_layers': 1, 'classifier_dropout': 0.33512879603434725, 'learning_rate': 2.7392201680675098e-05, 'weight_decay': 1.3022049505131622e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-22 04:05:56,510] Trial 79 finished with value: 0.9386930666468446 and parameters: {'batch_size': 24, 'frozen_layers': 0, 'classifier_dropout': 0.29868636010640676, 'learning_rate': 2.707970539219781e-05, 'weight_decay': 1.5976899141633116e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-22 04:27:14,123] Trial 80 finished with value: 0.9453311182119998 and parameters: {'batch_size': 24, 'frozen_layers': 0, 'classifier_dropout': 0.3632266067915535, 'learning_rate': 2.610034648494581e-05, 'weight_decay': 1.866482220473041e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-22 04:50:27,190] Trial 81 finished with value: 0.9535893303013138 and parameters: {'batch_size': 24, 'frozen_layers': 1, 'classifier_dropout': 0.3499804084745061, 'learning_rate': 2.9175990749310803e-05, 'weight_decay': 2.4560173606082312e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-22 05:11:44,472] Trial 82 finished with value: 0.9508919851597438 and parameters: {'batch_size': 24, 'frozen_layers': 0, 'classifier_dropout': 0.2628513398678609, 'learning_rate': 2.2615273638634653e-05, 'weight_decay': 1.2426808915874644e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-22 05:32:15,229] Trial 83 finished with value: 0.9503270672876702 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.3772715292983943, 'learning_rate': 1.902581705317501e-05, 'weight_decay': 6.176462494409358e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-22 05:52:55,334] Trial 84 finished with value: 0.9352292339587336 and parameters: {'batch_size': 24, 'frozen_layers': 2, 'classifier_dropout': 0.33371999334280944, 'learning_rate': 2.1912964699311394e-05, 'weight_decay': 1.1925511377800234e-06}. Best is trial 11 with value: 0.965791292497678.
+[I 2026-02-22 06:19:24,187] Trial 85 finished with value: 0.9662160413022858 and parameters: {'batch_size': 16, 'frozen_layers': 1, 'classifier_dropout': 0.22263070775496968, 'learning_rate': 2.5331767656393007e-05, 'weight_decay': 1.0861603117137957e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 06:46:23,526] Trial 86 finished with value: 0.955069059640193 and parameters: {'batch_size': 16, 'frozen_layers': 1, 'classifier_dropout': 0.23553861879170343, 'learning_rate': 2.4936151889465184e-05, 'weight_decay': 1.0777050007199314e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 07:09:54,002] Trial 87 finished with value: 0.9462161311580984 and parameters: {'batch_size': 16, 'frozen_layers': 0, 'classifier_dropout': 0.34344506355794757, 'learning_rate': 2.5167505388399836e-05, 'weight_decay': 1.4461693115320176e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 07:31:18,650] Trial 88 finished with value: 0.945397386322364 and parameters: {'batch_size': 24, 'frozen_layers': 0, 'classifier_dropout': 0.29030617372864637, 'learning_rate': 2.17795648225255e-05, 'weight_decay': 8.843398601081373e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 07:52:10,444] Trial 89 finished with value: 0.9423213561607674 and parameters: {'batch_size': 16, 'frozen_layers': 1, 'classifier_dropout': 0.25310371287072786, 'learning_rate': 2.345342464095021e-05, 'weight_decay': 2.4741234646589244e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 08:15:32,367] Trial 90 finished with value: 0.946332649498471 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.19254932456460624, 'learning_rate': 1.9407372411664318e-05, 'weight_decay': 1.4309835379565668e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 08:39:13,783] Trial 91 finished with value: 0.9566105488992993 and parameters: {'batch_size': 16, 'frozen_layers': 1, 'classifier_dropout': 0.3112768887652965, 'learning_rate': 2.6900864385956092e-05, 'weight_decay': 1.545543300908315e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 09:02:24,281] Trial 92 finished with value: 0.9541832977256911 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.24149170150310476, 'learning_rate': 2.9735616219787503e-05, 'weight_decay': 1.1295280111070669e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 09:26:22,471] Trial 93 finished with value: 0.9530628076428782 and parameters: {'batch_size': 16, 'frozen_layers': 0, 'classifier_dropout': 0.2792348004070134, 'learning_rate': 2.4132954060231976e-05, 'weight_decay': 1.0388207909131855e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 09:44:38,987] Trial 94 finished with value: 0.9561904431210724 and parameters: {'batch_size': 16, 'frozen_layers': 0, 'classifier_dropout': 0.28984906603286303, 'learning_rate': 2.9172473792976265e-05, 'weight_decay': 1.0736442830624102e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 10:04:48,280] Trial 95 finished with value: 0.9418043865170531 and parameters: {'batch_size': 16, 'frozen_layers': 4, 'classifier_dropout': 0.15539366849341607, 'learning_rate': 2.91820681848671e-05, 'weight_decay': 3.4994321464111733e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 10:26:58,338] Trial 96 finished with value: 0.9466565894817343 and parameters: {'batch_size': 32, 'frozen_layers': 4, 'classifier_dropout': 0.2573813307170442, 'learning_rate': 1.1759744859154235e-05, 'weight_decay': 1.56691173890938e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 10:47:26,408] Trial 97 finished with value: 0.9419017164606633 and parameters: {'batch_size': 16, 'frozen_layers': 1, 'classifier_dropout': 0.23213021265383585, 'learning_rate': 1.6920755038399547e-05, 'weight_decay': 1.6347668279245177e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 11:10:39,929] Trial 98 finished with value: 0.9494840116669445 and parameters: {'batch_size': 16, 'frozen_layers': 0, 'classifier_dropout': 0.27572926532787834, 'learning_rate': 2.3047215959580915e-05, 'weight_decay': 2.053239341442896e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 11:28:54,716] Trial 99 finished with value: 0.9412813832257785 and parameters: {'batch_size': 24, 'frozen_layers': 3, 'classifier_dropout': 0.3298933009677113, 'learning_rate': 2.284290705665222e-05, 'weight_decay': 2.2512432951048997e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 11:54:42,050] Trial 100 finished with value: 0.9452010746711281 and parameters: {'batch_size': 16, 'frozen_layers': 0, 'classifier_dropout': 0.3117499435892731, 'learning_rate': 2.456235001243859e-05, 'weight_decay': 2.8378132568913505e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 12:15:21,593] Trial 101 finished with value: 0.9468871436741759 and parameters: {'batch_size': 16, 'frozen_layers': 0, 'classifier_dropout': 0.3525779634576995, 'learning_rate': 2.7961831936590614e-05, 'weight_decay': 1.4671860908456657e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 12:33:09,338] Trial 102 finished with value: 0.9515743836961694 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.31177261770130377, 'learning_rate': 2.4783763483935968e-05, 'weight_decay': 2.0353341355803023e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 12:56:24,599] Trial 103 finished with value: 0.941919847363603 and parameters: {'batch_size': 16, 'frozen_layers': 0, 'classifier_dropout': 0.3394545792920536, 'learning_rate': 1.2497938745390013e-05, 'weight_decay': 1.2184706192701776e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 13:16:45,923] Trial 104 finished with value: 0.9448608696144947 and parameters: {'batch_size': 16, 'frozen_layers': 2, 'classifier_dropout': 0.32386982421507093, 'learning_rate': 2.1628754695805836e-05, 'weight_decay': 1.0098884212345202e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 13:42:37,143] Trial 105 finished with value: 0.9364845261278416 and parameters: {'batch_size': 16, 'frozen_layers': 0, 'classifier_dropout': 0.1694476108999106, 'learning_rate': 1.520752802039547e-05, 'weight_decay': 1.5354447313584395e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 14:08:09,816] Trial 106 finished with value: 0.9340474476765901 and parameters: {'batch_size': 16, 'frozen_layers': 3, 'classifier_dropout': 0.22076347624413398, 'learning_rate': 1.0242918043100244e-05, 'weight_decay': 4.844614251380893e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 14:31:44,687] Trial 107 finished with value: 0.9488128710216133 and parameters: {'batch_size': 16, 'frozen_layers': 1, 'classifier_dropout': 0.23147103973120242, 'learning_rate': 2.3058662024866576e-05, 'weight_decay': 1.1714468482128e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 14:53:15,664] Trial 108 finished with value: 0.9555830218315822 and parameters: {'batch_size': 24, 'frozen_layers': 0, 'classifier_dropout': 0.29222208041168285, 'learning_rate': 2.3498466405647184e-05, 'weight_decay': 1.5585065410272134e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 15:14:34,274] Trial 109 finished with value: 0.9517293136189828 and parameters: {'batch_size': 16, 'frozen_layers': 3, 'classifier_dropout': 0.16257472976958728, 'learning_rate': 2.3577230472543632e-05, 'weight_decay': 1.93766788647447e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 15:39:59,350] Trial 110 finished with value: 0.9508606777982906 and parameters: {'batch_size': 16, 'frozen_layers': 0, 'classifier_dropout': 0.3280444900788285, 'learning_rate': 2.4588888558108486e-05, 'weight_decay': 1.1279490486646323e-06}. Best is trial 85 with value: 0.9662160413022858.
+[I 2026-02-22 16:08:01,990] Trial 111 finished with value: 0.9469315548576411 and parameters: {'batch_size': 16, 'frozen_layers': 0, 'classifier_dropout': 0.14760232597074197, 'learning_rate': 1.6821191731370195e-05, 'weight_decay': 4.963691356328748e-06}. Best is trial 85 with value: 0.9662160413022858.
+
+[TRIAL] 85 [VALIDATION PERFORMANCE] 0.9662160413022858 [TRAINING LOSS] 0.02321805728216593 [VALIDATION LOSS] 0.13453097453020746 
+
+number                     			 85
+value                      			 0.9662160413022858
+params_batch_size          			 16
+params_classifier_dropout  			 0.22263070775496968
+params_frozen_layers       			 1
+params_learning_rate       			 2.5331767656393007e-05
+params_weight_decay        			 1.0861603117137957e-06
+user_attrs_duplicate       			 False
+user_attrs_epoch           			 7.0
+user_attrs_training_loss   			 0.02321805728216593
+user_attrs_validation_loss 			 0.13453097453020746
+
+[37] VALIDATION: 0.9600904539053495 TESTING: 0.9442994821094515
+[38] VALIDATION: 0.9313517464770018 TESTING: 0.9318708741346671
+[39] VALIDATION: 0.9449171009301792 TESTING: 0.9448057076219101
+[40] VALIDATION: 0.9477295573400013 TESTING: 0.9518115664219347
+[41] VALIDATION: 0.9548470743853144 TESTING: 0.9490079521276625
+[42] VALIDATION: 0.9662160413022858 TESTING: 0.9470390797200499
+[43] VALIDATION: 0.9440050751692551 TESTING: 0.96276870518899
+[44] VALIDATION: 0.9459081673260745 TESTING: 0.9389193881893034
+[45] VALIDATION: 0.9313186966197345 TESTING: 0.9203345200425347
+[46] VALIDATION: 0.934058680859099 TESTING: 0.9368504828006567
+
+Validation performance: 93.13 & 94.6 ± 1.19 & 96.62
+Testing performance: 92.03 & 94.28 ± 1.16 & 96.28
+
+[TRIAL] 11 [VALIDATION PERFORMANCE] 0.965791292497678 [TRAINING LOSS] 0.02309374483633536 [VALIDATION LOSS] 0.15406591076316545 
+
+number                     			 11
+value                      			 0.965791292497678
+params_batch_size          			 16
+params_classifier_dropout  			 0.11031655633456552
+params_frozen_layers       			 2
+params_learning_rate       			 2.7155392923951256e-05
+params_weight_decay        			 1.8145961353490265e-06
+user_attrs_duplicate       			 False
+user_attrs_epoch           			 6.0
+user_attrs_training_loss   			 0.02309374483633536
+user_attrs_validation_loss 			 0.15406591076316545
+
+[37] VALIDATION: 0.9422129932798706 TESTING: 0.9562571085876717
+[38] VALIDATION: 0.9446580077862836 TESTING: 0.9385993445389502
+[39] VALIDATION: 0.9474148112940608 TESTING: 0.956016725521802
+[40] VALIDATION: 0.9474374535818078 TESTING: 0.9450298433380113
+[41] VALIDATION: 0.9435544861873566 TESTING: 0.9288240101888507
+[42] VALIDATION: 0.965791292497678 TESTING: 0.945782118590244
+[43] VALIDATION: 0.9545616425038101 TESTING: 0.9350598384420343
+[44] VALIDATION: 0.9298261680790123 TESTING: 0.9371480838763786
+[45] VALIDATION: 0.941080117701731 TESTING: 0.9288286308997908
+[46] VALIDATION: 0.940796150041987 TESTING: 0.9562433595219431
+
+Validation performance: 92.98 & 94.57 ± 0.94 & 96.58
+Testing performance: 92.88 & 94.28 ± 1.08 & 95.63
+
+[TRIAL] 71 [VALIDATION PERFORMANCE] 0.965562302911512 [TRAINING LOSS] 0.031112322848312248 [VALIDATION LOSS] 0.11988032143563032 
+
+number                     			 71
+value                      			 0.965562302911512
+params_batch_size          			 24
+params_classifier_dropout  			 0.31060210511364106
+params_frozen_layers       			 0
+params_learning_rate       			 2.6377836703544704e-05
+params_weight_decay        			 1.0192354675927792e-06
+user_attrs_duplicate       			 False
+user_attrs_epoch           			 6.0
+user_attrs_training_loss   			 0.031112322848312248
+user_attrs_validation_loss 			 0.11988032143563032
+
+[37] VALIDATION: 0.9519150751644083 TESTING: 0.937391730628635
+[38] VALIDATION: 0.9518738995432028 TESTING: 0.9465063549884021
+[39] VALIDATION: 0.952041387341699 TESTING: 0.9475744538649452
+[40] VALIDATION: 0.9434957179099192 TESTING: 0.9434390695018544
+[41] VALIDATION: 0.9599964688278622 TESTING: 0.9463345530342396
+[42] VALIDATION: 0.965562302911512 TESTING: 0.963006137608285
+[43] VALIDATION: 0.9464269479884426 TESTING: 0.9436942183496931
+[44] VALIDATION: 0.9499577858901312 TESTING: 0.9550873871356227
+[45] VALIDATION: 0.9656263280333254 TESTING: 0.9509513915150853
+[46] VALIDATION: 0.9493278024468284 TESTING: 0.9546741670519776
+
+Validation performance: 94.35 & 95.36 ± 0.76 & 96.56
+Testing performance: 93.74 & 94.89 ± 0.73 & 96.3
+
+[R8] Elapsed time: 2782.894840423266 minutes.

@@ -1,0 +1,44 @@
+digraph "SST-2-test-20-1" {
+	graph [dpi=300]
+	{
+		rank=same
+		0 [label="[D]" color="#363636" fillcolor="#cccccc" shape=oval style=filled]
+	}
+	{
+		rank=same
+		1 [label="[T-1]" color="#363636" fillcolor="#cccccc" shape=oval style=filled]
+	}
+	{
+		rank=same
+		7 [label=latter color="#363636" fillcolor="#fff6cd" fixedsize=true fontsize=12.662875332384939 height=0.5220958444128313 shape=oval style=filled width=0.965877312163738]
+		8 [label=and color="#363636" fillcolor="#fff1af" fixedsize=true fontsize=13.5712533373727 height=0.5523751112457567 shape=oval style=filled width=1.0218939558046498]
+		9 [label=then color="#363636" fillcolor="#fff9e2" fixedsize=true fontsize=12.0 height=0.5 shape=oval style=filled width=0.925]
+		10 [label=this color="#363636" fillcolor="#ffe461" fixedsize=true fontsize=15.915504707608426 height=0.6305168235869475 shape=oval style=filled width=1.1664561236358528]
+		11 [label=film color="#363636" fillcolor="#ffd500" fixedsize=true fontsize=18.864270708694818 height=0.7288090236231607 shape=oval style=filled width=1.3482966937028473]
+		12 [label=packs color="#363636" fillcolor="#ffe355" fixedsize=true fontsize=16.271338328517615 height=0.6423779442839205 shape=oval style=filled width=1.188399196925253]
+	}
+	0 -> 0 [arrowsize=0.5 color="#cccccc"]
+	1 -> 0 [arrowsize=0.5 color="#cccccc"]
+	1 -> 1 [arrowsize=0.5 color="#cccccc"]
+	7 -> 7 [arrowsize=0.5 color="#cccccc"]
+	7 -> 1 [arrowsize=0.5 color="#8c8c8c"]
+	8 -> 8 [arrowsize=0.5 color="#cccccc"]
+	8 -> 9 [arrowsize=0.5 color="#cccccc"]
+	8 -> 7 [arrowsize=0.5 color="#cccccc"]
+	9 -> 8 [arrowsize=0.5 color="#cccccc"]
+	9 -> 9 [arrowsize=0.5 color="#cccccc"]
+	10 -> 10 [arrowsize=0.5 color="#cccccc"]
+	10 -> 11 [arrowsize=0.5 color="#cccccc"]
+	10 -> 12 [arrowsize=0.5 color="#cccccc"]
+	10 -> 7 [arrowsize=0.5 color="#cccccc"]
+	11 -> 10 [arrowsize=0.5 color="#cccccc"]
+	11 -> 11 [arrowsize=0.5 color="#cccccc"]
+	11 -> 12 [arrowsize=0.5 color="#cccccc"]
+	12 -> 11 [arrowsize=0.5 color="#cccccc"]
+	12 -> 12 [arrowsize=0.5 color="#cccccc"]
+	8 -> 1 [arrowsize=0.5 color="#b5b5b5"]
+	9 -> 1 [arrowsize=0.5 color="#bfbfbf"]
+	10 -> 1 [arrowsize=0.5 color="#bebebe"]
+	11 -> 1 [arrowsize=0.5 color="#969696"]
+	12 -> 1 [arrowsize=0.5 color="#000000"]
+}
