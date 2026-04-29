@@ -1,0 +1,18 @@
+digraph "SST-2-test-17-0" {
+	graph [dpi=300]
+	0 [label=what color="#363636" fillcolor="#ffd500" fixedsize=true fontsize=72.0 height=2.5 shape=oval style=filled width=4.625]
+	1 [label="'" color="#363636" fillcolor="#fff9e2" fixedsize=true fontsize=12.0 height=0.5 shape=oval style=filled width=0.925]
+	2 [label=s color="#363636" fillcolor="#fff5c7" fixedsize=true fontsize=19.214184146842996 height=0.7404728048947665 shape=oval style=filled width=1.3698746890553182]
+	3 [label=next color="#363636" fillcolor="#fff2b6" fixedsize=true fontsize=23.851651707649363 height=0.8950550569216454 shape=oval style=filled width=1.655851855305044]
+	4 [label="?" color="#363636" fillcolor="#ffe97e" fixedsize=true fontsize=38.48865720546061 height=1.3829552401820204 shape=oval style=filled width=2.558467194336738]
+	0 -> 3 [arrowsize=0.5 color="#a2a2a2"]
+	0 -> 4 [arrowsize=0.5 color="#000000"]
+	1 -> 0 [arrowsize=0.5 color="#303030"]
+	1 -> 2 [arrowsize=0.5 color="#656565"]
+	1 -> 3 [arrowsize=0.5 color="#bfbfbf"]
+	2 -> 0 [arrowsize=0.5 color="#4d4d4d"]
+	2 -> 3 [arrowsize=0.5 color="#2b2b2b"]
+	3 -> 0 [arrowsize=0.5 color="#868686"]
+	4 -> 0 [arrowsize=0.5 color="#5b5b5b"]
+	4 -> 4 [arrowsize=0.5 color="#646464"]
+}

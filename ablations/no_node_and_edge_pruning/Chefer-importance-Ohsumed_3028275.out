@@ -1,0 +1,20 @@
+SLURM NODE: kn076
+
+[TRIAL] 55 [VALIDATION PERFORMANCE] 0.6543188019429754 [TRAINING LOSS] 0.6284693945199251 [VALIDATION LOSS] 1.5670334647099178 
+
+number                         			 55
+value                          			 0.6543188019429754
+params_attention_heads         			 8
+params_batch_size              			 56
+params_dropout_rate            			 0.10854688298020293
+params_edge_threshold          			 0.72
+params_hidden_dimension        			 122
+params_learning_rate           			 0.00028666422518832296
+params_node_threshold          			 0.82
+params_number_of_hidden_layers 			 2
+params_weight_decay            			 1.0005035451047945e-06
+user_attrs_duplicate           			 False
+user_attrs_epoch               			 2.0
+user_attrs_training_loss       			 0.6284693945199251
+user_attrs_validation_loss     			 1.5670334647099178
+

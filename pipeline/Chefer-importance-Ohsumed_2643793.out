@@ -1,0 +1,105 @@
+SLURM NODE: kn076
+[I 2026-03-28 07:08:41,575] Using an existing study with name 'Ohsumed-Chefer_importance' instead of creating a new one.
+Unbound optimization already completed.
+
+[UPDATE] Unbound limits: {'batch_size': (np.int64(32), np.int64(128)), 'edge_threshold': (np.float64(0.6), np.float64(0.8)), 'node_threshold': (np.float64(0.7), np.float64(0.9)), 'attention_heads': (np.int64(6), np.int64(8)), 'hidden_dimension': (np.int64(64), np.int64(128)), 'number_of_hidden_layers': (np.int64(1), np.int64(2)), 'dropout_rate': (np.float64(0.1), np.float64(0.2)), 'learning_rate': (np.float64(1e-05), np.float64(0.0003)), 'weight_decay': (np.float64(1e-06), np.float64(0.001))}
+[I 2026-03-28 07:08:42,244] Using an existing study with name 'Ohsumed-Chefer_importance-unbound' instead of creating a new one.
+Unbound optimization already completed.
+
+[TRIAL] 55 [VALIDATION PERFORMANCE] 0.6543188019429754 [TRAINING LOSS] 0.6284693945199251 [VALIDATION LOSS] 1.5670334647099178 
+
+number                         			 55
+value                          			 0.6543188019429754
+params_attention_heads         			 8
+params_batch_size              			 56
+params_dropout_rate            			 0.10854688298020293
+params_edge_threshold          			 0.72
+params_hidden_dimension        			 122
+params_learning_rate           			 0.00028666422518832296
+params_node_threshold          			 0.82
+params_number_of_hidden_layers 			 2
+params_weight_decay            			 1.0005035451047945e-06
+user_attrs_duplicate           			 False
+user_attrs_epoch               			 2.0
+user_attrs_training_loss       			 0.6284693945199251
+user_attrs_validation_loss     			 1.5670334647099178
+
+[37] VALIDATION: 0.6374160897169562 TESTING: 0.6261073954555295
+[38] VALIDATION: 0.6005048139716205 TESTING: 0.613858933244401
+[39] VALIDATION: 0.6333539293078033 TESTING: 0.6214058064664844
+[40] VALIDATION: 0.6479420334733915 TESTING: 0.6388158872854801
+[41] VALIDATION: 0.6380436009038685 TESTING: 0.6262144952102768
+[42] VALIDATION: 0.6543188019429754 TESTING: 0.6181669930192137
+[43] VALIDATION: 0.6581563567513459 TESTING: 0.6246647448254858
+[44] VALIDATION: 0.6363204177583058 TESTING: 0.6360462362171008
+[45] VALIDATION: 0.6456673816399311 TESTING: 0.6271813603173235
+[46] VALIDATION: 0.6432680771554805 TESTING: 0.6242689324857185
+
+Validation performance: 60.05 & 63.95 ± 1.59 & 65.82
+Testing performance: 61.39 & 62.57 ± 0.75 & 63.88
+
+[TRIAL] 0 [VALIDATION PERFORMANCE] 0.6537266560341978 [TRAINING LOSS] 0.4819786704721905 [VALIDATION LOSS] 1.3726309212771328 
+
+number                         			 0
+value                          			 0.6537266560341978
+params_attention_heads         			 8
+params_batch_size              			 64
+params_dropout_rate            			 0.1
+params_edge_threshold          			 0.7
+params_hidden_dimension        			 128
+params_learning_rate           			 0.0001
+params_node_threshold          			 0.8
+params_number_of_hidden_layers 			 2
+params_weight_decay            			 1e-05
+user_attrs_duplicate           			 False
+user_attrs_epoch               			 4.0
+user_attrs_training_loss       			 0.4819786704721905
+user_attrs_validation_loss     			 1.3726309212771328
+
+[37] VALIDATION: 0.6379369694837347 TESTING: 0.6112106868085063
+[38] VALIDATION: 0.6330958586844705 TESTING: 0.6107777309485468
+[39] VALIDATION: 0.6471537305676677 TESTING: 0.6159004655962188
+[40] VALIDATION: 0.622990455349684 TESTING: 0.629865921253289
+[41] VALIDATION: 0.6138220670369252 TESTING: 0.602677262885257
+[42] VALIDATION: 0.6537266560341978 TESTING: 0.6153825005283543
+[43] VALIDATION: 0.6173965630732776 TESTING: 0.6064119923956222
+[44] VALIDATION: 0.625382558978536 TESTING: 0.61229645601193
+[45] VALIDATION: 0.6116456015616807 TESTING: 0.6137830594725955
+[46] VALIDATION: 0.6443754835293246 TESTING: 0.6087835196362613
+
+Validation performance: 61.16 & 63.08 ± 1.48 & 65.37
+Testing performance: 60.27 & 61.27 ± 0.73 & 62.99
+
+[TRIAL] 1 [VALIDATION PERFORMANCE] 0.6537266560341978 [TRAINING LOSS] 0.4819786704721905 [VALIDATION LOSS] 1.3726309212771328 
+
+number                         			 1
+value                          			 0.6537266560341978
+params_attention_heads         			 8
+params_batch_size              			 64
+params_dropout_rate            			 0.1
+params_edge_threshold          			 0.7
+params_hidden_dimension        			 128
+params_learning_rate           			 0.0001
+params_node_threshold          			 0.8
+params_number_of_hidden_layers 			 2
+params_weight_decay            			 0.0001
+user_attrs_duplicate           			 False
+user_attrs_epoch               			 4.0
+user_attrs_training_loss       			 0.4819786704721905
+user_attrs_validation_loss     			 1.3726309212771328
+
+[37] VALIDATION: 0.6379369694837347 TESTING: 0.6112106868085063
+[38] VALIDATION: 0.6330958586844705 TESTING: 0.6107777309485468
+[39] VALIDATION: 0.6471537305676677 TESTING: 0.6159004655962188
+[40] VALIDATION: 0.622990455349684 TESTING: 0.629865921253289
+[41] VALIDATION: 0.6138220670369252 TESTING: 0.602677262885257
+[42] VALIDATION: 0.6537266560341978 TESTING: 0.6153825005283543
+[43] VALIDATION: 0.6173965630732776 TESTING: 0.6064119923956222
+[44] VALIDATION: 0.625382558978536 TESTING: 0.61229645601193
+[45] VALIDATION: 0.6116456015616807 TESTING: 0.6137830594725955
+[46] VALIDATION: 0.6443754835293246 TESTING: 0.6087835196362613
+
+Validation performance: 61.16 & 63.08 ± 1.48 & 65.37
+Testing performance: 60.27 & 61.27 ± 0.73 & 62.99
+
+[Ohsumed] Elapsed time: 1604.9027503331502 minutes.

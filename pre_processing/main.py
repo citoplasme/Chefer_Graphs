@@ -191,6 +191,40 @@ def Ohsumed():
     .reset_index(drop = True) \
     .to_csv(os.path.join(PRE_PROCESSED_PATH, 'Ohsumed', 'test.csv'), index = False)
 
+def IMDb_1k():
+
+  os.makedirs(os.path.join(PRE_PROCESSED_PATH, 'IMDb-1k'), exist_ok = True)
+
+  # Training split
+  training_df = pd.read_csv(os.path.join(ORIGINAL_DATA_SET_PATH, 'IMDb-1k', 'train.csv'))[['text', 'label']]
+  training_df[TEXT_COLUMN] = training_df[TEXT_COLUMN].apply(html.unescape)
+  training_df[TEXT_COLUMN] = training_df[TEXT_COLUMN].apply(lambda x : re.sub(r'<.*?>', '', x))
+  training_df[TEXT_COLUMN] = training_df[TEXT_COLUMN].str.replace(r'\s+', ' ', regex = True).str.strip()
+  training_df.dropna() \
+    .sample(frac = 1, random_state = SEED) \
+    .reset_index(drop = True) \
+    .to_csv(os.path.join(PRE_PROCESSED_PATH, 'IMDb-1k', 'train.csv'), index = False)
+  
+  # Validation split
+  validation_df = pd.read_csv(os.path.join(ORIGINAL_DATA_SET_PATH, 'IMDb-1k', 'validation.csv'))[['text', 'label']]
+  validation_df[TEXT_COLUMN] = validation_df[TEXT_COLUMN].apply(html.unescape)
+  validation_df[TEXT_COLUMN] = validation_df[TEXT_COLUMN].apply(lambda x : re.sub(r'<.*?>', '', x))
+  validation_df[TEXT_COLUMN] = validation_df[TEXT_COLUMN].str.replace(r'\s+', ' ', regex = True).str.strip()
+  validation_df.dropna() \
+    .sample(frac = 1, random_state = SEED) \
+    .reset_index(drop = True) \
+    .to_csv(os.path.join(PRE_PROCESSED_PATH, 'IMDb-1k', 'validation.csv'), index = False)
+  
+  # Testing split
+  testing_df = pd.read_csv(os.path.join(ORIGINAL_DATA_SET_PATH, 'IMDb-1k', 'test.csv'))[['text', 'label']]
+  testing_df[TEXT_COLUMN] = testing_df[TEXT_COLUMN].apply(html.unescape)
+  testing_df[TEXT_COLUMN] = testing_df[TEXT_COLUMN].apply(lambda x : re.sub(r'<.*?>', '', x))
+  testing_df[TEXT_COLUMN] = testing_df[TEXT_COLUMN].str.replace(r'\s+', ' ', regex = True).str.strip()
+  testing_df.dropna() \
+    .sample(frac = 1, random_state = SEED) \
+    .reset_index(drop = True) \
+    .to_csv(os.path.join(PRE_PROCESSED_PATH, 'IMDb-1k', 'test.csv'), index = False)
+
 if __name__ == '__main__':
   # st = time.time()
   # SST_2()
@@ -200,10 +234,14 @@ if __name__ == '__main__':
   # IMDb()
   # print('[IMDb] Elapsed time:', time.time() - st, 'seconds.', flush = True)
 
-  st = time.time()
-  R8()
-  print('[R8] Elapsed time:', time.time() - st, 'seconds.', flush = True)
+  # st = time.time()
+  # R8()
+  # print('[R8] Elapsed time:', time.time() - st, 'seconds.', flush = True)
 
   # st = time.time()
   # Ohsumed()
   # print('[Ohsumed] Elapsed time:', time.time() - st, 'seconds.', flush = True)
+
+  st = time.time()
+  IMDb_1k()
+  print('[IMDb-1k] Elapsed time:', time.time() - st, 'seconds.', flush = True)

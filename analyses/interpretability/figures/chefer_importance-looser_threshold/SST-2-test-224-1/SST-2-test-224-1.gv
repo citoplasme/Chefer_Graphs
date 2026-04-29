@@ -1,0 +1,24 @@
+digraph "SST-2-test-224-1" {
+	graph [dpi=300]
+	{
+		rank=same
+		0 [label="[D]" color="#363636" fillcolor="#cccccc" shape=oval style=filled]
+	}
+	{
+		rank=same
+		1 [label="[T-1]" color="#363636" fillcolor="#cccccc" shape=oval style=filled]
+	}
+	{
+		rank=same
+		2 [label=a color="#363636" fillcolor="#fff9e2" fixedsize=true fontsize=12.0 height=0.5 shape=oval style=filled width=0.925]
+		4 [label=real color="#363636" fillcolor="#ffd500" fixedsize=true fontsize=14.85018972251056 height=0.5950063240836854 shape=oval style=filled width=1.100761699554818]
+	}
+	0 -> 0 [arrowsize=0.5 color="#cccccc"]
+	1 -> 0 [arrowsize=0.5 color="#cccccc"]
+	1 -> 1 [arrowsize=0.5 color="#cccccc"]
+	2 -> 2 [arrowsize=0.5 color="#cccccc"]
+	2 -> 1 [arrowsize=0.5 color="#bfbfbf"]
+	2 -> 4 [arrowsize=0.5 color="#cccccc"]
+	4 -> 4 [arrowsize=0.5 color="#cccccc"]
+	4 -> 1 [arrowsize=0.5 color="#000000"]
+}

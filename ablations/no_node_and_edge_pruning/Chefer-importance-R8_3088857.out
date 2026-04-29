@@ -1,0 +1,53 @@
+SLURM NODE: kn065
+
+[TRIAL] 38 [VALIDATION PERFORMANCE] 0.9694626941075009 [TRAINING LOSS] 0.08850789768621325 [VALIDATION LOSS] 0.1577101149596274 
+
+number                         			 38
+value                          			 0.9694626941075009
+params_attention_heads         			 5
+params_batch_size              			 128
+params_dropout_rate            			 0.12232200989360004
+params_edge_threshold          			 0.58
+params_hidden_dimension        			 39
+params_learning_rate           			 0.0008829915716386434
+params_node_threshold          			 0.8099999999999999
+params_number_of_hidden_layers 			 2
+params_weight_decay            			 0.0006154657655895834
+user_attrs_duplicate           			 False
+user_attrs_epoch               			 4.0
+user_attrs_training_loss       			 0.08850789768621325
+user_attrs_validation_loss     			 0.1577101149596274
+
+[37] VALIDATION: 0.961070931932734 TESTING: 0.9294290847358487
+[38] VALIDATION: 0.95638011005148 TESTING: 0.9365616369360401
+[39] VALIDATION: 0.9520996158185364 TESTING: 0.9331317742497292
+[40] VALIDATION: 0.9582812047263354 TESTING: 0.9209769083371651
+[41] VALIDATION: 0.9533021135480509 TESTING: 0.9226789886170199
+[42] VALIDATION: 0.9565922006901991 TESTING: 0.9290912333776651
+[43] VALIDATION: 0.9541528484565128 TESTING: 0.9384534294012801
+[44] VALIDATION: 0.9286601349448054 TESTING: 0.9281270470889305
+[45] VALIDATION: 0.954612885554242 TESTING: 0.9490628532363204
+[46] VALIDATION: 0.9500532026747819 TESTING: 0.9393056217486379
+
+Validation performance: 92.87 & 95.25 ± 0.9 & 96.11
+Testing performance: 92.1 & 93.27 ± 0.84 & 94.91
+
+[TRIAL] 40 [VALIDATION PERFORMANCE] 0.9680419250536636 [TRAINING LOSS] 0.060670493519864976 [VALIDATION LOSS] 0.15769106592051685 
+
+number                         			 40
+value                          			 0.9680419250536636
+params_attention_heads         			 5
+params_batch_size              			 128
+params_dropout_rate            			 0.11658630998114217
+params_edge_threshold          			 0.56
+params_hidden_dimension        			 39
+params_learning_rate           			 0.0006997453057409489
+params_node_threshold          			 0.82
+params_number_of_hidden_layers 			 2
+params_weight_decay            			 0.00013796178291034688
+user_attrs_duplicate           			 False
+user_attrs_epoch               			 5.0
+user_attrs_training_loss       			 0.060670493519864976
+user_attrs_validation_loss     			 0.15769106592051685
+
+slurmstepd: error: *** JOB 3088857 ON kn065 CANCELLED AT 2026-04-15T10:54:33 DUE TO TIME LIMIT ***

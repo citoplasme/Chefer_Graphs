@@ -1,27 +1,10 @@
-SLURM NODE: kn063
-[I 2026-03-14 04:57:37,131] Using an existing study with name 'R8-Attention_distillation' instead of creating a new one.
+SLURM NODE: kn080
+[I 2026-03-16 14:36:21,262] Using an existing study with name 'R8-Attention_distillation' instead of creating a new one.
 Unbound optimization already completed.
 
 [UPDATE] Unbound limits: {'batch_size': (np.int64(16), np.int64(128)), 'threshold': (np.float64(0.6), np.float64(0.99)), 'attention_heads': (np.int64(1), np.int64(2)), 'hidden_dimension': (np.int64(32), np.int64(128)), 'number_of_hidden_layers': (np.int64(0), np.int64(2)), 'dropout_rate': (np.float64(0.1), np.float64(0.3)), 'learning_rate': (np.float64(1e-05), np.float64(0.001)), 'weight_decay': (np.float64(1e-05), np.float64(0.001))}
-[I 2026-03-14 04:57:37,767] Using an existing study with name 'R8-Attention_distillation-unbound' instead of creating a new one.
-Last trial state: 0
-Enqueuing hyper-parameters: {'batch_size': 72, 'threshold': 0.73, 'attention_heads': 1, 'hidden_dimension': 39, 'number_of_hidden_layers': 0, 'dropout_rate': 0.21292368722734226, 'learning_rate': 2.145542223270159e-05, 'weight_decay': 4.575917818853433e-05}
-[I 2026-03-14 06:26:29,705] Trial 97 finished with value: 0.9385623699194448 and parameters: {'batch_size': 72, 'threshold': 0.73, 'attention_heads': 1, 'hidden_dimension': 39, 'number_of_hidden_layers': 0, 'dropout_rate': 0.21292368722734226, 'learning_rate': 2.145542223270159e-05, 'weight_decay': 4.575917818853433e-05}. Best is trial 2 with value: 0.9689518803908748.
-[I 2026-03-14 07:30:26,054] Trial 98 finished with value: 0.953570943208184 and parameters: {'batch_size': 48, 'threshold': 0.6699999999999999, 'attention_heads': 1, 'hidden_dimension': 37, 'number_of_hidden_layers': 0, 'dropout_rate': 0.20947170193606504, 'learning_rate': 0.00018464351413332683, 'weight_decay': 0.00018655815862905116}. Best is trial 2 with value: 0.9689518803908748.
-[I 2026-03-14 08:25:53,312] Trial 99 finished with value: 0.9572805804046757 and parameters: {'batch_size': 56, 'threshold': 0.85, 'attention_heads': 1, 'hidden_dimension': 40, 'number_of_hidden_layers': 0, 'dropout_rate': 0.20672615548566267, 'learning_rate': 0.00015951257732827828, 'weight_decay': 0.00041434462162218355}. Best is trial 2 with value: 0.9689518803908748.
-[I 2026-03-14 09:17:08,105] Trial 100 finished with value: 0.9598298133128221 and parameters: {'batch_size': 40, 'threshold': 0.78, 'attention_heads': 1, 'hidden_dimension': 61, 'number_of_hidden_layers': 0, 'dropout_rate': 0.24086158327997753, 'learning_rate': 0.00021113225257859768, 'weight_decay': 0.0001337918334429131}. Best is trial 2 with value: 0.9689518803908748.
-[I 2026-03-14 10:05:58,990] Trial 101 finished with value: 0.9474938659202672 and parameters: {'batch_size': 104, 'threshold': 0.9099999999999999, 'attention_heads': 1, 'hidden_dimension': 66, 'number_of_hidden_layers': 2, 'dropout_rate': 0.10753709704536359, 'learning_rate': 0.0005426591899165445, 'weight_decay': 0.00022012988640698992}. Best is trial 2 with value: 0.9689518803908748.
-[I 2026-03-14 11:06:47,154] Trial 102 finished with value: 0.9433975268333997 and parameters: {'batch_size': 64, 'threshold': 0.86, 'attention_heads': 1, 'hidden_dimension': 34, 'number_of_hidden_layers': 0, 'dropout_rate': 0.22897648549826694, 'learning_rate': 6.785567260593027e-05, 'weight_decay': 6.088080790755545e-05}. Best is trial 2 with value: 0.9689518803908748.
-[I 2026-03-14 12:37:47,599] Trial 103 finished with value: 0.9505738878391108 and parameters: {'batch_size': 72, 'threshold': 0.77, 'attention_heads': 2, 'hidden_dimension': 44, 'number_of_hidden_layers': 0, 'dropout_rate': 0.2239211666076375, 'learning_rate': 6.606856053609289e-05, 'weight_decay': 1.035479870429572e-05}. Best is trial 2 with value: 0.9689518803908748.
-[I 2026-03-14 13:27:46,759] Trial 104 finished with value: 0.9582153466034795 and parameters: {'batch_size': 80, 'threshold': 0.75, 'attention_heads': 1, 'hidden_dimension': 36, 'number_of_hidden_layers': 0, 'dropout_rate': 0.16116317162844015, 'learning_rate': 0.00019849820906409115, 'weight_decay': 0.00030593921361471546}. Best is trial 2 with value: 0.9689518803908748.
-[I 2026-03-14 14:27:36,083] Trial 105 finished with value: 0.9558621261518747 and parameters: {'batch_size': 56, 'threshold': 0.73, 'attention_heads': 1, 'hidden_dimension': 43, 'number_of_hidden_layers': 0, 'dropout_rate': 0.2429996590230996, 'learning_rate': 0.00014792098734472449, 'weight_decay': 6.003741337354177e-05}. Best is trial 2 with value: 0.9689518803908748.
-[I 2026-03-14 15:20:39,270] Trial 106 finished with value: 0.9608179862041765 and parameters: {'batch_size': 56, 'threshold': 0.79, 'attention_heads': 1, 'hidden_dimension': 32, 'number_of_hidden_layers': 0, 'dropout_rate': 0.18787079940769236, 'learning_rate': 0.0004126679076805876, 'weight_decay': 0.00015846543307155664}. Best is trial 2 with value: 0.9689518803908748.
-[I 2026-03-14 17:13:57,180] Trial 107 finished with value: 0.9500071672145353 and parameters: {'batch_size': 48, 'threshold': 0.71, 'attention_heads': 2, 'hidden_dimension': 103, 'number_of_hidden_layers': 2, 'dropout_rate': 0.2526492893615937, 'learning_rate': 3.512510011172457e-05, 'weight_decay': 4.2356139008940405e-05}. Best is trial 2 with value: 0.9689518803908748.
-[I 2026-03-14 18:45:20,538] Trial 108 finished with value: 0.9619067701979851 and parameters: {'batch_size': 72, 'threshold': 0.64, 'attention_heads': 1, 'hidden_dimension': 40, 'number_of_hidden_layers': 0, 'dropout_rate': 0.22123013250686963, 'learning_rate': 5.289465446072162e-05, 'weight_decay': 1.628587899705252e-05}. Best is trial 2 with value: 0.9689518803908748.
-[I 2026-03-14 19:42:26,080] Trial 109 finished with value: 0.9489829939521653 and parameters: {'batch_size': 32, 'threshold': 0.8099999999999999, 'attention_heads': 1, 'hidden_dimension': 83, 'number_of_hidden_layers': 0, 'dropout_rate': 0.22468862851538443, 'learning_rate': 0.0009388617610529283, 'weight_decay': 0.00011921465252480508}. Best is trial 2 with value: 0.9689518803908748.
-[I 2026-03-14 20:42:35,244] Trial 110 finished with value: 0.9456106342507664 and parameters: {'batch_size': 56, 'threshold': 0.8999999999999999, 'attention_heads': 1, 'hidden_dimension': 44, 'number_of_hidden_layers': 0, 'dropout_rate': 0.18351912703214188, 'learning_rate': 0.00010612736578845506, 'weight_decay': 2.9279800343367198e-05}. Best is trial 2 with value: 0.9689518803908748.
-[I 2026-03-14 22:10:47,612] Trial 111 finished with value: 0.9560615381576125 and parameters: {'batch_size': 128, 'threshold': 0.73, 'attention_heads': 2, 'hidden_dimension': 33, 'number_of_hidden_layers': 0, 'dropout_rate': 0.23171102827681578, 'learning_rate': 4.9542594159494657e-05, 'weight_decay': 9.24352058126197e-05}. Best is trial 2 with value: 0.9689518803908748.
-[I 2026-03-14 23:11:13,948] Trial 112 finished with value: 0.9444231364304935 and parameters: {'batch_size': 96, 'threshold': 0.95, 'attention_heads': 1, 'hidden_dimension': 33, 'number_of_hidden_layers': 0, 'dropout_rate': 0.16341993473182775, 'learning_rate': 7.582761475552909e-05, 'weight_decay': 1.7694174876334358e-05}. Best is trial 2 with value: 0.9689518803908748.
+[I 2026-03-16 14:36:22,163] Using an existing study with name 'R8-Attention_distillation-unbound' instead of creating a new one.
+Unbound optimization already completed.
 
 [TRIAL] 2 [VALIDATION PERFORMANCE] 0.9689518803908748 [TRAINING LOSS] 0.020308952651320444 [VALIDATION LOSS] 0.20438248998220843 
 
@@ -111,3 +94,9 @@ user_attrs_validation_loss     			 0.15202604690487284
 [43] VALIDATION: 0.954330745927401 TESTING: 0.9388539765280035
 [44] VALIDATION: 0.9513151752781875 TESTING: 0.950098094695577
 [45] VALIDATION: 0.9473611407896145 TESTING: 0.9461205478634489
+[46] VALIDATION: 0.9663107757654513 TESTING: 0.938877633130069
+
+Validation performance: 94.46 & 95.46 ± 0.77 & 96.63
+Testing performance: 93.53 & 94.31 ± 0.51 & 95.01
+
+[R8] Elapsed time: 68.06488219896953 minutes.

@@ -30,7 +30,7 @@ st = time.time()
 
 SEED = 42
 
-TOP_N = 2
+TOP_N = 3
 TEST_RUNS_AROUND_BASE_SEED = (5, 4)
 
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -179,15 +179,27 @@ def model_training(
       
       loss = criterion(outputs, y)        
       total_loss += loss.item()
+      if ((ABLATION in [6, 7]) and (DATASET in ['R8', 'Ohsumed', 'IMDb-1k'])) or ((ABLATION == 0) and DATASET in ['Ohsumed']):
+        loss = loss / GRADIENT_ACCUMULATION_STEPS
       loss.backward()
-      
-      # Gradient clipping
-      if gradient_clipping:
-        torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm = gradient_clipping)        
 
-      optimizer.step()
-      scheduler.step()
-      optimizer.zero_grad()
+      if ((ABLATION in [6, 7]) and (DATASET in ['R8', 'Ohsumed', 'IMDb-1k'])) or ((ABLATION == 0) and DATASET in ['Ohsumed']):
+        if ((batch_i + 1) % GRADIENT_ACCUMULATION_STEPS == 0) or (batch_i == len(training_batches) - 1):
+          # Gradient clipping
+          if gradient_clipping:
+            torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm = gradient_clipping)        
+          
+          optimizer.step()
+          scheduler.step()
+          optimizer.zero_grad()
+      else:
+        # Gradient clipping
+        if gradient_clipping:
+          torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm = gradient_clipping)        
+        
+        optimizer.step()
+        scheduler.step()
+        optimizer.zero_grad()
 
       # Clear memory after each batch
       del x, edge_index, edge_attr, _batch, y, outputs
@@ -349,11 +361,11 @@ def train_and_predict(
 
   try:
 
-    os.makedirs(os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION == 6 else node_threshold}', 'train'), exist_ok = True)
+    os.makedirs(os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION in [6, 7] else node_threshold}', 'train'), exist_ok = True)
     data_sets.pre_construct_all_graphs_for_split(
       training_df,
       #
-      data_path = os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION == 6 else node_threshold}', 'train'),
+      data_path = os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION in [6, 7] else node_threshold}', 'train'),
       #
       label_indices = np.unique(training_df['label'].values).tolist(),
       #
@@ -361,7 +373,7 @@ def train_and_predict(
       left_stride = 128,
       right_stride = 0,
       #
-      token_threshold = 0.0 if ABLATION == 6 else node_threshold,
+      token_threshold = 0.0 if ABLATION in [6, 7] else node_threshold,
       edge_threshold = 0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold),
       #
       plm = PLM,
@@ -378,15 +390,15 @@ def train_and_predict(
     )
 
     training_dataset = data_sets.CachedGraphDataset(
-      data_path = os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION == 6 else node_threshold}', 'train'),
+      data_path = os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION in [6, 7] else node_threshold}', 'train'),
       graph_count = training_df.shape[0],
     )
 
-    os.makedirs(os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION == 6 else node_threshold}', 'validation'), exist_ok = True)
+    os.makedirs(os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION in [6, 7] else node_threshold}', 'validation'), exist_ok = True)
     data_sets.pre_construct_all_graphs_for_split(
       validation_df,
       #
-      data_path = os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION == 6 else node_threshold}', 'validation'),
+      data_path = os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION in [6, 7] else node_threshold}', 'validation'),
       #
       label_indices = np.unique(training_df['label'].values).tolist(),
       #
@@ -394,7 +406,7 @@ def train_and_predict(
       left_stride = 128,
       right_stride = 0,
       #
-      token_threshold = 0.0 if ABLATION == 6 else node_threshold,
+      token_threshold = 0.0 if ABLATION in [6, 7] else node_threshold,
       edge_threshold = 0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold),
       #
       plm = PLM,
@@ -411,7 +423,7 @@ def train_and_predict(
     )
 
     validation_dataset = data_sets.CachedGraphDataset(
-      data_path = os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION == 6 else node_threshold}', 'validation'),
+      data_path = os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION in [6, 7] else node_threshold}', 'validation'),
       graph_count = validation_df.shape[0],
     )
     
@@ -421,7 +433,7 @@ def train_and_predict(
 
     training_batches = torch_geometric.loader.DataLoader(
       training_dataset,
-      batch_size = batch_size,
+      batch_size = int(batch_size / GRADIENT_ACCUMULATION_STEPS) if (((ABLATION in [6, 7]) and (DATASET in ['R8', 'Ohsumed', 'IMDb-1k'])) or ((ABLATION == 0) and (DATASET in ['Ohsumed']))) else batch_size,
       shuffle = True,
       generator = torch.Generator().manual_seed(random_state),
       num_workers = 4,
@@ -432,7 +444,7 @@ def train_and_predict(
 
     validation_batches = torch_geometric.loader.DataLoader(
       validation_dataset,
-      batch_size = batch_size,
+      batch_size = int(batch_size / GRADIENT_ACCUMULATION_STEPS) if (((ABLATION in [6, 7]) and (DATASET in ['R8', 'Ohsumed', 'IMDb-1k'])) or ((ABLATION == 0) and (DATASET in ['Ohsumed']))) else batch_size,
       shuffle = False,
       num_workers = 2,
       pin_memory = True,
@@ -471,8 +483,8 @@ def train_and_predict(
     )
 
     # Clear memory
-    shutil.rmtree(os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION == 6 else node_threshold}', 'train'))
-    shutil.rmtree(os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION == 6 else node_threshold}', 'validation'))
+    shutil.rmtree(os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION in [6, 7] else node_threshold}', 'train'))
+    shutil.rmtree(os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION in [6, 7] else node_threshold}', 'validation'))
     del training_batches
     del validation_batches
     gc.collect()
@@ -482,7 +494,7 @@ def train_and_predict(
       # Remove model from GPU
       del model
       # Delete cache folder
-      shutil.rmtree(os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION == 6 else node_threshold}'))
+      shutil.rmtree(os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION in [6, 7] else node_threshold}'))
       
       return best_validation_performance, best_validation_performance_loss, best_training_performance_loss, best_validation_performance_epoch
     else:
@@ -490,11 +502,11 @@ def train_and_predict(
       # ================================== Testing ================================
       # ===========================================================================
 
-      os.makedirs(os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION == 6 else node_threshold}', 'test'), exist_ok = True)
+      os.makedirs(os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION in [6, 7] else node_threshold}', 'test'), exist_ok = True)
       data_sets.pre_construct_all_graphs_for_split(
         testing_df,
         #
-        data_path = os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION == 6 else node_threshold}', 'test'),
+        data_path = os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION in [6, 7] else node_threshold}', 'test'),
         #
         label_indices = np.unique(training_df['label'].values).tolist(),
         #
@@ -502,7 +514,7 @@ def train_and_predict(
         left_stride = 128,
         right_stride = 0,
         #
-        token_threshold = 0.0 if ABLATION == 6 else node_threshold,
+        token_threshold = 0.0 if ABLATION in [6, 7] else node_threshold,
         edge_threshold = 0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold),
         #
         plm = PLM,
@@ -519,13 +531,13 @@ def train_and_predict(
       )
 
       testing_dataset = data_sets.CachedGraphDataset(
-        data_path = os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION == 6 else node_threshold}', 'test'),
+        data_path = os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION in [6, 7] else node_threshold}', 'test'),
         graph_count = testing_df.shape[0],
       )
 
       testing_batches = torch_geometric.loader.DataLoader(
         testing_dataset,
-        batch_size = batch_size,
+        batch_size = int(batch_size / GRADIENT_ACCUMULATION_STEPS) if (((ABLATION in [6, 7]) and (DATASET in ['R8', 'Ohsumed', 'IMDb-1k'])) or ((ABLATION == 0) and (DATASET in ['Ohsumed']))) else batch_size,
         shuffle = False,
         num_workers = 2,
         pin_memory = True,
@@ -582,9 +594,9 @@ def train_and_predict(
       # Remove model from GPU
       del model
       # Clear memory
-      shutil.rmtree(os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION == 6 else node_threshold}', 'test'))
+      shutil.rmtree(os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION in [6, 7] else node_threshold}', 'test'))
       # Delete cache folder
-      shutil.rmtree(os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION == 6 else node_threshold}'))
+      shutil.rmtree(os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION in [6, 7] else node_threshold}'))
       del testing_batches
       gc.collect()
       torch.cuda.empty_cache()
@@ -626,8 +638,8 @@ def train_and_predict(
   except Exception as e:
     print(e, flush = True)
     # Delete cache folder
-    if os.path.isdir(os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION == 6 else node_threshold}')):
-      shutil.rmtree(os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION == 6 else node_threshold}'))
+    if os.path.isdir(os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION in [6, 7] else node_threshold}')):
+      shutil.rmtree(os.path.join(SCRATCH_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{0.0 if ABLATION in [0, 6] else (1.0 if ABLATION == 1 else edge_threshold)}-{0.0 if ABLATION in [6, 7] else node_threshold}'))
     return -1.0, float('inf'), float('inf'), 0
 
 # ===========================================================================
@@ -643,7 +655,7 @@ if __name__ == '__main__':
   parser.add_argument('--use_accuracy', required = True, type = int, help = 'Whether or not to use accuracy for model evaluation. Uses macro F1-score otherwise.')
   parser.add_argument('--use_balanced_loss', required = True, type = int, help = 'Whether or not to use balanced loss weights during model training.')
   parser.add_argument('--fine_tuning_trial_number', required = True, type = int, help = 'The number of the fine-tuned model to be used as basis for graph construction.')
-  parser.add_argument('--ablation', required = True, type = int, help = 'The ablation to apply during graph construction. Choose an index from the following possibilities: [fully connected first-level, no first-level edges, unit weight edges, no second-level edges, no second- and third-level edges, bi-directional edges to second- and third-level nodes, no node and edge pruning].')
+  parser.add_argument('--ablation', required = True, type = int, help = 'The ablation to apply during graph construction. Choose an index from the following possibilities: [fully connected first-level, no first-level edges, unit weight edges, no second-level edges, no second- and third-level edges, bi-directional edges to second- and third-level nodes, no node and edge pruning, no node pruning].')
 
   args = parser.parse_args()
   DATASET = args.data_set
@@ -674,8 +686,8 @@ if __name__ == '__main__':
   if not os.path.exists(os.path.join('..', 'fine_tuning', 'models', DATASET, f'{FINE_TUNING_TRIAL_NUMBER}', f'{SEED}')):
     raise ValueError('The selected fine-tuning trial number does not contain a corresponding model stored in disk.')
   
-  if (ABLATION < 0) or (ABLATION > 6):
-    raise ValueError('The ablation parameter must be between 0 and 6.')
+  if (ABLATION < 0) or (ABLATION > 7):
+    raise ValueError('The ablation parameter must be between 0 and 7.')
 
   GRADIENT_CLIPPING = bool(GRADIENT_CLIPPING)
   CHECKPOINT_VALIDATION_LOSS = bool(CHECKPOINT_VALIDATION_LOSS)
@@ -684,7 +696,9 @@ if __name__ == '__main__':
 
   HYPER_PARAMETERS = hyper_parameters.HYPER_PARAMETERS
 
-  ABLATIONS = ['fully_connected_first_level_edges', 'drop_first_level_edges', 'unit_weight_edges', 'drop_second_level_nodes', 'drop_second_and_third_level_nodes', 'bi_directional_edges_to_second_and_third_level_nodes', 'no_node_and_edge_pruning']
+  ABLATIONS = ['fully_connected_first_level_edges', 'drop_first_level_edges', 'unit_weight_edges', 'drop_second_level_nodes', 'drop_second_and_third_level_nodes', 'bi_directional_edges_to_second_and_third_level_nodes', 'no_node_and_edge_pruning', 'no_node_pruning']
+  
+  GRADIENT_ACCUMULATION_STEPS = 56 if (DATASET == 'Ohsumed') and (ABLATION in [6, 7]) else (4 if (DATASET == 'Ohsumed') and (ABLATION == 0) else (16 if (DATASET == 'IMDb-1k') and (ABLATION in [6, 7]) else 16)) # Only used for no_node_and_edge_pruning ablation with IMDb-1l, R8, and Ohsumed and fully_connected for Ohsumed
 
   TOKENIZER = transformers.AutoTokenizer.from_pretrained('google-bert/bert-base-uncased')
   PLM = transformers.AutoModelForSequenceClassification.from_pretrained(
@@ -700,8 +714,11 @@ if __name__ == '__main__':
   DATASET_CACHE_PATH = f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}'
 
   TRAINING_DF = pd.read_csv(os.path.join('..', 'data', 'with_validation_splits', DATASET, 'train.csv'))
+  TRAINING_DF['label'] = TRAINING_DF['label'].astype(int)
   VALIDATION_DF = pd.read_csv(os.path.join('..', 'data', 'with_validation_splits', DATASET, 'validation.csv'))
+  VALIDATION_DF['label'] = VALIDATION_DF['label'].astype(int)
   TESTING_DF = pd.read_csv(os.path.join('..', 'data', 'with_validation_splits', DATASET, 'test.csv'))
+  TESTING_DF['label'] = TESTING_DF['label'].astype(int)
   
   UNBOUND_STUDY_NAME = f'{DATASET}-Chefer_importance-unbound'
   unbound_storage = f'sqlite:///../optuna_studies/{UNBOUND_STUDY_NAME}.db'
@@ -729,6 +746,9 @@ if __name__ == '__main__':
     for field in trial._fields:
       print(f'{field:<{top_N_max_key_length}}', '\t\t\t', f'{getattr(trial, field)}', flush = True)
     print('', flush = True)
+
+    if (DATASET == 'Ohsumed') and (ABLATION in [6, 7]):
+      GRADIENT_ACCUMULATION_STEPS = trial.params_batch_size
   
     os.makedirs(os.path.join(STORAGE_PATH, f'{DATASET}-Chefer_importance-{ABLATIONS[ABLATION]}', f'{trial.number}'), exist_ok = True)
   
@@ -779,8 +799,8 @@ if __name__ == '__main__':
           linear_warmup_start_factor = HYPER_PARAMETERS['linear_warmup_start_factor']['value'] if HYPER_PARAMETERS['linear_warmup_start_factor']['fixed'] else (trial.params_linear_warmup_start_factor),
           linear_decay_end_factor = HYPER_PARAMETERS['linear_decay_end_factor']['value'] if HYPER_PARAMETERS['linear_decay_end_factor']['fixed'] else (trial.params_linear_decay_end_factor),
           #
-          label_smoothing = HYPER_PARAMETERS['label_smoothing']['value'] if HYPER_PARAMETERS['label_smoothing']['fixed'] else (trial.params_label_smoothing if LABEL_SMOOTHING else 0.0),
-          gradient_clipping = HYPER_PARAMETERS['gradient_clipping']['value'] if HYPER_PARAMETERS['gradient_clipping']['fixed'] else (trial.params_gradient_clipping if GRADIENT_CLIPPING else None),
+          label_smoothing = HYPER_PARAMETERS['label_smoothing']['value'] if LABEL_SMOOTHING and HYPER_PARAMETERS['label_smoothing']['fixed'] else (trial.params_label_smoothing if LABEL_SMOOTHING else 0.0),
+          gradient_clipping = HYPER_PARAMETERS['gradient_clipping']['value'] if GRADIENT_CLIPPING and HYPER_PARAMETERS['gradient_clipping']['fixed'] else (trial.params_gradient_clipping if GRADIENT_CLIPPING else None),
           #
           evaluate_test = True,
           trial_number = trial.number

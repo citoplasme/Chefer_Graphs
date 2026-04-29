@@ -1,0 +1,5 @@
+SLURM NODE: kn111
+Token indices sequence length is longer than the specified maximum sequence length for this model (967 > 512). Running this sequence through the model will result in indexing errors
+[UPDATE] Completed the sliding-window graph construction.
+[UPDATE] Completed the attention distillation graph construction.
+[UPDATE] Completed the Chefer importance graph construction.

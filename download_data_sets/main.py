@@ -33,3 +33,17 @@ for filename, url in urls.items():
   with open(os.path.join(CACHE_PATH, 'Ohsumed', filename), 'wb') as file:
     file.write(response.content)
 print('[UPDATE] Ohsumed downloaded.', flush = True)
+
+# IMDb-1k
+os.makedirs(os.path.join(CACHE_PATH, 'IMDb-1k'), exist_ok = True)
+urls = {
+  'train.csv' : 'https://raw.githubusercontent.com/citoplasme/PLM_token_graphs/refs/heads/main/data/with_validation_splits/IMDb-top_1000/train.csv',
+  'validation.csv' : 'https://raw.githubusercontent.com/citoplasme/PLM_token_graphs/refs/heads/main/data/with_validation_splits/IMDb-top_1000/validation.csv',
+  'test.csv' :  'https://raw.githubusercontent.com/citoplasme/PLM_token_graphs/refs/heads/main/data/with_validation_splits/IMDb-top_1000/test.csv'
+}
+for filename, url in urls.items():
+  response = requests.get(url)
+  response.raise_for_status()
+  with open(os.path.join(CACHE_PATH, 'IMDb-1k', filename), 'wb') as file:
+    file.write(response.content)
+print('[UPDATE] IMDb-1k downloaded.', flush = True)

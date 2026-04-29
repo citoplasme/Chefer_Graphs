@@ -4,7 +4,7 @@
 #SBATCH --exclude=kn122,kn117,kn050
 #SBATCH --gres=gpu:l40s:1
 #SBATCH --cpus-per-task=9
-#SBATCH --time=02:00:00
+#SBATCH --time=24:00:00
 #SBATCH --mem=72GB
 #SBATCH --job-name=Graph-construction
 #SBATCH --output=Graph-construction_%j.out

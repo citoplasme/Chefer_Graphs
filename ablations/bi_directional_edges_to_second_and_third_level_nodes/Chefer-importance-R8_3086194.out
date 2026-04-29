@@ -1,0 +1,90 @@
+SLURM NODE: kn065
+
+[TRIAL] 38 [VALIDATION PERFORMANCE] 0.9694626941075009 [TRAINING LOSS] 0.08850789768621325 [VALIDATION LOSS] 0.1577101149596274 
+
+number                         			 38
+value                          			 0.9694626941075009
+params_attention_heads         			 5
+params_batch_size              			 128
+params_dropout_rate            			 0.12232200989360004
+params_edge_threshold          			 0.58
+params_hidden_dimension        			 39
+params_learning_rate           			 0.0008829915716386434
+params_node_threshold          			 0.8099999999999999
+params_number_of_hidden_layers 			 2
+params_weight_decay            			 0.0006154657655895834
+user_attrs_duplicate           			 False
+user_attrs_epoch               			 4.0
+user_attrs_training_loss       			 0.08850789768621325
+user_attrs_validation_loss     			 0.1577101149596274
+
+[37] VALIDATION: 0.9644533945436007 TESTING: 0.9423298027908992
+[38] VALIDATION: 0.944260040560156 TESTING: 0.9437952919586883
+[39] VALIDATION: 0.9508623750758605 TESTING: 0.9396482284942466
+[40] VALIDATION: 0.942517372320008 TESTING: 0.9461527845873071
+[41] VALIDATION: 0.9485693558832923 TESTING: 0.9372476643774329
+[42] VALIDATION: 0.9535552060912087 TESTING: 0.937988717937313
+[43] VALIDATION: 0.9406060667616709 TESTING: 0.9390677818299566
+[44] VALIDATION: 0.9484763164184556 TESTING: 0.9430395563308749
+[45] VALIDATION: 0.9516477519567053 TESTING: 0.9408010174416298
+[46] VALIDATION: 0.9554627470371104 TESTING: 0.9376458883827598
+
+Validation performance: 94.06 & 95.0 ± 0.7 & 96.45
+Testing performance: 93.72 & 94.08 ± 0.3 & 94.62
+
+[TRIAL] 40 [VALIDATION PERFORMANCE] 0.9680419250536636 [TRAINING LOSS] 0.060670493519864976 [VALIDATION LOSS] 0.15769106592051685 
+
+number                         			 40
+value                          			 0.9680419250536636
+params_attention_heads         			 5
+params_batch_size              			 128
+params_dropout_rate            			 0.11658630998114217
+params_edge_threshold          			 0.56
+params_hidden_dimension        			 39
+params_learning_rate           			 0.0006997453057409489
+params_node_threshold          			 0.82
+params_number_of_hidden_layers 			 2
+params_weight_decay            			 0.00013796178291034688
+user_attrs_duplicate           			 False
+user_attrs_epoch               			 5.0
+user_attrs_training_loss       			 0.060670493519864976
+user_attrs_validation_loss     			 0.15769106592051685
+
+[37] VALIDATION: 0.9457105273469257 TESTING: 0.9365891595236542
+[38] VALIDATION: 0.942186274209639 TESTING: 0.942939947176405
+[39] VALIDATION: 0.9482000959929173 TESTING: 0.9426121876113696
+[40] VALIDATION: 0.961487178939882 TESTING: 0.9407137903352456
+[41] VALIDATION: 0.9543579156821749 TESTING: 0.9414329861940443
+[42] VALIDATION: 0.9661013415998969 TESTING: 0.9330068089256981
+[43] VALIDATION: 0.9567182396328671 TESTING: 0.9421335137693969
+[44] VALIDATION: 0.9382348938393514 TESTING: 0.9410381519318483
+[45] VALIDATION: 0.940226378578591 TESTING: 0.9378839737092118
+[46] VALIDATION: 0.9610524613593844 TESTING: 0.9374576595152438
+
+Validation performance: 93.82 & 95.14 ± 0.99 & 96.61
+Testing performance: 93.3 & 93.96 ± 0.32 & 94.29
+
+[TRIAL] 89 [VALIDATION PERFORMANCE] 0.9639108588484683 [TRAINING LOSS] 0.07446873188018799 [VALIDATION LOSS] 0.17842172210415205 
+
+number                         			 89
+value                          			 0.9639108588484683
+params_attention_heads         			 6
+params_batch_size              			 120
+params_dropout_rate            			 0.1177977504794174
+params_edge_threshold          			 0.5700000000000001
+params_hidden_dimension        			 34
+params_learning_rate           			 0.0003211958730854032
+params_node_threshold          			 0.7899999999999999
+params_number_of_hidden_layers 			 1
+params_weight_decay            			 0.00027076496930015213
+user_attrs_duplicate           			 False
+user_attrs_epoch               			 6.0
+user_attrs_training_loss       			 0.07446873188018799
+user_attrs_validation_loss     			 0.17842172210415205
+
+[37] VALIDATION: 0.9494410506434441 TESTING: 0.9285399748666205
+[38] VALIDATION: 0.9461274453380863 TESTING: 0.9233798080861253
+[39] VALIDATION: 0.9429732367044243 TESTING: 0.9391783707626342
+[40] VALIDATION: 0.9307461986285397 TESTING: 0.9462096145529728
+[41] VALIDATION: 0.9480120069822593 TESTING: 0.9345901097008815
+slurmstepd: error: *** JOB 3086194 ON kn065 CANCELLED AT 2026-04-13T04:45:57 ***

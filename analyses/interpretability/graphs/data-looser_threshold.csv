@@ -1,0 +1,9 @@
+index,text,label,dataset,split,document_length,unique_words,token_count
+16,"As a singular character study , it 's perfect .",1.0,SST-2,test,6,6,13
+17,What 's next ?,1.0,SST-2,test,2,2,7
+18,"It is a film that will have people walking out halfway through , will encourage others to stand up and applaud , and will , undoubtedly , leave both camps engaged in a ferocious debate for years to come .",1.0,SST-2,test,33,29,44
+92,"A simple , sometimes maddeningly slow film that has just enough charm and good acting to make it interesting , but is ultimately pulled under by the pacing and lack of creativity within .",0.0,SST-2,test,30,29,37
+111,"This time out , ( Sade ) is an unsettlingly familiar figure -- in turns loyal and deceitful , responsible and reckless , idealistically selfless and coldly self-interested .",0.0,SST-2,test,23,21,43
+143,"Began life as a computer game , then morphed into a movie -- a bad one , of course .",0.0,SST-2,test,13,13,25
+224,A real clunker .,0.0,SST-2,test,2,2,8
+338,"It uses an old-time formula , it 's not terribly original and it 's rather messy -- but you just have to love the big , dumb , happy movie My Big Fat Greek Wedding .",1.0,SST-2,test,30,27,43

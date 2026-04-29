@@ -126,7 +126,8 @@ if __name__ == '__main__':
   
   tokenizer = transformers.AutoTokenizer.from_pretrained('google-bert/bert-base-uncased')
 
-  for dataset in ['SST-2', 'IMDb', 'R8', 'Ohsumed']:
+  #for dataset in ['SST-2', 'IMDb', 'R8', 'Ohsumed', 'IMDb-1k']:
+  for dataset in ['IMDb-1k']:
     print('-' * 30, f'{dataset}', '-' * 30, flush = True)
     print('', flush = True)
     

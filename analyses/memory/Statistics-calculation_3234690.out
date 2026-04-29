@@ -1,0 +1,51 @@
+SLURM NODE: kn064
+Token indices sequence length is longer than the specified maximum sequence length for this model (1019 > 512). Running this sequence through the model will result in indexing errors
+[UPDATE] Completed the sliding-window graph construction for window size = 2.
+[UPDATE] Completed the sliding-window graph construction for window size = 3.
+[UPDATE] Completed the sliding-window graph construction for window size = 4.
+[UPDATE] Completed the sliding-window graph construction for window size = 5.
+[UPDATE] Completed the sliding-window graph construction.
+[UPDATE] Completed the attention distillation graph construction for threshold = 0.6.
+[UPDATE] Completed the attention distillation graph construction for threshold = 0.7.
+[UPDATE] Completed the attention distillation graph construction for threshold = 0.8.
+[UPDATE] Completed the attention distillation graph construction for threshold = 0.9.
+[UPDATE] Completed the attention distillation graph construction for threshold = 0.95.
+[UPDATE] Completed the attention distillation graph construction for threshold = 0.99.
+[UPDATE] Completed the attention distillation graph construction.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.5 and edge threshold = 0.5.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.5 and edge threshold = 0.6.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.5 and edge threshold = 0.7.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.5 and edge threshold = 0.8.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.5 and edge threshold = 0.9.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.5 and edge threshold = 0.95.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.6 and edge threshold = 0.5.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.6 and edge threshold = 0.6.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.6 and edge threshold = 0.7.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.6 and edge threshold = 0.8.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.6 and edge threshold = 0.9.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.6 and edge threshold = 0.95.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.7 and edge threshold = 0.5.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.7 and edge threshold = 0.6.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.7 and edge threshold = 0.7.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.7 and edge threshold = 0.8.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.7 and edge threshold = 0.9.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.7 and edge threshold = 0.95.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.8 and edge threshold = 0.5.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.8 and edge threshold = 0.6.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.8 and edge threshold = 0.7.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.8 and edge threshold = 0.8.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.8 and edge threshold = 0.9.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.8 and edge threshold = 0.95.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.9 and edge threshold = 0.5.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.9 and edge threshold = 0.6.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.9 and edge threshold = 0.7.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.9 and edge threshold = 0.8.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.9 and edge threshold = 0.9.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.9 and edge threshold = 0.95.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.95 and edge threshold = 0.5.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.95 and edge threshold = 0.6.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.95 and edge threshold = 0.7.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.95 and edge threshold = 0.8.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.95 and edge threshold = 0.9.
+[UPDATE] Completed the Chefer importance graph construction for token threshold = 0.95 and edge threshold = 0.95.
+[UPDATE] Completed the Chefer importance graph construction.

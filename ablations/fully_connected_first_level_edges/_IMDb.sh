@@ -16,4 +16,4 @@ source /home/jpimen/projects/aip-frudzicz/jpimen/virtual-environment-files/PLM_g
 echo "SLURM NODE: $SLURMD_NODENAME"
 
 cd ..
-python main.py --data_set IMDb --use_label_smoothing 1 --use_gradient_clipping 1 --checkpoint_validation_loss 1 --use_accuracy 1 --use_balanced_loss 0 --fine_tuning_trial_number 0 --ablation 0
+python main.py --data_set IMDb --use_label_smoothing 0 --use_gradient_clipping 0 --checkpoint_validation_loss 1 --use_accuracy 1 --use_balanced_loss 0 --fine_tuning_trial_number 52 --ablation 0

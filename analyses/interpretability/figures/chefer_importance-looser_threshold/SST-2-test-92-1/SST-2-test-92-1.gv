@@ -1,0 +1,58 @@
+digraph "SST-2-test-92-1" {
+	graph [dpi=300]
+	{
+		rank=same
+		0 [label="[D]" color="#363636" fillcolor="#cccccc" shape=oval style=filled]
+	}
+	{
+		rank=same
+		1 [label="[T-1]" color="#363636" fillcolor="#cccccc" shape=oval style=filled]
+	}
+	{
+		rank=same
+		2 [label=film color="#363636" fillcolor="#ffd813" fixedsize=true fontsize=19.197265469444808 height=0.7399088489814936 shape=oval style=filled width=1.368831370615763]
+		10 [label=a color="#363636" fillcolor="#ffd500" fixedsize=true fontsize=19.904801880361994 height=0.7634933960120664 shape=oval style=filled width=1.412462782622323]
+		11 [label=simple color="#363636" fillcolor="#ffda22" fixedsize=true fontsize=18.711632438861947 height=0.7237210812953982 shape=oval style=filled width=1.3388840003964868]
+		12 [label=sometimes color="#363636" fillcolor="#ffdd33" fixedsize=true fontsize=18.096464240798998 height=0.7032154746932999 shape=oval style=filled width=1.3009486281826048]
+		13 [label=has color="#363636" fillcolor="#ffe562" fixedsize=true fontsize=16.47595719547636 height=0.6491985731825455 shape=oval style=filled width=1.2010173603877092]
+		14 [label=charm color="#363636" fillcolor="#ffde3a" fixedsize=true fontsize=17.896459998860664 height=0.6965486666286888 shape=oval style=filled width=1.2886150332630744]
+		15 [label=interesting color="#363636" fillcolor="#fff9e2" fixedsize=true fontsize=12.0 height=0.5 shape=oval style=filled width=0.925]
+		16 [label=but color="#363636" fillcolor="#ffed99" fixedsize=true fontsize=14.537294549695737 height=0.5845764849898579 shape=oval style=filled width=1.0814664972312371]
+	}
+	0 -> 0 [arrowsize=0.5 color="#cccccc"]
+	1 -> 0 [arrowsize=0.5 color="#cccccc"]
+	1 -> 1 [arrowsize=0.5 color="#cccccc"]
+	2 -> 2 [arrowsize=0.5 color="#cccccc"]
+	2 -> 1 [arrowsize=0.5 color="#929292"]
+	10 -> 10 [arrowsize=0.5 color="#cccccc"]
+	10 -> 11 [arrowsize=0.5 color="#cccccc"]
+	10 -> 12 [arrowsize=0.5 color="#cccccc"]
+	10 -> 14 [arrowsize=0.5 color="#cccccc"]
+	10 -> 16 [arrowsize=0.5 color="#cccccc"]
+	11 -> 10 [arrowsize=0.5 color="#cccccc"]
+	11 -> 11 [arrowsize=0.5 color="#cccccc"]
+	11 -> 12 [arrowsize=0.5 color="#cccccc"]
+	11 -> 2 [arrowsize=0.5 color="#cccccc"]
+	12 -> 11 [arrowsize=0.5 color="#cccccc"]
+	12 -> 12 [arrowsize=0.5 color="#cccccc"]
+	2 -> 10 [arrowsize=0.5 color="#cccccc"]
+	2 -> 11 [arrowsize=0.5 color="#cccccc"]
+	2 -> 12 [arrowsize=0.5 color="#cccccc"]
+	2 -> 14 [arrowsize=0.5 color="#cccccc"]
+	13 -> 12 [arrowsize=0.5 color="#cccccc"]
+	13 -> 2 [arrowsize=0.5 color="#cccccc"]
+	13 -> 13 [arrowsize=0.5 color="#cccccc"]
+	13 -> 14 [arrowsize=0.5 color="#cccccc"]
+	14 -> 2 [arrowsize=0.5 color="#cccccc"]
+	14 -> 13 [arrowsize=0.5 color="#cccccc"]
+	14 -> 14 [arrowsize=0.5 color="#cccccc"]
+	15 -> 15 [arrowsize=0.5 color="#cccccc"]
+	16 -> 16 [arrowsize=0.5 color="#cccccc"]
+	10 -> 1 [arrowsize=0.5 color="#3d3d3d"]
+	11 -> 1 [arrowsize=0.5 color="#6a6a6a"]
+	12 -> 1 [arrowsize=0.5 color="#bcbcbc"]
+	13 -> 1 [arrowsize=0.5 color="#bfbfbf"]
+	14 -> 1 [arrowsize=0.5 color="#9c9c9c"]
+	15 -> 1 [arrowsize=0.5 color="#b6b6b6"]
+	16 -> 1 [arrowsize=0.5 color="#000000"]
+}

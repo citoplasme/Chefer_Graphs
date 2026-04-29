@@ -1,0 +1,38 @@
+SLURM NODE: kn081
+
+[TRIAL] 52 [VALIDATION PERFORMANCE] 0.9372 [TRAINING LOSS] 0.09375961495639935 [VALIDATION LOSS] 0.2125765750559209 
+
+number                     			 52
+value                      			 0.9372
+datetime_start             			 2026-02-22 07:22:33.832055
+datetime_complete          			 2026-02-22 08:36:05.879416
+duration                   			 0 days 01:13:32.047361
+params_batch_size          			 32
+params_classifier_dropout  			 0.2711177647840791
+params_frozen_layers       			 1
+params_learning_rate       			 2.241506705576533e-05
+params_weight_decay        			 1.1754993947040527e-06
+user_attrs_duplicate       			 False
+user_attrs_epoch           			 3.0
+user_attrs_training_loss   			 0.09375961495639935
+user_attrs_validation_loss 			 0.2125765750559209
+system_attrs_fixed_params  			 nan
+state                      			 COMPLETE
+
+subsample_percentage       			 0.75
+
+[42] VALIDATION: 0.9342 TESTING: 0.93724
+
+Not enough values to compute average and standard deviation performance.
+subsample_percentage       			 0.5
+
+[42] VALIDATION: 0.9372 TESTING: 0.93516
+
+Not enough values to compute average and standard deviation performance.
+subsample_percentage       			 0.25
+
+[42] VALIDATION: 0.9276 TESTING: 0.92724
+
+Not enough values to compute average and standard deviation performance.
+
+[IMDb] Elapsed time: 181.7140802025795 minutes.

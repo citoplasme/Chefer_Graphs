@@ -1,0 +1,90 @@
+SLURM NODE: kn080
+
+[TRIAL] 38 [VALIDATION PERFORMANCE] 0.9694626941075009 [TRAINING LOSS] 0.08850789768621325 [VALIDATION LOSS] 0.1577101149596274 
+
+number                         			 38
+value                          			 0.9694626941075009
+params_attention_heads         			 5
+params_batch_size              			 128
+params_dropout_rate            			 0.12232200989360004
+params_edge_threshold          			 0.58
+params_hidden_dimension        			 39
+params_learning_rate           			 0.0008829915716386434
+params_node_threshold          			 0.8099999999999999
+params_number_of_hidden_layers 			 2
+params_weight_decay            			 0.0006154657655895834
+user_attrs_duplicate           			 False
+user_attrs_epoch               			 4.0
+user_attrs_training_loss       			 0.08850789768621325
+user_attrs_validation_loss     			 0.1577101149596274
+
+[37] VALIDATION: 0.9591250956330907 TESTING: 0.9472172023361067
+[38] VALIDATION: 0.9475863629521151 TESTING: 0.9444846932975198
+[39] VALIDATION: 0.9476399803995396 TESTING: 0.9452604130163629
+[40] VALIDATION: 0.9428711225476671 TESTING: 0.9360955579865743
+[41] VALIDATION: 0.9480175706390878 TESTING: 0.9435260262026939
+[42] VALIDATION: 0.9661584280482467 TESTING: 0.9322730690505745
+[43] VALIDATION: 0.9422236856392807 TESTING: 0.945917895336994
+[44] VALIDATION: 0.9513208608428072 TESTING: 0.9393229604864148
+[45] VALIDATION: 0.9404219861639607 TESTING: 0.9362950009990145
+[46] VALIDATION: 0.9464519072310063 TESTING: 0.9342728933623243
+
+Validation performance: 94.04 & 94.92 ± 0.8 & 96.62
+Testing performance: 93.23 & 94.05 ± 0.54 & 94.72
+
+[TRIAL] 40 [VALIDATION PERFORMANCE] 0.9680419250536636 [TRAINING LOSS] 0.060670493519864976 [VALIDATION LOSS] 0.15769106592051685 
+
+number                         			 40
+value                          			 0.9680419250536636
+params_attention_heads         			 5
+params_batch_size              			 128
+params_dropout_rate            			 0.11658630998114217
+params_edge_threshold          			 0.56
+params_hidden_dimension        			 39
+params_learning_rate           			 0.0006997453057409489
+params_node_threshold          			 0.82
+params_number_of_hidden_layers 			 2
+params_weight_decay            			 0.00013796178291034688
+user_attrs_duplicate           			 False
+user_attrs_epoch               			 5.0
+user_attrs_training_loss       			 0.060670493519864976
+user_attrs_validation_loss     			 0.15769106592051685
+
+[37] VALIDATION: 0.9505339812871263 TESTING: 0.9296268136503552
+[38] VALIDATION: 0.946529298674601 TESTING: 0.9421292824561236
+[39] VALIDATION: 0.9425148309860827 TESTING: 0.9404635151673091
+[40] VALIDATION: 0.9455725695338985 TESTING: 0.9378920150933303
+[41] VALIDATION: 0.9551037601208244 TESTING: 0.9443239315449072
+[42] VALIDATION: 0.9623628423754308 TESTING: 0.942201685680522
+[43] VALIDATION: 0.9552446676160443 TESTING: 0.9472973266105683
+[44] VALIDATION: 0.9569820736213541 TESTING: 0.9400392646321654
+[45] VALIDATION: 0.9467936589213013 TESTING: 0.9402117096225429
+[46] VALIDATION: 0.9454914760674669 TESTING: 0.9399234683610529
+
+Validation performance: 94.25 & 95.07 ± 0.64 & 96.24
+Testing performance: 92.96 & 94.04 ± 0.46 & 94.73
+
+[TRIAL] 89 [VALIDATION PERFORMANCE] 0.9639108588484683 [TRAINING LOSS] 0.07446873188018799 [VALIDATION LOSS] 0.17842172210415205 
+
+number                         			 89
+value                          			 0.9639108588484683
+params_attention_heads         			 6
+params_batch_size              			 120
+params_dropout_rate            			 0.1177977504794174
+params_edge_threshold          			 0.5700000000000001
+params_hidden_dimension        			 34
+params_learning_rate           			 0.0003211958730854032
+params_node_threshold          			 0.7899999999999999
+params_number_of_hidden_layers 			 1
+params_weight_decay            			 0.00027076496930015213
+user_attrs_duplicate           			 False
+user_attrs_epoch               			 6.0
+user_attrs_training_loss       			 0.07446873188018799
+user_attrs_validation_loss     			 0.17842172210415205
+
+[37] VALIDATION: 0.9539081848106081 TESTING: 0.940636154391361
+[38] VALIDATION: 0.9523395873796972 TESTING: 0.9397415548954318
+[39] VALIDATION: 0.949168545835481 TESTING: 0.9333271740018805
+[40] VALIDATION: 0.9465322102310709 TESTING: 0.936005305067283
+[41] VALIDATION: 0.946547717252355 TESTING: 0.9447184656522605
+slurmstepd: error: *** JOB 3086202 ON kn080 CANCELLED AT 2026-04-13T04:48:01 ***

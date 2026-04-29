@@ -1,0 +1,54 @@
+SLURM NODE: kn051
+
+[TRIAL] 55 [VALIDATION PERFORMANCE] 0.6543188019429754 [TRAINING LOSS] 0.6284693945199251 [VALIDATION LOSS] 1.5670334647099178 
+
+number                         			 55
+value                          			 0.6543188019429754
+params_attention_heads         			 8
+params_batch_size              			 56
+params_dropout_rate            			 0.10854688298020293
+params_edge_threshold          			 0.72
+params_hidden_dimension        			 122
+params_learning_rate           			 0.00028666422518832296
+params_node_threshold          			 0.82
+params_number_of_hidden_layers 			 2
+params_weight_decay            			 1.0005035451047945e-06
+user_attrs_duplicate           			 False
+user_attrs_epoch               			 2.0
+user_attrs_training_loss       			 0.6284693945199251
+user_attrs_validation_loss     			 1.5670334647099178
+
+[37] VALIDATION: 0.6393544774741119 TESTING: 0.6329737740146174
+[38] VALIDATION: 0.6257200151526433 TESTING: 0.6404435231977887
+[39] VALIDATION: 0.6425741487898925 TESTING: 0.6326147272099473
+[40] VALIDATION: 0.6150574116501963 TESTING: 0.6277118732000989
+[41] VALIDATION: 0.6316632781580408 TESTING: 0.6150644265895177
+[42] VALIDATION: 0.629260717760312 TESTING: 0.6138597965037125
+[43] VALIDATION: 0.634119012131455 TESTING: 0.6179305501905336
+[44] VALIDATION: 0.6335719833493797 TESTING: 0.6255229000694895
+[45] VALIDATION: 0.6544130861813031 TESTING: 0.630671692111374
+[46] VALIDATION: 0.6193117484211178 TESTING: 0.6230719355943775
+
+Validation performance: 61.51 & 63.25 ± 1.14 & 65.44
+Testing performance: 61.39 & 62.6 ± 0.86 & 64.04
+
+[TRIAL] 0 [VALIDATION PERFORMANCE] 0.6537266560341978 [TRAINING LOSS] 0.4819786704721905 [VALIDATION LOSS] 1.3726309212771328 
+
+number                         			 0
+value                          			 0.6537266560341978
+params_attention_heads         			 8
+params_batch_size              			 64
+params_dropout_rate            			 0.1
+params_edge_threshold          			 0.7
+params_hidden_dimension        			 128
+params_learning_rate           			 0.0001
+params_node_threshold          			 0.8
+params_number_of_hidden_layers 			 2
+params_weight_decay            			 1e-05
+user_attrs_duplicate           			 False
+user_attrs_epoch               			 4.0
+user_attrs_training_loss       			 0.4819786704721905
+user_attrs_validation_loss     			 1.3726309212771328
+
+[37] VALIDATION: 0.6447389048858606 TESTING: 0.6376184082842883
+slurmstepd: error: *** JOB 2778443 ON kn051 CANCELLED AT 2026-03-31T07:03:26 ***

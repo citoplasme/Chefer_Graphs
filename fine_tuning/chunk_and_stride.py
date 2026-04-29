@@ -129,7 +129,7 @@ def chunk_and_stride_all_documents(
     .to_csv(os.path.join(STORAGE_PATH, dataset, f'{split}.csv'), index = False)
 
 if __name__ == '__main__':
-  for dataset in ['IMDb', 'SST-2', 'Ohsumed', 'R8']:
+  for dataset in ['IMDb', 'SST-2', 'Ohsumed', 'R8', 'IMDb-1k']:
     tokenizer = transformers.AutoTokenizer.from_pretrained('google-bert/bert-base-uncased')
     original_special_tokens = tokenizer.all_special_ids
     for split in ['train', 'validation', 'test']:

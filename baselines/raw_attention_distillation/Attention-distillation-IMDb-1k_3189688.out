@@ -1,0 +1,155 @@
+SLURM NODE: kn073
+[I 2026-04-18 06:16:01,860] Using an existing study with name 'IMDb-1k-Attention_distillation' instead of creating a new one.
+Unbound optimization already completed.
+
+[UPDATE] Unbound limits: {'batch_size': (np.int64(16), np.int64(64)), 'threshold': (np.float64(0.7), np.float64(0.95)), 'attention_heads': (np.int64(1), np.int64(4)), 'hidden_dimension': (np.int64(32), np.int64(128)), 'number_of_hidden_layers': (np.int64(0), np.int64(2)), 'dropout_rate': (np.float64(0.1), np.float64(0.4)), 'learning_rate': (np.float64(1e-05), np.float64(0.001)), 'weight_decay': (np.float64(1e-06), np.float64(0.001))}
+[I 2026-04-18 06:16:02,522] Using an existing study with name 'IMDb-1k-Attention_distillation-unbound' instead of creating a new one.
+Last trial state: 0
+Enqueuing hyper-parameters: {'batch_size': 32, 'threshold': 0.76, 'attention_heads': 2, 'hidden_dimension': 42, 'number_of_hidden_layers': 2, 'dropout_rate': 0.2745855441396137, 'learning_rate': 4.412326312135484e-05, 'weight_decay': 2.294796971171951e-06}
+CUDA out of memory. Tried to allocate 6.64 GiB. GPU 0 has a total capacity of 44.40 GiB of which 4.79 GiB is free. Including non-PyTorch memory, this process has 39.60 GiB memory in use. Of the allocated memory 39.01 GiB is allocated by PyTorch, and 76.39 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+[I 2026-04-18 06:29:41,735] Trial 81 finished with value: -1.0 and parameters: {'batch_size': 32, 'threshold': 0.76, 'attention_heads': 2, 'hidden_dimension': 42, 'number_of_hidden_layers': 2, 'dropout_rate': 0.2745855441396137, 'learning_rate': 4.412326312135484e-05, 'weight_decay': 2.294796971171951e-06}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 06:57:26,121] Trial 82 finished with value: 0.8787878787878788 and parameters: {'batch_size': 40, 'threshold': 0.9299999999999999, 'attention_heads': 2, 'hidden_dimension': 35, 'number_of_hidden_layers': 0, 'dropout_rate': 0.3764625479913384, 'learning_rate': 7.0410625651495e-05, 'weight_decay': 0.0001550430810504231}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 07:17:11,021] Trial 83 finished with value: 0.8848484848484849 and parameters: {'batch_size': 24, 'threshold': 0.9199999999999999, 'attention_heads': 2, 'hidden_dimension': 34, 'number_of_hidden_layers': 0, 'dropout_rate': 0.39343918950449697, 'learning_rate': 0.00027355398485600437, 'weight_decay': 8.85957981318246e-05}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 07:36:42,091] Trial 84 finished with value: 0.8848484848484849 and parameters: {'batch_size': 40, 'threshold': 0.9299999999999999, 'attention_heads': 1, 'hidden_dimension': 44, 'number_of_hidden_layers': 0, 'dropout_rate': 0.399155587617193, 'learning_rate': 0.00014345817850820196, 'weight_decay': 0.00010918296391695994}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 07:55:58,350] Trial 85 finished with value: 0.9030303030303031 and parameters: {'batch_size': 40, 'threshold': 0.9199999999999999, 'attention_heads': 1, 'hidden_dimension': 46, 'number_of_hidden_layers': 2, 'dropout_rate': 0.25986595560233056, 'learning_rate': 0.0003748660543678884, 'weight_decay': 3.078989502598214e-05}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 08:18:11,976] Trial 86 finished with value: 0.8787878787878788 and parameters: {'batch_size': 32, 'threshold': 0.8899999999999999, 'attention_heads': 1, 'hidden_dimension': 61, 'number_of_hidden_layers': 2, 'dropout_rate': 0.27604352927985104, 'learning_rate': 0.0005180898943625559, 'weight_decay': 7.672159073019705e-06}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 08:41:04,168] Trial 87 finished with value: 0.9090909090909091 and parameters: {'batch_size': 56, 'threshold': 0.8999999999999999, 'attention_heads': 1, 'hidden_dimension': 44, 'number_of_hidden_layers': 2, 'dropout_rate': 0.2883915696243759, 'learning_rate': 0.0001620711437945441, 'weight_decay': 4.794937839597181e-05}. Best is trial 75 with value: 0.9090909090909091.
+CUDA out of memory. Tried to allocate 8.11 GiB. GPU 0 has a total capacity of 44.40 GiB of which 2.44 GiB is free. Including non-PyTorch memory, this process has 41.94 GiB memory in use. Of the allocated memory 41.35 GiB is allocated by PyTorch, and 38.19 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+[I 2026-04-18 08:54:38,129] Trial 88 finished with value: -1.0 and parameters: {'batch_size': 64, 'threshold': 0.8999999999999999, 'attention_heads': 2, 'hidden_dimension': 62, 'number_of_hidden_layers': 2, 'dropout_rate': 0.2665404350321372, 'learning_rate': 0.00024810983986314197, 'weight_decay': 0.00023792136805188328}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 09:19:23,897] Trial 89 finished with value: 0.8909090909090909 and parameters: {'batch_size': 56, 'threshold': 0.82, 'attention_heads': 1, 'hidden_dimension': 33, 'number_of_hidden_layers': 2, 'dropout_rate': 0.2589736605425958, 'learning_rate': 0.0002072652557118267, 'weight_decay': 3.251089066600562e-05}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 10:08:39,649] Trial 90 finished with value: 0.8848484848484849 and parameters: {'batch_size': 56, 'threshold': 0.9099999999999999, 'attention_heads': 2, 'hidden_dimension': 52, 'number_of_hidden_layers': 0, 'dropout_rate': 0.10867233862468458, 'learning_rate': 4.303754093173577e-05, 'weight_decay': 1.6277614735523646e-06}. Best is trial 75 with value: 0.9090909090909091.
+CUDA out of memory. Tried to allocate 5.99 GiB. GPU 0 has a total capacity of 44.40 GiB of which 3.57 GiB is free. Including non-PyTorch memory, this process has 40.80 GiB memory in use. Of the allocated memory 40.15 GiB is allocated by PyTorch, and 115.22 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+[I 2026-04-18 10:22:13,211] Trial 91 finished with value: -1.0 and parameters: {'batch_size': 56, 'threshold': 0.7799999999999999, 'attention_heads': 1, 'hidden_dimension': 48, 'number_of_hidden_layers': 2, 'dropout_rate': 0.2962276808305391, 'learning_rate': 0.00013057861134442187, 'weight_decay': 9.584586226743561e-05}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 10:41:04,737] Trial 92 finished with value: 0.8909090909090909 and parameters: {'batch_size': 48, 'threshold': 0.8899999999999999, 'attention_heads': 1, 'hidden_dimension': 38, 'number_of_hidden_layers': 1, 'dropout_rate': 0.10270867674188927, 'learning_rate': 0.0005999848538536894, 'weight_decay': 0.00013632403093751717}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 11:00:51,757] Trial 93 finished with value: 0.8848484848484849 and parameters: {'batch_size': 40, 'threshold': 0.9099999999999999, 'attention_heads': 1, 'hidden_dimension': 48, 'number_of_hidden_layers': 2, 'dropout_rate': 0.17365162602889805, 'learning_rate': 0.0004756040976158211, 'weight_decay': 2.5919209817306223e-05}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 11:21:42,580] Trial 94 finished with value: 0.8848484848484849 and parameters: {'batch_size': 56, 'threshold': 0.87, 'attention_heads': 1, 'hidden_dimension': 56, 'number_of_hidden_layers': 1, 'dropout_rate': 0.3342104977635918, 'learning_rate': 0.00036982428973048823, 'weight_decay': 2.8726833729284937e-05}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 11:43:33,224] Trial 95 finished with value: 0.8848484848484849 and parameters: {'batch_size': 16, 'threshold': 0.9099999999999999, 'attention_heads': 1, 'hidden_dimension': 55, 'number_of_hidden_layers': 2, 'dropout_rate': 0.295545646824067, 'learning_rate': 0.00015059555394814859, 'weight_decay': 1.075140919833825e-05}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 12:04:25,836] Trial 96 finished with value: 0.8787878787878788 and parameters: {'batch_size': 32, 'threshold': 0.87, 'attention_heads': 1, 'hidden_dimension': 33, 'number_of_hidden_layers': 2, 'dropout_rate': 0.30861240904558945, 'learning_rate': 0.00021133961135814768, 'weight_decay': 9.968286631661378e-05}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 12:36:22,658] Trial 97 finished with value: 0.8787878787878788 and parameters: {'batch_size': 48, 'threshold': 0.9099999999999999, 'attention_heads': 2, 'hidden_dimension': 41, 'number_of_hidden_layers': 2, 'dropout_rate': 0.32180957082174516, 'learning_rate': 5.74312028813761e-05, 'weight_decay': 1.0083340976201845e-06}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 13:19:02,312] Trial 98 finished with value: 0.8909090909090909 and parameters: {'batch_size': 32, 'threshold': 0.82, 'attention_heads': 2, 'hidden_dimension': 35, 'number_of_hidden_layers': 0, 'dropout_rate': 0.38278377675288805, 'learning_rate': 4.798806699027721e-05, 'weight_decay': 6.621321964095984e-05}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 13:40:03,399] Trial 99 finished with value: 0.8848484848484849 and parameters: {'batch_size': 48, 'threshold': 0.9199999999999999, 'attention_heads': 1, 'hidden_dimension': 68, 'number_of_hidden_layers': 2, 'dropout_rate': 0.2870116648662598, 'learning_rate': 0.00023709001261572015, 'weight_decay': 0.000128336050304689}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 14:22:49,052] Trial 100 finished with value: 0.8909090909090909 and parameters: {'batch_size': 16, 'threshold': 0.71, 'attention_heads': 1, 'hidden_dimension': 114, 'number_of_hidden_layers': 1, 'dropout_rate': 0.14923699921014336, 'learning_rate': 0.00011328615676689347, 'weight_decay': 2.5617298726454466e-06}. Best is trial 75 with value: 0.9090909090909091.
+CUDA out of memory. Tried to allocate 16.14 GiB. GPU 0 has a total capacity of 44.40 GiB of which 15.64 GiB is free. Including non-PyTorch memory, this process has 28.73 GiB memory in use. Of the allocated memory 28.11 GiB is allocated by PyTorch, and 73.14 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+[I 2026-04-18 14:36:18,951] Trial 101 finished with value: -1.0 and parameters: {'batch_size': 40, 'threshold': 0.7899999999999999, 'attention_heads': 3, 'hidden_dimension': 42, 'number_of_hidden_layers': 0, 'dropout_rate': 0.38829372499508047, 'learning_rate': 0.000504685330866128, 'weight_decay': 0.00015588776198572946}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 14:56:14,188] Trial 102 finished with value: 0.896969696969697 and parameters: {'batch_size': 40, 'threshold': 0.95, 'attention_heads': 1, 'hidden_dimension': 34, 'number_of_hidden_layers': 2, 'dropout_rate': 0.29097256674671884, 'learning_rate': 0.00012464968292293107, 'weight_decay': 0.00017923501333858238}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 15:25:10,063] Trial 103 finished with value: 0.8848484848484849 and parameters: {'batch_size': 40, 'threshold': 0.94, 'attention_heads': 2, 'hidden_dimension': 33, 'number_of_hidden_layers': 1, 'dropout_rate': 0.27075102321997246, 'learning_rate': 4.8974155652783776e-05, 'weight_decay': 7.869027574563498e-06}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 16:04:38,899] Trial 104 finished with value: 0.9090909090909091 and parameters: {'batch_size': 40, 'threshold': 0.95, 'attention_heads': 3, 'hidden_dimension': 59, 'number_of_hidden_layers': 2, 'dropout_rate': 0.10078957076263506, 'learning_rate': 3.3382180538026145e-05, 'weight_decay': 1.8923905383933685e-06}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 17:33:52,414] Trial 105 finished with value: 0.8787878787878788 and parameters: {'batch_size': 32, 'threshold': 0.9199999999999999, 'attention_heads': 4, 'hidden_dimension': 43, 'number_of_hidden_layers': 1, 'dropout_rate': 0.11149261322081085, 'learning_rate': 1.3615254485526854e-05, 'weight_decay': 3.637025652250764e-06}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 17:54:10,658] Trial 106 finished with value: 0.9030303030303031 and parameters: {'batch_size': 32, 'threshold': 0.95, 'attention_heads': 1, 'hidden_dimension': 34, 'number_of_hidden_layers': 2, 'dropout_rate': 0.29050165456848254, 'learning_rate': 0.00010319067785890148, 'weight_decay': 6.177952879693779e-06}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 18:32:11,833] Trial 107 finished with value: 0.8787878787878788 and parameters: {'batch_size': 32, 'threshold': 0.95, 'attention_heads': 3, 'hidden_dimension': 54, 'number_of_hidden_layers': 2, 'dropout_rate': 0.12964322796140626, 'learning_rate': 2.4678923879234458e-05, 'weight_decay': 3.71455163246589e-06}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 18:53:59,418] Trial 108 finished with value: 0.9030303030303031 and parameters: {'batch_size': 24, 'threshold': 0.95, 'attention_heads': 1, 'hidden_dimension': 59, 'number_of_hidden_layers': 2, 'dropout_rate': 0.23722248792169714, 'learning_rate': 7.177107200847494e-05, 'weight_decay': 1.1418168007314074e-06}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 19:16:33,877] Trial 109 finished with value: 0.896969696969697 and parameters: {'batch_size': 56, 'threshold': 0.95, 'attention_heads': 1, 'hidden_dimension': 77, 'number_of_hidden_layers': 1, 'dropout_rate': 0.2459167371603825, 'learning_rate': 7.474718401190228e-05, 'weight_decay': 1.1893670143926762e-05}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 19:38:39,142] Trial 110 finished with value: 0.8909090909090909 and parameters: {'batch_size': 24, 'threshold': 0.95, 'attention_heads': 1, 'hidden_dimension': 44, 'number_of_hidden_layers': 2, 'dropout_rate': 0.2804484447985531, 'learning_rate': 6.570813589465648e-05, 'weight_decay': 5.450338660633961e-06}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 20:00:43,811] Trial 111 finished with value: 0.8848484848484849 and parameters: {'batch_size': 24, 'threshold': 0.95, 'attention_heads': 2, 'hidden_dimension': 53, 'number_of_hidden_layers': 2, 'dropout_rate': 0.2616284204760718, 'learning_rate': 0.00019986710450753634, 'weight_decay': 1.1317554618554883e-06}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 20:25:45,624] Trial 112 finished with value: 0.8787878787878788 and parameters: {'batch_size': 24, 'threshold': 0.95, 'attention_heads': 4, 'hidden_dimension': 40, 'number_of_hidden_layers': 2, 'dropout_rate': 0.1366917234642207, 'learning_rate': 0.00012611803725325575, 'weight_decay': 1.8491873202840637e-06}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 20:51:38,510] Trial 113 finished with value: 0.8606060606060606 and parameters: {'batch_size': 32, 'threshold': 0.95, 'attention_heads': 1, 'hidden_dimension': 64, 'number_of_hidden_layers': 1, 'dropout_rate': 0.2578340916666511, 'learning_rate': 2.6586243016238195e-05, 'weight_decay': 1.0817715567516212e-06}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 21:36:29,536] Trial 114 finished with value: 0.8848484848484849 and parameters: {'batch_size': 24, 'threshold': 0.9199999999999999, 'attention_heads': 3, 'hidden_dimension': 50, 'number_of_hidden_layers': 2, 'dropout_rate': 0.11125210571345914, 'learning_rate': 3.2722511725003405e-05, 'weight_decay': 1.8744782568890658e-06}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 21:56:15,444] Trial 115 finished with value: 0.8909090909090909 and parameters: {'batch_size': 32, 'threshold': 0.9199999999999999, 'attention_heads': 1, 'hidden_dimension': 41, 'number_of_hidden_layers': 2, 'dropout_rate': 0.2833770870118308, 'learning_rate': 0.00021060481982338835, 'weight_decay': 7.147948109989827e-06}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 22:18:55,059] Trial 116 finished with value: 0.8727272727272727 and parameters: {'batch_size': 16, 'threshold': 0.95, 'attention_heads': 2, 'hidden_dimension': 67, 'number_of_hidden_layers': 1, 'dropout_rate': 0.1555816909422539, 'learning_rate': 0.0009748445984684317, 'weight_decay': 9.563920551639496e-05}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 22:47:03,005] Trial 117 finished with value: 0.8727272727272727 and parameters: {'batch_size': 32, 'threshold': 0.9199999999999999, 'attention_heads': 1, 'hidden_dimension': 61, 'number_of_hidden_layers': 2, 'dropout_rate': 0.20340824924239678, 'learning_rate': 5.446127759675383e-05, 'weight_decay': 2.146609961055625e-06}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 23:14:53,077] Trial 118 finished with value: 0.8909090909090909 and parameters: {'batch_size': 24, 'threshold': 0.7999999999999999, 'attention_heads': 1, 'hidden_dimension': 50, 'number_of_hidden_layers': 2, 'dropout_rate': 0.28142328755443974, 'learning_rate': 0.0001563530554466489, 'weight_decay': 2.7793012689667113e-05}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-18 23:40:34,600] Trial 119 finished with value: 0.8909090909090909 and parameters: {'batch_size': 32, 'threshold': 0.9199999999999999, 'attention_heads': 1, 'hidden_dimension': 34, 'number_of_hidden_layers': 2, 'dropout_rate': 0.36456846819005334, 'learning_rate': 4.979446040300084e-05, 'weight_decay': 2.7371292891440852e-06}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-19 00:00:36,741] Trial 120 finished with value: 0.9030303030303031 and parameters: {'batch_size': 16, 'threshold': 0.9199999999999999, 'attention_heads': 1, 'hidden_dimension': 34, 'number_of_hidden_layers': 2, 'dropout_rate': 0.3344015005160342, 'learning_rate': 0.0003115916923075817, 'weight_decay': 0.0001627671388873803}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-19 00:23:51,263] Trial 121 finished with value: 0.8787878787878788 and parameters: {'batch_size': 16, 'threshold': 0.9299999999999999, 'attention_heads': 2, 'hidden_dimension': 44, 'number_of_hidden_layers': 2, 'dropout_rate': 0.3044479294886004, 'learning_rate': 0.000240176148863843, 'weight_decay': 0.00028221609439581187}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-19 00:50:35,747] Trial 122 finished with value: 0.8727272727272727 and parameters: {'batch_size': 16, 'threshold': 0.8999999999999999, 'attention_heads': 3, 'hidden_dimension': 42, 'number_of_hidden_layers': 1, 'dropout_rate': 0.37556456081341155, 'learning_rate': 0.00039529535500888323, 'weight_decay': 0.0005665816232107969}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-19 01:11:26,010] Trial 123 finished with value: 0.8727272727272727 and parameters: {'batch_size': 16, 'threshold': 0.9099999999999999, 'attention_heads': 1, 'hidden_dimension': 32, 'number_of_hidden_layers': 0, 'dropout_rate': 0.16684814608649362, 'learning_rate': 0.00010412601107641497, 'weight_decay': 3.997398087375852e-06}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-19 01:32:16,061] Trial 124 finished with value: 0.8848484848484849 and parameters: {'batch_size': 16, 'threshold': 0.9199999999999999, 'attention_heads': 1, 'hidden_dimension': 44, 'number_of_hidden_layers': 2, 'dropout_rate': 0.3306454172085394, 'learning_rate': 0.0003752959310686138, 'weight_decay': 3.9086142550420346e-05}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-19 01:56:22,476] Trial 125 finished with value: 0.8727272727272727 and parameters: {'batch_size': 24, 'threshold': 0.8899999999999999, 'attention_heads': 2, 'hidden_dimension': 33, 'number_of_hidden_layers': 2, 'dropout_rate': 0.2955675138132706, 'learning_rate': 0.000255053012605806, 'weight_decay': 1.6496575777110793e-05}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-19 02:16:07,739] Trial 126 finished with value: 0.8848484848484849 and parameters: {'batch_size': 40, 'threshold': 0.9299999999999999, 'attention_heads': 1, 'hidden_dimension': 77, 'number_of_hidden_layers': 1, 'dropout_rate': 0.1217505735224424, 'learning_rate': 0.0005851680785503305, 'weight_decay': 0.00012215958291242882}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-19 02:35:48,449] Trial 127 finished with value: 0.9030303030303031 and parameters: {'batch_size': 32, 'threshold': 0.95, 'attention_heads': 1, 'hidden_dimension': 38, 'number_of_hidden_layers': 2, 'dropout_rate': 0.31610529043290486, 'learning_rate': 0.00012232910733660338, 'weight_decay': 2.5440967087980163e-05}. Best is trial 75 with value: 0.9090909090909091.
+[I 2026-04-19 02:56:40,045] Trial 128 finished with value: 0.8787878787878788 and parameters: {'batch_size': 32, 'threshold': 0.95, 'attention_heads': 1, 'hidden_dimension': 43, 'number_of_hidden_layers': 2, 'dropout_rate': 0.21790895165453789, 'learning_rate': 0.0001312879015587912, 'weight_decay': 9.210149345483202e-06}. Best is trial 75 with value: 0.9090909090909091.
+
+[TRIAL] 104 [VALIDATION PERFORMANCE] 0.9090909090909091 [TRAINING LOSS] 0.053416482817668184 [VALIDATION LOSS] 0.20515490472316741 
+
+number                         			 104
+value                          			 0.9090909090909091
+params_attention_heads         			 3
+params_batch_size              			 40
+params_dropout_rate            			 0.10078957076263506
+params_hidden_dimension        			 59
+params_learning_rate           			 3.3382180538026145e-05
+params_number_of_hidden_layers 			 2
+params_threshold               			 0.95
+params_weight_decay            			 1.8923905383933685e-06
+user_attrs_duplicate           			 False
+user_attrs_epoch               			 42.0
+user_attrs_training_loss       			 0.053416482817668184
+user_attrs_validation_loss     			 0.20515490472316741
+
+[37] VALIDATION: 0.8909090909090909 TESTING: 0.9402985074626866
+[38] VALIDATION: 0.8909090909090909 TESTING: 0.9373134328358209
+[39] VALIDATION: 0.9030303030303031 TESTING: 0.9402985074626866
+[40] VALIDATION: 0.8909090909090909 TESTING: 0.9402985074626866
+[41] VALIDATION: 0.8909090909090909 TESTING: 0.9402985074626866
+[42] VALIDATION: 0.9090909090909091 TESTING: 0.9462686567164179
+[43] VALIDATION: 0.8848484848484849 TESTING: 0.9373134328358209
+[44] VALIDATION: 0.896969696969697 TESTING: 0.9432835820895522
+[45] VALIDATION: 0.8727272727272727 TESTING: 0.9373134328358209
+[46] VALIDATION: 0.8848484848484849 TESTING: 0.9462686567164179
+
+Validation performance: 87.27 & 89.15 ± 1.01 & 90.91
+Testing performance: 93.73 & 94.09 ± 0.34 & 94.63
+
+[TRIAL] 75 [VALIDATION PERFORMANCE] 0.9090909090909091 [TRAINING LOSS] 0.09148404886946082 [VALIDATION LOSS] 0.20806875079870224 
+
+number                         			 75
+value                          			 0.9090909090909091
+params_attention_heads         			 1
+params_batch_size              			 32
+params_dropout_rate            			 0.2741927194801188
+params_hidden_dimension        			 44
+params_learning_rate           			 6.713444641455585e-05
+params_number_of_hidden_layers 			 2
+params_threshold               			 0.9199999999999999
+params_weight_decay            			 7.804074186100615e-06
+user_attrs_duplicate           			 False
+user_attrs_epoch               			 29.0
+user_attrs_training_loss       			 0.09148404886946082
+user_attrs_validation_loss     			 0.20806875079870224
+
+[37] VALIDATION: 0.8727272727272727 TESTING: 0.9164179104477612
+[38] VALIDATION: 0.8666666666666667 TESTING: 0.9223880597014925
+[39] VALIDATION: 0.8606060606060606 TESTING: 0.9104477611940298
+[40] VALIDATION: 0.8787878787878788 TESTING: 0.9283582089552239
+[41] VALIDATION: 0.896969696969697 TESTING: 0.9223880597014925
+[42] VALIDATION: 0.9090909090909091 TESTING: 0.9283582089552239
+[43] VALIDATION: 0.8909090909090909 TESTING: 0.9223880597014925
+[44] VALIDATION: 0.8848484848484849 TESTING: 0.9223880597014925
+[45] VALIDATION: 0.8909090909090909 TESTING: 0.9194029850746268
+[46] VALIDATION: 0.9030303030303031 TESTING: 0.9313432835820895
+
+Validation performance: 86.06 & 88.55 ± 1.58 & 90.91
+Testing performance: 91.04 & 92.24 ± 0.61 & 93.13
+
+[TRIAL] 87 [VALIDATION PERFORMANCE] 0.9090909090909091 [TRAINING LOSS] 0.0778988827433851 [VALIDATION LOSS] 0.20842262109120688 
+
+number                         			 87
+value                          			 0.9090909090909091
+params_attention_heads         			 1
+params_batch_size              			 56
+params_dropout_rate            			 0.2883915696243759
+params_hidden_dimension        			 44
+params_learning_rate           			 0.0001620711437945441
+params_number_of_hidden_layers 			 2
+params_threshold               			 0.8999999999999999
+params_weight_decay            			 4.794937839597181e-05
+user_attrs_duplicate           			 False
+user_attrs_epoch               			 22.0
+user_attrs_training_loss       			 0.0778988827433851
+user_attrs_validation_loss     			 0.20842262109120688
+
+[37] VALIDATION: 0.896969696969697 TESTING: 0.9313432835820895
+[38] VALIDATION: 0.8787878787878788 TESTING: 0.9313432835820895
+[39] VALIDATION: 0.8848484848484849 TESTING: 0.9343283582089552
+[40] VALIDATION: 0.8848484848484849 TESTING: 0.9343283582089552
+[41] VALIDATION: 0.9030303030303031 TESTING: 0.9343283582089552
+[42] VALIDATION: 0.9090909090909091 TESTING: 0.9402985074626866
+[43] VALIDATION: 0.8848484848484849 TESTING: 0.9373134328358209
+[44] VALIDATION: 0.8787878787878788 TESTING: 0.9432835820895522
+[45] VALIDATION: 0.8909090909090909 TESTING: 0.9343283582089552
+[46] VALIDATION: 0.8909090909090909 TESTING: 0.9402985074626866
+
+Validation performance: 87.88 & 89.03 ± 1.01 & 90.91
+Testing performance: 93.13 & 93.61 ± 0.4 & 94.33
+
+[IMDb-1k] Elapsed time: 2314.261985707283 minutes.

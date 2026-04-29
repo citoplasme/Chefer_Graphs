@@ -56,16 +56,15 @@ def load_plm(dataset, fine_tuning_trial_number):
     output_hidden_states = True,
   )
 
-# PLMs = {dataset : load_plm(dataset, fine_tuning_trial_number) for dataset, fine_tuning_trial_number in zip(['IMDb', 'Ohsumed', 'R8', 'SST-2'], [0, 3, 0, 101])}
-# PLMs = {dataset : load_plm(dataset, fine_tuning_trial_number) for dataset, fine_tuning_trial_number in zip(['Ohsumed', 'R8', 'SST-2'], [3, 0, 101])}
-PLMs = {dataset : load_plm(dataset, fine_tuning_trial_number) for dataset, fine_tuning_trial_number in zip(['IMDb', 'SST-2'], [0, 101])}
+# PLMs = {dataset : load_plm(dataset, fine_tuning_trial_number) for dataset, fine_tuning_trial_number in zip(['IMDb-1k', 'Ohsumed', 'R8', 'SST-2'], [56, 0, 0, 104])}
+PLMs = {dataset : load_plm(dataset, fine_tuning_trial_number) for dataset, fine_tuning_trial_number in zip(['IMDb-1k', 'SST-2'], [56, 104])}
 
 MAXIMUM_CHUNK_SIZE = 512
 LEFT_STRIDE = 128
 RIGHT_STRIDE = 0
 
 LABEL_INDICES = {
-  'IMDb' : [0, 1],
+  'IMDb-1k' : [0, 1],
   'Ohsumed' : list(range(23)),
   'R8' : list(range(8)),
   'SST-2' : [0, 1],
@@ -75,20 +74,31 @@ LABEL_INDICES = {
 #   16, 18, 143, 224
 # Long-range reversal (IMDb)
 #   176, 273, 872
-# Keyword trap (IMDb + SST-2)
+# Long-range reversal (IMDb-1k)
+#   11, 279
+# Keyword trap (IMDb/IMDb-1k + SST-2)
 #   SST-2 : 92, 338
 #   IMDb: 176, 273
+#   IMDb-1k: 11, 178
 # Long noisy reviews (IMDb)
 #   176, 384, 411, 872
-# Misclassified samples (IMDb + SST-2)
-#   SST-2 : 17?
+# Long noisy reviews (IMDb-1k)
+#   11, 13, 135, 143
+# Misclassified samples (IMDb/IMDb-1k + SST-2)
+#   SST-2 : 17, 111
 #   IMDb : 176?, 273?
+#   IMDb-1k : 1, 143
 
 SAMPLES_PER_DATASET = {
-  'IMDb' : {
+  # 'IMDb' : {
     # 'train' : [0],
     # 'validation' : [6],
-    'test' : [176, 273, 384, 411, 872]
+    # 'test' : [176, 273, 384, 411, 872]
+  # },
+  'IMDb-1k' : {
+    # 'train' : [0],
+    # 'validation' : [6],
+    'test' : [1, 11, 13, 135, 143, 178, 279]
   },
   # 'Ohsumed' : {
   #   'train' : [0],
@@ -103,29 +113,29 @@ SAMPLES_PER_DATASET = {
   'SST-2' : {
     # 'train' : [0],
     # 'validation' : [6],
-    'test' : [16, 17, 18, 92, 143, 224, 338]
+    'test' : [16, 17, 18, 92, 111, 143, 224, 338]
   },
 }
 
 WINDOW_SIZES = {
-  'IMDb' : 3,
-  'Ohsumed' : 3,
-  'R8' : 2,
   'SST-2' : 3,
+  'R8' : 4,
+  'Ohsumed' : 3,
+  'IMDb-1k' : 2
 }
 
 ATTENTION_THRESHOLDS = {
-  'IMDb' : 0.95,
-  'Ohsumed' : 0.95,
-  'R8' : 0.95,
-  'SST-2' : 0.75,
+  'SST-2' : 0.6,
+  'R8' : 0.9299999999999999,
+  'Ohsumed' : 0.82,
+  'IMDb-1k' : 0.95
 }
 
 CHEFER_THRESHOLDS = {
-  'IMDb' : (0.95, 0.8),
-  'Ohsumed' : (0.95, 0.8),
-  'R8' : (0.95, 0.8),
-  'SST-2' : (0.75, 0.7),
+  'SST-2' : (0.95, 0.69),
+  'R8' : (0.8099999999999999, 0.58),
+  'Ohsumed' : (0.82, 0.72),
+  'IMDb-1k' : (0.9, 0.6)
 }
 
 STORAGE_PATH = './graphs/'
@@ -134,9 +144,9 @@ os.makedirs(STORAGE_PATH, exist_ok = True)
 tokenizer = transformers.AutoTokenizer.from_pretrained('google-bert/bert-base-uncased')
 
 df = pd.concat([
-  # pd.read_csv('../../data/with_validation_splits/IMDb/train.csv').iloc[SAMPLES_PER_DATASET['IMDb']['train']].assign(dataset = 'IMDb', split = 'train').reset_index(),
-  # pd.read_csv('../../data/with_validation_splits/IMDb/validation.csv').iloc[SAMPLES_PER_DATASET['IMDb']['validation']].assign(dataset = 'IMDb', split = 'validation').reset_index(),
-  pd.read_csv('../../data/with_validation_splits/IMDb/test.csv').iloc[SAMPLES_PER_DATASET['IMDb']['test']].assign(dataset = 'IMDb', split = 'test').reset_index(),
+  # pd.read_csv('../../data/with_validation_splits/IMDb-1k/train.csv').iloc[SAMPLES_PER_DATASET['IMDb-1k']['train']].assign(dataset = 'IMDb-1k', split = 'train').reset_index(),
+  # pd.read_csv('../../data/with_validation_splits/IMDb-1k/validation.csv').iloc[SAMPLES_PER_DATASET['IMDb-1k']['validation']].assign(dataset = 'IMDb-1k', split = 'validation').reset_index(),
+  pd.read_csv('../../data/with_validation_splits/IMDb-1k/test.csv').iloc[SAMPLES_PER_DATASET['IMDb-1k']['test']].assign(dataset = 'IMDb-1k', split = 'test').reset_index(),
   #
   # pd.read_csv('../../data/with_validation_splits/Ohsumed/train.csv').iloc[SAMPLES_PER_DATASET['Ohsumed']['train']].assign(dataset = 'Ohsumed', split = 'train').reset_index(),
   # pd.read_csv('../../data/with_validation_splits/Ohsumed/validation.csv').iloc[SAMPLES_PER_DATASET['Ohsumed']['validation']].assign(dataset = 'Ohsumed', split = 'validation').reset_index(),

@@ -1,0 +1,38 @@
+digraph "SST-2-test-143-0" {
+	graph [dpi=300]
+	{
+		rank=same
+		0 [label="[D]" color="#363636" fillcolor="#cccccc" shape=oval style=filled]
+	}
+	{
+		rank=same
+		1 [label="[T-1]" color="#363636" fillcolor="#cccccc" shape=oval style=filled]
+	}
+	{
+		rank=same
+		2 [label="##ed" color="#363636" fillcolor="#fff7d5" fixedsize=true fontsize=12.8255758156795 height=0.5275191938559833 shape=oval style=filled width=0.9759105086335692]
+		3 [label=into color="#363636" fillcolor="#fff4c2" fixedsize=true fontsize=13.962061970583454 height=0.5654020656861151 shape=oval style=filled width=1.045993821519313]
+		4 [label=a color="#363636" fillcolor="#fff9e2" fixedsize=true fontsize=12.0 height=0.5 shape=oval style=filled width=0.925]
+		5 [label=a color="#363636" fillcolor="#fff6cf" fixedsize=true fontsize=13.17564896460147 height=0.5391882988200489 shape=oval style=filled width=0.9974983528170905]
+		6 [label=bad color="#363636" fillcolor="#ffd500" fixedsize=true fontsize=25.927271957142935 height=0.9642423985714311 shape=oval style=filled width=1.7838484373571477]
+	}
+	0 -> 0 [arrowsize=0.5 color="#cccccc"]
+	1 -> 0 [arrowsize=0.5 color="#cccccc"]
+	1 -> 1 [arrowsize=0.5 color="#cccccc"]
+	2 -> 2 [arrowsize=0.5 color="#cccccc"]
+	2 -> 6 [arrowsize=0.5 color="#cccccc"]
+	3 -> 2 [arrowsize=0.5 color="#cccccc"]
+	3 -> 3 [arrowsize=0.5 color="#cccccc"]
+	3 -> 6 [arrowsize=0.5 color="#cccccc"]
+	4 -> 4 [arrowsize=0.5 color="#cccccc"]
+	4 -> 6 [arrowsize=0.5 color="#cccccc"]
+	5 -> 5 [arrowsize=0.5 color="#cccccc"]
+	5 -> 6 [arrowsize=0.5 color="#cccccc"]
+	6 -> 5 [arrowsize=0.5 color="#cccccc"]
+	6 -> 6 [arrowsize=0.5 color="#cccccc"]
+	2 -> 1 [arrowsize=0.5 color="#9c9c9c"]
+	3 -> 1 [arrowsize=0.5 color="#bfbfbf"]
+	4 -> 1 [arrowsize=0.5 color="#929292"]
+	5 -> 1 [arrowsize=0.5 color="#bfbfbf"]
+	6 -> 1 [arrowsize=0.5 color="#000000"]
+}
