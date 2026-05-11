@@ -6,10 +6,10 @@ CACHE_PATH = '../data/as_is/'
 os.makedirs(CACHE_PATH, exist_ok = True)
 
 # IMDb
-train_itererator, test_iterator = torchtext.datasets.IMDB(root = CACHE_PATH)
-list(train_itererator) # forces the download
-list(test_iterator)
-print('[UPDATE] IMDB downloaded.', flush = True)
+# train_itererator, test_iterator = torchtext.datasets.IMDB(root = CACHE_PATH)
+# list(train_itererator) # forces the download
+# list(test_iterator)
+# print('[UPDATE] IMDB downloaded.', flush = True)
 
 # SST-2
 train_itererator, validation_iterator, test_iterator = torchtext.datasets.SST2(root = CACHE_PATH)

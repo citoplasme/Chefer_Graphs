@@ -6,4 +6,3 @@ baselines/fine_tuning/models
 baselines/raw_attention_distillation/models
 baselines/sliding_windows/models
 pipeline/models
-test_for_joana

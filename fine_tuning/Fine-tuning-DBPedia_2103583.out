@@ -1,4 +1,0 @@
-SLURM NODE: kn052
-[I 2026-02-05 11:35:31,585] A new study created in RDB with name: DBPedia-Fine-tuning
-[I 2026-02-05 13:48:29,626] Trial 0 finished with value: 0.9902321428571429 and parameters: {'frozen_layers': 2, 'classifier_dropout': 0.4, 'learning_rate': 5e-05, 'weight_decay': 0.001, 'label_smoothing': 0.15, 'gradient_clipping': 2.0}. Best is trial 0 with value: 0.9902321428571429.
-slurmstepd: error: *** JOB 2103583 ON kn052 CANCELLED AT 2026-02-05T14:13:47 ***

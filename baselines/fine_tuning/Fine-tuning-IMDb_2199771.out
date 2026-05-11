@@ -1,7 +1,0 @@
-SLURM NODE: kn045
-[I 2026-02-16 06:29:20,604] A new study created in RDB with name: IMDb-Fine-tuning-Truncated
-[I 2026-02-16 07:14:29,288] Trial 0 finished with value: 0.9226 and parameters: {'batch_size': 32, 'frozen_layers': 0, 'classifier_dropout': 0.1, 'learning_rate': 1e-05, 'weight_decay': 1e-05}. Best is trial 0 with value: 0.9226.
-[I 2026-02-16 08:11:59,863] Trial 1 finished with value: 0.9208 and parameters: {'batch_size': 16, 'frozen_layers': 4, 'classifier_dropout': 0.4, 'learning_rate': 5e-05, 'weight_decay': 0.0001}. Best is trial 0 with value: 0.9226.
-[I 2026-02-16 08:56:31,666] Trial 2 finished with value: 0.9288 and parameters: {'batch_size': 32, 'frozen_layers': 0, 'classifier_dropout': 0.4, 'learning_rate': 2e-05, 'weight_decay': 0.001}. Best is trial 2 with value: 0.9288.
-[I 2026-02-16 09:38:04,310] Trial 3 finished with value: 0.9216 and parameters: {'batch_size': 64, 'frozen_layers': 4, 'classifier_dropout': 0.3, 'learning_rate': 3e-05, 'weight_decay': 1e-06}. Best is trial 2 with value: 0.9288.
-[I 2026-02-16 10:27:44,479] Trial 4 finished with value: 0.927 and parameters: {'batch_size': 16, 'frozen_layers': 6, 'classifier_dropout': 0.2, 'learning_rate': 5e-05, 'weight_decay': 1e-06}. Best is trial 2 with value: 0.9288.

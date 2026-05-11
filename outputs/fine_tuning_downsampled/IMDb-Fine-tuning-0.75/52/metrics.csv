@@ -1,2 +1,0 @@
-test_performance,validation_performance,test_average_evaluation_runtime,checkpoint_epoch,random_state
-0.93724,0.9342,0.001342164359375148,2,42

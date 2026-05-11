@@ -1,2 +1,2 @@
-# Enhanced Depression Screening via XAI-driven Graphs to Encode Long Interview Transcripts
+# Task-specific Importance-driven Graphs: Highly Compact Yet Rich in Information
 
