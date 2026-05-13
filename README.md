@@ -1,2 +1,2 @@
-# Task-specific Importance-driven Graphs: Highly Compact Yet Rich in Information
+# Task-specific, Importance-driven Graphs: Highly Compact and Rich in Information
 
